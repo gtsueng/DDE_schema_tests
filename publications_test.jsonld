@@ -1,0 +1,193 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:Publication",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "Outbreak related publications",
+      "rdfs:label": "Publication",
+      "rdfs:subClassOf": {
+        "@id": "schema:MedicalScholarlyArticle"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "journalName": {
+            "description": "Journal or preprint server name",
+            "type": "string"
+          },
+          "pmid": {
+            "description": "PMID",
+            "type": "integer"
+          },
+          "journalNameAbbrevation": {
+            "description": "Abbreviated Journal Title ",
+            "type": "string"
+          },
+          "volumeNumber": {
+            "description": "volumeNumber",
+            "type": "string"
+          },
+          "author": {
+            "description": "The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.",
+            "@type": "Person",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "dateModified": {
+            "description": "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed.",
+            "format": "date",
+            "type": "string"
+          },
+          "datePublished": {
+            "description": "Date of first broadcast/publication.",
+            "format": "date",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "type": "string"
+          },
+          "keywords": {
+            "description": "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "pagination": {
+            "description": "Any description of pages that is not separated into pageStart and pageEnd; for example, \"1-6, 9, 55\" or \"10-12, 46-49\".",
+            "type": "string"
+          },
+          "publicationType": {
+            "description": "The type of the medical article, taken from the US NLM MeSH publication type catalog. See also <a href=\"http://www.nlm.nih.gov/mesh/pubtypes.html\">MeSH documentation</a>.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "option1",
+                  "option2",
+                  "option3"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "option1",
+                    "option2",
+                    "option3"
+                  ]
+                }
+              }
+            ]
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "author",
+          "datePublished",
+          "identifier",
+          "name",
+          "name",
+          "identifier",
+          "author",
+          "datePublished"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:journalName",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Journal or preprint server name",
+      "rdfs:label": "journalName",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:pmid",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "PMID",
+      "rdfs:label": "pmid",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Integer"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:journalNameAbbrevation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Abbreviated Journal Title ",
+      "rdfs:label": "journalNameAbbrevation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:volumeNumber",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "volumeNumber",
+      "rdfs:label": "volumeNumber",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
