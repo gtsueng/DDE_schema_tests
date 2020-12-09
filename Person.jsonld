@@ -1,0 +1,131 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:ObPerson",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "Person class for outbreak.info recreated in DDE schema playground",
+      "rdfs:label": "ObPerson",
+      "rdfs:subClassOf": {
+        "@id": "schema:Person"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "role": {
+            "description": "The role a person played in the creation of a resource",
+            "type": "string"
+          },
+          "isRelatedTo": {
+            "description": "A resource for which the person played a role",
+            "@type": "CreativeWork",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "identifier": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "affiliation": {
+            "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
+            "@type": "Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "type": "string"
+          },
+          "familyName": {
+            "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
+            "type": "string"
+          },
+          "givenName": {
+            "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
+            "type": "string"
+          },
+          "memberOf": {
+            "description": "An Organization (or ProgramMembership) to which this Person or Organization belongs.",
+            "@type": "Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "name"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:role",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The role a person played in the creation of a resource",
+      "rdfs:label": "role",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObPerson"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:isRelatedTo",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A resource for which the person played a role",
+      "rdfs:label": "isRelatedTo",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObPerson"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
