@@ -19,11 +19,11 @@
         "type": "object",
         "properties": {
           "name": {
-            "description": "The name of the item.",
+            "description": "The name of the person.",
             "type": "string"
           },
           "alternateName": {
-            "description": "An alias for the item.",
+            "description": "An alias for the person.",
             "type": "string"
           },
           "familyName": {
@@ -116,11 +116,11 @@
         "type": "object",
         "properties": {
           "name": {
-            "description": "The name of the item.",
+            "description": "The name of the organization.",
             "type": "string"
           },
           "alternateName": {
-            "description": "An alias for the item.",
+            "description": "An alias or acronym for the organization.",
             "type": "string"
           },
           "affiliation": {
@@ -287,6 +287,149 @@
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:MonetaryGrant",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the MonetaryGrant schema used for outbreak.info",
+      "rdfs:label": "MonetaryGrant",
+      "rdfs:subClassOf": {
+        "@id": "schema:MonetaryGrant"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "recipient": {
+            "description": "The person or organization to whom or to which the grant was awarded",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/basePersonObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/basePersonObject"
+                }
+              },
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          },
+          "funder": {
+            "description": "The organization(s) that supported (sponsored) the grant through some kind of financial contribution.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          },
+          "identifier": {
+            "description": "The funding or grant id",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the grant or funding.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the grant or funding award.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "funder"
+        ],
+        "definitions": {
+            "baseOrgObject":{
+                "description": "Affiliated Organization",
+                "@type": "outbreaktest:Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "name of the organization",
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "description": "Alternate name or Acronym for the organization.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]              
+            },
+            "basePersonObject":{
+                "@type": "outbreaktest:Person",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "alternateName": {
+                        "type": "string"
+                    },
+                    "givenName": {
+                        "type": "string"
+                    },
+                    "familyName": {
+                        "type": "string"
+                    },
+                    "orcid": {
+                        "type": "string"
+                    },
+                    "affiliation": {
+                        "description": "consortia or other organizations with which this person is affiliated",
+                        "oneOf": [
+                          {
+                            "$ref": "#/definitions/baseOrgObject"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/baseOrgObject"
+                            }
+                          }
+                        ]
+                      }
+                },
+                "required": [
+                    "name"
+                ]                
+            }
+        }
+      }
+    },
+    {
+      "@id": "outbreaktest:recipient",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The person or organization to whom or to which the grant was awarded",
+      "rdfs:label": "recipient",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:MonetaryGrant"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Person"
+        },
+        {
+          "@id": "schema:Organization"
         }
       ]
     }
