@@ -18,23 +18,13 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "orcid": {
-            "description": "the ORCID ID of the person",
+          "name": {
+            "description": "The name of the item.",
             "type": "string"
           },
-          "role": {
-            "description": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
+          "alternateName": {
+            "description": "An alias for the item.",
+            "type": "string"
           },
           "familyName": {
             "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
@@ -60,19 +50,29 @@
               "name"
             ]
           },
-          "alternateName": {
-            "description": "An alias for the item.",
+          "orcid": {
+            "description": "the ORCID ID of the person",
             "type": "string"
           },
-          "name": {
-            "description": "The name of the item.",
-            "type": "string"
+          "role": {
+            "description": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           }
         },
         "required": [
           "name"
         ]
-      },
+      }
     },
     {
       "@id": "outbreaktest:orcid",
