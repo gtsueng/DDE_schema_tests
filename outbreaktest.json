@@ -302,6 +302,33 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
+          "name": {
+            "description": "The name of the grant or funding.",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The funding or grant id",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the grant or funding award.",
+            "type": "string",
+            "format": "uri"
+          },
+          "funder": {
+            "description": "The organization(s) that supported (sponsored) the grant through some kind of financial contribution.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          },
           "recipient": {
             "description": "The person or organization to whom or to which the grant was awarded",
             "anyOf": [
@@ -324,34 +351,7 @@
                 }
               }
             ]
-          },
-          "funder": {
-            "description": "The organization(s) that supported (sponsored) the grant through some kind of financial contribution.",
-            "oneOf": [
-              {
-                "$ref": "#/definitions/baseOrgObject"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/baseOrgObject"
-                }
-              }
-            ]
-          },
-          "identifier": {
-            "description": "The funding or grant id",
-            "type": "string"
-          },
-          "name": {
-            "description": "The name of the grant or funding.",
-            "type": "string"
-          },
-          "url": {
-            "description": "URL of the grant or funding award.",
-            "type": "string",
-            "format": "uri"
-          }
+          }   
         },
         "required": [
           "funder"
