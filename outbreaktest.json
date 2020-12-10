@@ -44,7 +44,6 @@
           }
         },
         "required": [
-          "relatedWork"
         ]
       }
     },
@@ -137,14 +136,12 @@
             "description": "authorship or contribution roles played in related resources",
             "oneOf": [
               {
-                "type": "object",
-                "@type":"AuthorRole"
+                "$ref": "#/definitions/authorrole"
               },
               {
                 "type": "array",
                 "items": {
-                    "type": "object",
-                    "@type":"AuthorRole"
+                    "$ref": "#/definitions/authorrole"
                 }
               }
             ]
@@ -153,7 +150,41 @@
         },
         "required": [
             "name"
-        ]
+        ],
+        "definitions": {
+            "authorrole":{
+                "type": "object",
+                "@type": "outbreaktest:AuthorRole",
+                "properties": {
+                  "relatedWork": {
+                    "description": "The resource or creative work in which the author played this role",
+                    "@type": "CreativeWork",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "identifier": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  },
+                  "roleName": {
+                    "description": "A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                ]
+            }
+        }
     },
     {
       "@id": "outbreaktest:orcid",
