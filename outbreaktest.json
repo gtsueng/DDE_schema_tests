@@ -7,10 +7,10 @@
   },
   "@graph": [
     {
-      "@id": "outbreaktest:ObPerson",
+      "@id": "outbreaktest:Person",
       "@type": "rdfs:Class",
       "rdfs:comment": "This is the Person schema for describing authors and people for outbreak.info resources",
-      "rdfs:label": "ObPerson",
+      "rdfs:label": "Person",
       "rdfs:subClassOf": {
         "@id": "schema:Person"
       },
@@ -74,7 +74,7 @@
         "definitions": {
             "baseOrgObject":{
                 "description": "Affiliated Organization",
-                "@type": "outbreaktest:ObOrganization",
+                "@type": "outbreaktest:Organization",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -98,7 +98,7 @@
       "rdfs:comment": "the ORCID ID of the person",
       "rdfs:label": "orcid",
       "schema:domainIncludes": {
-        "@id": "outbreaktest:ObPerson"
+        "@id": "outbreaktest:Person"
       },
       "schema:rangeIncludes": [
         {
@@ -107,25 +107,10 @@
       ]
     },
     {
-      "@id": "outbreaktest:role",
-      "@type": "rdfs:Property",
-      "rdfs:comment": "authorship or contribution roles played in related resources",
-      "rdfs:label": "role",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:ObPerson",
-        "@id": "outbreaktest:ObOrganization"
-      },
-      "schema:rangeIncludes": [
-        {
-          "@id": "schema:Text"
-        }
-      ]
-    },
-    {
-      "@id": "outbreaktest:ObOrganization",
+      "@id": "outbreaktest:Organization",
       "@type": "rdfs:Class",
       "rdfs:comment": "This is the organization schema for describing authors, funders and other organizations referenced by outbreak.info resources",
-      "rdfs:label": "ObOrganization",
+      "rdfs:label": "Organization",
       "rdfs:subClassOf": {
         "@id": "schema:Organization"
       },
@@ -194,7 +179,7 @@
         "definitions": {
             "baseOrgObject":{
                 "description": "Affiliated Organization",
-                "@type": "outbreaktest:ObOrganization",
+                "@type": "outbreaktest:Organization",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -211,7 +196,7 @@
                 ]              
             },
             "basePersonObject":{
-                "@type": "outbreaktest:ObPerson",
+                "@type": "outbreaktest:Person",
                 "type": "object",
                 "properties": {
                     "name": {
@@ -257,11 +242,11 @@
       "rdfs:comment": "consortia or other organizations with which this organization is affiliated",
       "rdfs:label": "affiliation",
       "schema:domainIncludes": {
-        "@id": "outbreaktest:ObOrganization"
+        "@id": "outbreaktest:Organization"
       },
       "schema:rangeIncludes": [
         {
-          "@id": "outbreaktest:ObOrganization"
+          "@id": "outbreaktest:Organization"
         }
       ]
     },
@@ -271,11 +256,11 @@
       "rdfs:comment": "Members of this organization, team, or group",
       "rdfs:label": "members",
       "schema:domainIncludes": {
-        "@id": "outbreaktest:ObOrganization"
+        "@id": "outbreaktest:Organization"
       },
       "schema:rangeIncludes": [
         {
-          "@id": "outbreaktest:ObPerson"
+          "@id": "outbreaktest:Person"
         }
       ]
     },
@@ -285,7 +270,22 @@
       "rdfs:comment": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [U.S. National Institutes of Health, Other U.S. Federal agencies, Industry, All others]",
       "rdfs:label": "class",
       "schema:domainIncludes": {
-        "@id": "outbreaktest:ObOrganization"
+        "@id": "outbreaktest:Organization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:role",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "authorship or contribution roles played in related resources",
+      "rdfs:label": "role",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Person",
+        "@id": "outbreaktest:Organization"
       },
       "schema:rangeIncludes": [
         {
