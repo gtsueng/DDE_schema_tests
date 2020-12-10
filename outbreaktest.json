@@ -61,6 +61,110 @@
           "@id": "schema:CreativeWork"
         }
       ]
+    },
+    {
+      "@id": "outbreaktest:Person",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the Person schema for describing authors and people for outbreak.info resources",
+      "rdfs:label": "ObPerson",
+      "rdfs:subClassOf": {
+        "@id": "schema:Person"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "orcid": {
+            "description": "the ORCID ID of the person",
+            "type": "string"
+          },
+          "authorshipRoles": {
+            "description": "authorship or contribution roles played in related resources",
+            "oneOf": [
+              {
+                "type": "object",
+                "@type": "AuthorRole"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                "@type": "AuthorRole"
+                }
+              }
+            ]
+          },
+          "familyName": {
+            "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
+            "type": "string"
+          },
+          "givenName": {
+            "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
+            "type": "string"
+          },
+          "affiliation": {
+            "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
+            "oneOf": [
+              {
+                "@type": "Organization",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "altnernateName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                    "@type": "Organization",
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "altnernateName": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name"
+                    ]
+                  }
+              }
+            ]
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:orcid",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the ORCID ID of the person",
+      "rdfs:label": "orcid",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Person"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
     }
   ]
 }
