@@ -129,7 +129,7 @@
         "definitions": {
             "authorshipRole":{
                 "type": "object",
-                "@type": "AuthorRole",
+                "@type": "outbreaktest:AuthorRole",
                 "properties": {
                   "relatedWork": {
                     "description": "The resource or creative work in which the author played this role",
@@ -161,7 +161,7 @@
             },
             "baseOrgObject":{
                 "description": "Affiliated Organization",
-                "@type": "Organization",
+                "@type": "outbreaktest:ObOrganization",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -203,7 +203,225 @@
       },
       "schema:rangeIncludes": [
         {
-          "@id": "AuthorRole"
+          "@id": "outbreaktest:AuthorRole"
+        }
+      ]
+    },
+{
+      "@id": "outbreaktest:ObOrganization",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the organization schema for describing authors, funders and other organizations referenced by outbreak.info resources",
+      "rdfs:label": "ObOrganization",
+      "rdfs:subClassOf": {
+        "@id": "schema:Organization"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "affiliation": {
+            "description": "consortia or other organizations with which this organization is affiliated",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          },
+          "members": {
+            "description": "Members of this organization, team, or group",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+          },
+          "class": {
+            "description": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [\"U.S. National Institutes of Health\", \"Other U.S. Federal agencies\", \"Industry\", \"All others\"]\"",
+            "type": "string"
+          },
+          "role": {
+            "description": "The role of an organization in its involvement with a resource",
+            "@type": "outbreaktest:AuthorRole",
+            "type": "object",
+            "properties": {
+              "roleName": {
+                "type": "string"
+              },
+              "relatedWork": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "definitions": {
+            "authorshipRole":{
+                "type": "object",
+                "@type": "outbreaktest:AuthorRole",
+                "properties": {
+                  "relatedWork": {
+                    "description": "The resource or creative work in which the author played this role",
+                    "@type": "CreativeWork",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "identifier": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  },
+                  "roleName": {
+                    "description": "A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                ]
+            },
+            "baseOrgObject":{
+                "description": "Affiliated Organization",
+                "@type": "outbreaktest:ObOrganization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "name of the organization",
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "description": "Alternate name or Acronym for the organization.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]              
+            },
+            "basePersonObject":{
+                "@type": "outbreaktest:ObPerson",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "alternateName": {
+                        "type": "string"
+                    },
+                    "givenName": {
+                        "type": "string"
+                    },
+                    "familyName": {
+                        "type": "string"
+                    },
+                    "orcid": {
+                        "type": "string"
+                    },
+                    "affiliation": {
+                        "description": "consortia or other organizations with which this person is affiliated",
+                        "oneOf": [
+                          {
+                            "$ref": "#/definitions/baseOrgObject"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/baseOrgObject"
+                            }
+                          }
+                        ]
+                      }
+                },
+                "required": [
+                    "name"
+                ]                
+            }
+        }
+      }
+    },
+    {
+      "@id": "outbreaktest:affiliation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "consortia or other organizations with which this organization is affiliated",
+      "rdfs:label": "affiliation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObOrganization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:ObOrganization"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:members",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Members of this organization, team, or group",
+      "rdfs:label": "members",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObOrganization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:ObPerson"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:class",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [\"U.S. National Institutes of Health\", \"Other U.S. Federal agencies\", \"Industry\", \"All others\"]\"",
+      "rdfs:label": "class",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObOrganization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:role",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The role of an organization in its involvement with a resource",
+      "rdfs:label": "role",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObOrganization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:AuthorRole"
         }
       ]
     }
