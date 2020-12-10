@@ -74,6 +74,61 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
+          
+          "familyName": {
+            "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
+            "type": "string"
+          },
+          "givenName": {
+            "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
+            "type": "string"
+          },
+          "affiliation": {
+            "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
+            "oneOf": [
+              {
+                "@type": "Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "altnernateName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                    "@type": "Organization",
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "altnernateName": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                }
+              }
+            ]
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
           "orcid": {
             "description": "the ORCID ID of the person",
             "type": "string"
@@ -90,71 +145,13 @@
                   "type": "string"
                 }
               }
-            ],
-            "@type": "AuthorRole",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "identifier": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [
-              "name"
             ]
-          },
-          "familyName": {
-            "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
-            "type": "string"
-          },
-          "givenName": {
-            "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
-            "type": "string"
-          },
-          "affiliation": {
-            "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ],
-            "@type": "Organization",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "altnernateName": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          },
-          "alternateName": {
-            "description": "An alias for the item.",
-            "type": "string"
-          },
-          "name": {
-            "description": "The name of the item.",
-            "type": "string"
+            }
           }
         },
-        "required": []
-      }
+        "required": [
+            "name"
+        ]
     },
     {
       "@id": "outbreaktest:orcid",
