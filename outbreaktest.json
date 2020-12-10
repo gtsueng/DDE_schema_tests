@@ -7,61 +7,6 @@
   },
   "@graph": [
     {
-      "@id": "outbreaktest:AuthorRole",
-      "@type": "rdfs:Class",
-      "rdfs:comment": "The role the author played in the creation of a resource",
-      "rdfs:label": "AuthorRole",
-      "rdfs:subClassOf": {
-        "@id": "schema:Role"
-      },
-      "$validation": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "properties": {
-          "relatedWork": {
-            "description": "The resource or creative work in which the author played this role",
-            "@type": "CreativeWork",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string",
-                "format": "uri"
-              },
-              "identifier": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          },
-          "roleName": {
-            "description": "A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.",
-            "type": "string"
-          }
-        },
-        "required": [
-        ]
-      }
-    },
-    {
-      "@id": "outbreaktest:relatedWork",
-      "@type": "rdfs:Property",
-      "rdfs:comment": "The resource or creative work in which the author played this role",
-      "rdfs:label": "relatedWork",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:AuthorRole"
-      },
-      "schema:rangeIncludes": [
-        {
-          "@id": "schema:CreativeWork"
-        }
-      ]
-    },
-    {
       "@id": "outbreaktest:ObPerson",
       "@type": "rdfs:Class",
       "rdfs:comment": "This is the Person schema for describing authors and people for outbreak.info resources",
@@ -111,12 +56,12 @@
             "description": "authorship or contribution roles played in related resources",
             "oneOf": [
               {
-                "$ref": "#/definitions/authorshipRole"
+                "type": "string"
               },
               {
                 "type": "array",
                 "items": {
-                    "$ref": "#/definitions/authorshipRole"
+                    "type": "string"
                 }
               }
             ]
@@ -127,39 +72,6 @@
             "name"
         ],
         "definitions": {
-            "authorshipRole":{
-                "type": "object",
-                "@type": "outbreaktest:AuthorRole",
-                "properties": {
-                  "relatedWork": {
-                    "description": "The resource or creative work in which the author played this role",
-                    "@type": "CreativeWork",
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "url": {
-                        "type": "string",
-                        "format": "uri"
-                      },
-                      "identifier": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "name"
-                    ]
-                  },
-                  "roleName": {
-                    "description": "A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                    "roleName"
-                ]
-            },
             "baseOrgObject":{
                 "description": "Affiliated Organization",
                 "@type": "outbreaktest:ObOrganization",
@@ -205,11 +117,11 @@
       },
       "schema:rangeIncludes": [
         {
-          "@id": "outbreaktest:AuthorRole"
+          "@id": "schema:Text"
         }
       ]
     },
-{
+    {
       "@id": "outbreaktest:ObOrganization",
       "@type": "rdfs:Class",
       "rdfs:comment": "This is the organization schema for describing authors, funders and other organizations referenced by outbreak.info resources",
@@ -251,12 +163,12 @@
             "description": "The role of an organization in its involvement with a resource",
             "oneOf": [
               {
-                "$ref": "#/definitions/authorshipRole"
+                "type": "string"
               },
               {
                 "type": "array",
                 "items": {
-                    "$ref": "#/definitions/authorshipRole"
+                    "type": "string"
                 }
               }
             ]
@@ -280,39 +192,6 @@
           "name"
         ],
         "definitions": {
-            "authorshipRole":{
-                "type": "object",
-                "@type": "outbreaktest:AuthorRole",
-                "properties": {
-                  "relatedWork": {
-                    "description": "The resource or creative work in which the author played this role",
-                    "@type": "CreativeWork",
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "url": {
-                        "type": "string",
-                        "format": "uri"
-                      },
-                      "identifier": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "name"
-                    ]
-                  },
-                  "roleName": {
-                    "description": "A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                    "roleName"
-                ]
-            },
             "baseOrgObject":{
                 "description": "Affiliated Organization",
                 "@type": "outbreaktest:ObOrganization",
