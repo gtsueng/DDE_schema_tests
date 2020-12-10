@@ -73,7 +73,10 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
           "familyName": {
             "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
             "type": "string"
@@ -82,51 +85,23 @@
             "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
             "type": "string"
           },
-          "affiliation": {
-            "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
-            "oneOf": [
-              {
-                "@type": "Organization",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "altnernateName": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-              },
-              {
-                "type": "array",
-                "items": {
-                    "@type": "Organization",
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "altnernateName": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "name"
-                    ]
-                }
-              }
-            ]
-          },
           "alternateName": {
             "description": "An alias for the item.",
             "type": "string"
           },
-          "name": {
-            "description": "The name of the item.",
-            "type": "string"
+          "affiliation": {
+            "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
           },
           "orcid": {
             "description": "the ORCID ID of the person",
@@ -136,12 +111,12 @@
             "description": "authorship or contribution roles played in related resources",
             "oneOf": [
               {
-                "$ref": "#/definitions/authorrole"
+                "$ref": "#/definitions/authorshipRole"
               },
               {
                 "type": "array",
                 "items": {
-                    "$ref": "#/definitions/authorrole"
+                    "$ref": "#/definitions/authorshipRole"
                 }
               }
             ]
@@ -152,9 +127,9 @@
             "name"
         ],
         "definitions": {
-            "authorrole":{
+            "authorshipRole":{
                 "type": "object",
-                "@type": "outbreaktest:AuthorRole",
+                "@type": "AuthorRole",
                 "properties": {
                   "relatedWork": {
                     "description": "The resource or creative work in which the author played this role",
@@ -183,7 +158,25 @@
                 },
                 "required": [
                 ]
-            }
+            },
+            "baseOrgObject":{
+                "description": "Affiliated Organization",
+                "@type": "Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "name of the organization",
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "description": "Alternate name or Acronym for the organization.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]              
+          }
         }
     },
     {
@@ -210,7 +203,7 @@
       },
       "schema:rangeIncludes": [
         {
-          "@id": "outbreaktest:AuthorRole"
+          "@id": "AuthorRole"
         }
       ]
     }
