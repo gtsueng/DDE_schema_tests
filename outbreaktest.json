@@ -465,6 +465,136 @@
           "dateModified"
         ]
       }
+    },
+    {
+      "@id": "outbreaktest:CitationObject",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "A citation object for a resource which is cited by the subject (ie- is a derivative of the subject), related to the subject, or from which the subject was based on (ie- is derived from).",
+      "rdfs:label": "CitationObject",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name or title of the cited resource.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the cited resource.",
+            "type": "string",
+            "format": "uri"
+          },
+          "identifier": {
+            "description": "An identifier associated with the citation",
+            "type": "string"
+          },
+          "citeText": {
+            "description": "The bibliographic citation for the referenced resource as is provided",
+            "type": "string"
+          },
+          "versionDate": {
+            "description": "The version date of the resource used at the time of the creation of the citation as certain resources (protocols, datasets) may change frequently over time.",
+            "format": "date",
+            "type": "string"
+          },
+          "pmid": {
+            "description": "A pubmed identifier if available",
+            "type": "string"
+          },
+          "doi": {
+            "description": "A doi if available",
+            "type": "string"
+          },
+          "type": {
+            "description": "The @type of resource",
+            "enum": [
+              "Dataset",
+              "Publication",
+              "ClinicalTrial",
+              "Analysis",
+              "Protocol",
+              "SoftwareApplication",
+              "CreativeWork"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:citeText",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The bibliographic citation for the referenced resource as is provided",
+      "rdfs:label": "citeText",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:CitationObject"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:versionDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The version date of the resource used at the time of the creation of the citation as certain resources (protocols, datasets) may change frequently over time.",
+      "rdfs:label": "versionDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:CitationObject"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:pmid",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A pubmed identifier if available",
+      "rdfs:label": "pmid",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:CitationObject"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:doi",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A doi if available",
+      "rdfs:label": "doi",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:CitationObject"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:type",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of resource",
+      "rdfs:label": "type",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:CitationObject"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
     }
   ]
 }
