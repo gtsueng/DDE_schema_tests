@@ -61,7 +61,7 @@
               {
                 "type": "array",
                 "items": {
-                    "type": "string"
+                  "type": "string"
                 }
               }
             ]
@@ -283,10 +283,10 @@
       "@type": "rdfs:Property",
       "rdfs:comment": "authorship or contribution roles played in related resources",
       "rdfs:label": "role",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Person",
-        "@id": "outbreaktest:Organization"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Person"},
+        {"@id": "outbreaktest:Organization"}
+      ],
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
