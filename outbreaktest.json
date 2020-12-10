@@ -1,0 +1,66 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:AuthorRole",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "The role the author played in the creation of a resource",
+      "rdfs:label": "AuthorRole",
+      "rdfs:subClassOf": {
+        "@id": "schema:Role"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "relatedWork": {
+            "description": "The resource or creative work in which the author played this role",
+            "@type": "CreativeWork",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "identifier": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "roleName": {
+            "description": "A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "relatedWork"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:relatedWork",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The resource or creative work in which the author played this role",
+      "rdfs:label": "relatedWork",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:AuthorRole"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:CreativeWork"
+        }
+      ]
+    }
+  ]
+}
