@@ -1,0 +1,124 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:ObPerson",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the Person schema for describing authors and people for outbreak.info resources",
+      "rdfs:label": "ObPerson",
+      "rdfs:subClassOf": {
+        "@id": "schema:Person"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "familyName": {
+            "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
+            "type": "string"
+          },
+          "givenName": {
+            "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
+            "type": "string"
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "type": "string"
+          },
+          "affiliation": {
+            "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          },
+          "orcid": {
+            "description": "the ORCID ID of the person",
+            "type": "string"
+          },
+          "role": {
+            "description": "authorship or contribution roles played in related resources",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+              }
+            ]
+            }
+          }
+        },
+        "required": [
+            "name"
+        ],
+        "definitions": {
+            "baseOrgObject":{
+                "description": "Affiliated Organization",
+                "@type": "schema:Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "name of the organization",
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "description": "Alternate name or Acronym for the organization.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]              
+          }
+        }
+    },
+    {
+      "@id": "outbreaktest:orcid",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the ORCID ID of the person",
+      "rdfs:label": "orcid",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObPerson"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:role",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "authorship or contribution roles played in related resources",
+      "rdfs:label": "role",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObPerson"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
