@@ -9,7 +9,7 @@
     {
       "@id": "outbreaktest:ObPerson",
       "@type": "rdfs:Class",
-      "rdfs:comment": "This is the Person schema for describing authors and people for outbreak.info resources",
+      "rdfs:comment": "his is the Person schema for describing authors and people for outbreak.info resources",
       "rdfs:label": "ObPerson",
       "rdfs:subClassOf": {
         "@id": "schema:Person"
@@ -22,8 +22,8 @@
             "description": "the ORCID ID of the person",
             "type": "string"
           },
-          "authorshipRoles": {
-            "description": "authorship or contribution roles played in related resources",
+          "role": {
+            "description": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource",
             "oneOf": [
               {
                 "type": "string"
@@ -34,23 +34,6 @@
                   "type": "string"
                 }
               }
-            ],
-            "@type": "AuthorRole",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "identifier": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [
-              "name"
             ]
           },
           "familyName": {
@@ -63,24 +46,13 @@
           },
           "affiliation": {
             "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ],
             "@type": "Organization",
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "altnernateName": {
+              "alternateName": {
                 "type": "string"
               }
             },
@@ -97,7 +69,9 @@
             "type": "string"
           }
         },
-        "required": []
+        "required": [
+          "name"
+        ]
       }
     },
     {
@@ -115,16 +89,16 @@
       ]
     },
     {
-      "@id": "outbreaktest:authorshipRoles",
+      "@id": "outbreaktest:role",
       "@type": "rdfs:Property",
-      "rdfs:comment": "authorship or contribution roles played in related resources",
-      "rdfs:label": "authorshipRoles",
+      "rdfs:comment": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource",
+      "rdfs:label": "role",
       "schema:domainIncludes": {
         "@id": "outbreaktest:ObPerson"
       },
       "schema:rangeIncludes": [
         {
-          "@id": "outbreaktest:AuthorRole"
+          "@id": "schema:Text"
         }
       ]
     }
