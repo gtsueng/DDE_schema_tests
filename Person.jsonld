@@ -9,7 +9,7 @@
     {
       "@id": "outbreaktest:ObPerson",
       "@type": "rdfs:Class",
-      "rdfs:comment": "Person class for outbreak.info recreated in DDE schema playground",
+      "rdfs:comment": "This is the Person schema for describing authors and people for outbreak.info resources",
       "rdfs:label": "ObPerson",
       "rdfs:subClassOf": {
         "@id": "schema:Person"
@@ -18,13 +18,24 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "role": {
-            "description": "The role a person played in the creation of a resource",
+          "orcid": {
+            "description": "the ORCID ID of the person",
             "type": "string"
           },
-          "isRelatedTo": {
-            "description": "A resource for which the person played a role",
-            "@type": "CreativeWork",
+          "authorshipRoles": {
+            "description": "authorship or contribution roles played in related resources",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "@type": "AuthorRole",
             "type": "object",
             "properties": {
               "name": {
@@ -42,17 +53,35 @@
               "name"
             ]
           },
+          "familyName": {
+            "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
+            "type": "string"
+          },
+          "givenName": {
+            "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
+            "type": "string"
+          },
           "affiliation": {
             "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
             "@type": "Organization",
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "url": {
-                "type": "string",
-                "format": "uri"
+              "altnernateName": {
+                "type": "string"
               }
             },
             "required": [
@@ -63,47 +92,19 @@
             "description": "An alias for the item.",
             "type": "string"
           },
-          "familyName": {
-            "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
-            "type": "string"
-          },
-          "givenName": {
-            "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
-            "type": "string"
-          },
-          "memberOf": {
-            "description": "An Organization (or ProgramMembership) to which this Person or Organization belongs.",
-            "@type": "Organization",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          },
           "name": {
             "description": "The name of the item.",
             "type": "string"
           }
         },
-        "required": [
-          "name",
-          "name"
-        ]
+        "required": []
       }
     },
     {
-      "@id": "outbreaktest:role",
+      "@id": "outbreaktest:orcid",
       "@type": "rdfs:Property",
-      "rdfs:comment": "The role a person played in the creation of a resource",
-      "rdfs:label": "role",
+      "rdfs:comment": "the ORCID ID of the person",
+      "rdfs:label": "orcid",
       "schema:domainIncludes": {
         "@id": "outbreaktest:ObPerson"
       },
@@ -114,16 +115,16 @@
       ]
     },
     {
-      "@id": "outbreaktest:isRelatedTo",
+      "@id": "outbreaktest:authorshipRoles",
       "@type": "rdfs:Property",
-      "rdfs:comment": "A resource for which the person played a role",
-      "rdfs:label": "isRelatedTo",
+      "rdfs:comment": "authorship or contribution roles played in related resources",
+      "rdfs:label": "authorshipRoles",
       "schema:domainIncludes": {
         "@id": "outbreaktest:ObPerson"
       },
       "schema:rangeIncludes": [
         {
-          "@id": "schema:Text"
+          "@id": "outbreaktest:AuthorRole"
         }
       ]
     }
