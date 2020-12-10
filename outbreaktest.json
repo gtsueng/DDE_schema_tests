@@ -219,6 +219,14 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "type": "string"
+          },
           "affiliation": {
             "description": "consortia or other organizations with which this organization is affiliated",
             "oneOf": [
@@ -232,20 +240,6 @@
                 }
               }
             ]
-          },
-          "members": {
-            "description": "Members of this organization, team, or group",
-            "oneOf": [
-              {
-                "$ref": "#/definitions/basePersonObject"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/basePersonObject"
-                }
-              }
-            ],
           },
           "class": {
             "description": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [U.S. National Institutes of Health, Other U.S. Federal agencies, Industry, All others]",
@@ -265,13 +259,19 @@
             },
             "required": []
           },
-          "alternateName": {
-            "description": "An alias for the item.",
-            "type": "string"
-          },
-          "name": {
-            "description": "The name of the item.",
-            "type": "string"
+          "members": {
+            "description": "Members of this organization, team, or group",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/basePersonObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/basePersonObject"
+                }
+              }
+            ],
           }
         },
         "required": [
