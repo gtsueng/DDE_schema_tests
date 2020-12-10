@@ -1252,7 +1252,7 @@
     {
       "@id": "outbreaktest:isBasedOn",
       "@type": "rdfs:Property",
-      "rdfs:comment": "A citation to a resource (eg- publication, protocol, etc.) on which this resource was derived (stored as an object, not a string),
+      "rdfs:comment": "A citation to a resource (eg- publication, protocol, etc.) on which this resource was derived (stored as an object, not a string)",
       "rdfs:label": "isRelatedTo",
       "schema:domainIncludes": {
         "@id": "outbreaktest:Dataset"
