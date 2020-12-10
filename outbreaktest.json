@@ -271,7 +271,7 @@
                   "$ref": "#/definitions/basePersonObject"
                 }
               }
-            ],
+            ]
           }
         },
         "required": [
