@@ -137,12 +137,14 @@
             "description": "authorship or contribution roles played in related resources",
             "oneOf": [
               {
-                "type": "string"
+                "type": "object",
+                "@type":"AuthorRole"
               },
               {
                 "type": "array",
                 "items": {
-                  "type": "string"
+                    "type": "object",
+                    "@type":"AuthorRole"
                 }
               }
             ]
