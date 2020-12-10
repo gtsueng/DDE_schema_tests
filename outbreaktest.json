@@ -157,6 +157,7 @@
                   }
                 },
                 "required": [
+                    "roleName"
                 ]
             },
             "baseOrgObject":{
@@ -199,7 +200,8 @@
       "rdfs:comment": "authorship or contribution roles played in related resources",
       "rdfs:label": "role",
       "schema:domainIncludes": {
-        "@id": "outbreaktest:ObPerson"
+        "@id": "outbreaktest:ObPerson",
+        "@id": "outbreaktest:ObOrganization"
       },
       "schema:rangeIncludes": [
         {
@@ -247,17 +249,17 @@
           },
           "role": {
             "description": "The role of an organization in its involvement with a resource",
-            "@type": "outbreaktest:AuthorRole",
-            "type": "object",
-            "properties": {
-              "roleName": {
-                "type": "string"
+            "oneOf": [
+              {
+                "$ref": "#/definitions/authorshipRole"
               },
-              "relatedWork": {
-                "type": "string"
+              {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/authorshipRole"
+                }
               }
-            },
-            "required": []
+            ]
           },
           "members": {
             "description": "Members of this organization, team, or group",
@@ -308,6 +310,7 @@
                   }
                 },
                 "required": [
+                    "roleName"
                 ]
             },
             "baseOrgObject":{
@@ -408,20 +411,6 @@
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
-        }
-      ]
-    },
-    {
-      "@id": "outbreaktest:role",
-      "@type": "rdfs:Property",
-      "rdfs:comment": "The role of an organization in its involvement with a resource",
-      "rdfs:label": "role",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:ObOrganization"
-      },
-      "schema:rangeIncludes": [
-        {
-          "@id": "outbreaktest:AuthorRole"
         }
       ]
     }
