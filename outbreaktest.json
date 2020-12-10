@@ -204,7 +204,7 @@
       "@id": "outbreaktest:role",
       "@type": "rdfs:Property",
       "rdfs:comment": "authorship or contribution roles played in related resources",
-      "rdfs:label": "authorshipRoles",
+      "rdfs:label": "role",
       "schema:domainIncludes": {
         "@id": "outbreaktest:ObPerson"
       },
