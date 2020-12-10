@@ -132,7 +132,7 @@
             "description": "the ORCID ID of the person",
             "type": "string"
           },
-          "authorshipRoles": {
+          "role": {
             "description": "authorship or contribution roles played in related resources",
             "oneOf": [
               {
@@ -201,7 +201,7 @@
       ]
     },
     {
-      "@id": "outbreaktest:authorshipRoles",
+      "@id": "outbreaktest:role",
       "@type": "rdfs:Property",
       "rdfs:comment": "authorship or contribution roles played in related resources",
       "rdfs:label": "authorshipRoles",
