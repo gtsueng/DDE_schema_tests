@@ -72,7 +72,7 @@
         ],
         "definitions":{
             "baseOrgObject": {
-                "@type": "Organization",
+                "@type": "outbreaktest:Organization",
                 "type": "object",
                 "properties": {
                   "name": {
