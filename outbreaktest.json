@@ -237,18 +237,18 @@
             "description": "Members of this organization, team, or group",
             "oneOf": [
               {
-                "type": "string"
+                "$ref": "#/definitions/basePersonObject"
               },
               {
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "$ref": "#/definitions/basePersonObject"
                 }
               }
             ],
           },
           "class": {
-            "description": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [\"U.S. National Institutes of Health\", \"Other U.S. Federal agencies\", \"Industry\", \"All others\"]\"",
+            "description": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [\"U.S. National Institutes of Health\", \"Other U.S. Federal agencies\", \"Industry\", \"All others\"]",
             "type": "string"
           },
           "role": {
