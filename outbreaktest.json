@@ -36,18 +36,16 @@
           },
           "affiliation": {
             "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
-            "@type": "Organization",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
               },
-              "alternateName": {
-                "type": "string"
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
               }
-            },
-            "required": [
-              "name"
             ]
           },
           "orcid": {
@@ -71,7 +69,24 @@
         },
         "required": [
           "name"
-        ]
+        ],
+        "definitions":{
+            "baseOrgObject": {
+                "@type": "Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]   
+            }
+        }
       }
     },
     {
