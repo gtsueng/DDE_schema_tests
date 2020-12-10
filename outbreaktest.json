@@ -248,7 +248,7 @@
             ],
           },
           "class": {
-            "description": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [\"U.S. National Institutes of Health\", \"Other U.S. Federal agencies\", \"Industry\", \"All others\"]",
+            "description": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [U.S. National Institutes of Health, Other U.S. Federal agencies, Industry, All others]",
             "type": "string"
           },
           "role": {
@@ -400,7 +400,7 @@
     {
       "@id": "outbreaktest:class",
       "@type": "rdfs:Property",
-      "rdfs:comment": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [\"U.S. National Institutes of Health\", \"Other U.S. Federal agencies\", \"Industry\", \"All others\"]\"",
+      "rdfs:comment": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [U.S. National Institutes of Health, Other U.S. Federal agencies, Industry, All others]",
       "rdfs:label": "class",
       "schema:domainIncludes": {
         "@id": "outbreaktest:ObOrganization"
