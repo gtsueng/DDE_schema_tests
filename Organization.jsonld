@@ -3,13 +3,13 @@
     "schema": "http://schema.org/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "outbreak_test": "http://discovery.biothings.io/view/"
+    "outbreaktest": "http://discovery.biothings.io/view/"
   },
   "@graph": [
     {
-      "@id": "outbreak_test:ObOrganization",
+      "@id": "outbreaktest:ObOrganization",
       "@type": "rdfs:Class",
-      "rdfs:comment": "re-creating outbreak classes with DDE",
+      "rdfs:comment": "This is the organization schema for describing authors, funders and other organizations referenced by outbreak.info resources",
       "rdfs:label": "ObOrganization",
       "rdfs:subClassOf": {
         "@id": "schema:Organization"
@@ -18,43 +18,82 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "alternateName": {
-            "description": "An alias for the item.",
-            "type": "string"
-          },
-          "member": {
-            "description": "A member of an Organization or a ProgramMembership. Organizations can be members of organizations; ProgramMembership is typically for individuals.",
-            "@type": "Person",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [
-              "name"
-            ]
-          },
-          "memberOf": {
-            "description": "An Organization (or ProgramMembership) to which this Person or Organization belongs.",
+          "affiliation": {
+            "description": "consortia or other organizations with which this organization is affiliated",
             "@type": "Organization",
             "type": "object",
             "properties": {
               "name": {
                 "type": "string"
               },
-              "url": {
-                "type": "string",
-                "format": "uri"
+              "alternateName": {
+                "type": "string"
               }
             },
             "required": [
               "name"
             ]
+          },
+          "members": {
+            "description": "Members of this organization, team, or group",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "@type": "Person",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "alternateName": {
+                "type": "string"
+              },
+              "givenName": {
+                "type": "string"
+              },
+              "familyName": {
+                "type": "string"
+              },
+              "orcid": {
+                "type": "string"
+              },
+              "affiliation": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "class": {
+            "description": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [\\\"U.S. National Institutes of Health\\\", \\\"Other U.S. Federal agencies\\\", \\\"Industry\\\", \\\"All others\\\"]\"",
+            "type": "string"
+          },
+          "role": {
+            "description": "The role of an organization in its involvement with a resource",
+            "@type": "outbreaktest:AuthorRole",
+            "type": "object",
+            "properties": {
+              "roleName": {
+                "type": "string"
+              },
+              "relatedWork": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "type": "string"
           },
           "name": {
             "description": "The name of the item.",
@@ -62,10 +101,65 @@
           }
         },
         "required": [
-          "name",
           "name"
         ]
       }
+    },
+    {
+      "@id": "outbreaktest:affiliation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "consortia or other organizations with which this organization is affiliated",
+      "rdfs:label": "affiliation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObOrganization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Organization"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:members",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Members of this organization, team, or group",
+      "rdfs:label": "members",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObOrganization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Person"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:class",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [\\\"U.S. National Institutes of Health\\\", \\\"Other U.S. Federal agencies\\\", \\\"Industry\\\", \\\"All others\\\"]\"",
+      "rdfs:label": "class",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObOrganization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:role",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The role of an organization in its involvement with a resource",
+      "rdfs:label": "role",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ObOrganization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:AuthorRole"
+        }
+      ]
     }
   ]
 }
