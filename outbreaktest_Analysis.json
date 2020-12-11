@@ -743,8 +743,7 @@
           "@id": "schema:Text"
         }
       ]
-    },
-      
+    },  
     {
       "@id": "outbreaktest:Analysis",
       "@type": "rdfs:Class",
