@@ -1121,6 +1121,47 @@
               "funder"
             ]
           },
+          "correctionObject":{
+              "@type": "outbreaktest:Correction",
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "correctionType": {
+                  "enum": [
+                    "correction",
+                    "retraction",
+                    "expression of concern",
+                    "withdrawal",
+                    "erratum",
+                    "update",
+                    "correction and re-publication",
+                    "peer reviewed version",
+                    "preprint"
+                  ]
+                },
+                "identifier": {
+                  "type": "string"
+                },
+                "doi": {
+                  "type": "string"
+                },
+                "pmid": {
+                  "type": "integer"
+                },
+                "datePublished": {
+                  "description": "publication date of the correction notice or publication",
+                  "type": "string",
+                  "format": "date"
+                }
+              },
+              "required": [
+                  "url",
+                  "correctionType"
+              ]
+            },
           "citation": {
             "description": "A citation object for a resource which is cited by the publication (ie- is a derivative of the publication) , related to the publication, or from which the publication was based on (ie- is derived from).",
             "@type": "outbreaktest:CitationObject",
@@ -1334,7 +1375,7 @@
     {
       "@id": "outbreaktest:journalNameAbbrevation",
       "@type": "rdfs:Property",
-      "rdfs:comment": "bbreviated Journal Title (note, this should be autopopulated)",
+      "rdfs:comment": "abbreviated Journal Title (note, this should be autopopulated)",
       "rdfs:label": "journalNameAbbrevation",
       "schema:domainIncludes": {
         "@id": "outbreaktest:Publication"
