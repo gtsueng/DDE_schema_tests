@@ -706,12 +706,12 @@
                 }
               },
               {
-                "$ref": "#/definitions/baseOrgObject"
+                "$ref": "#/definitions/organization"
               },
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/baseOrgObject"
+                  "$ref": "#/definitions/organization"
                 }
               }
             ]
@@ -896,7 +896,7 @@
                 "$ref": "#/definitions/person"
               },
               {
-                "$ref": "#/definitions/baseOrgObject"
+                "$ref": "#/definitions/organization"
               },
               {
                 "type": "array",
@@ -907,7 +907,7 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/baseOrgObject"
+                  "$ref": "#/definitions/organization"
                 }
               },
               {
@@ -1018,9 +1018,27 @@
               "contentUrl"
             ]
           },
+          "baseOrgObject":{
+            "description": "A barebones Organization object to work around recursion issues in DDE",
+            "@type": "Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "name of the organization",
+                "type": "string"
+              },
+              "alternateName": {
+                "description": "Alternate name or Acronym for the organization.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]              
+          }, 
           "person": {
               "description": "Reusable person definition",
-              "@type": "outbreaktest:Person",
+              "@type": "Person",
               "type": "object",
               "properties": {
                 "name": {
@@ -1053,9 +1071,44 @@
                 "name"
               ]
             },
-          "baseOrgObject": {
+          "memberObject": {
+              "description": "Reusable person definition accounting for recursion issues in DDE",
+              "@type": "Person",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "givenName": {
+                  "type": "string"
+                },
+                "familyName": {
+                  "type": "string"
+                },
+                "orcid": {
+                  "type": "string"
+                },
+                "affiliation": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/definitions/baseOrgObject"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/baseOrgObject"
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+          "organization": {
             "description": "Reusable organization definition",
-            "@type": "outbreaktest:Organization",
+            "@type": "Organization",
             "type": "object",
             "properties": {
               "name": {
@@ -1070,12 +1123,12 @@
               "members": {
                  "oneOf": [
                     {
-                      "$ref": "#/definitions/person"
+                      "$ref": "#/definitions/memberObject"
                     },
                     {
                       "type": "array",
                       "items": {
-                        "$ref": "#/definitions/person"
+                        "$ref": "#/definitions/memberObject"
                       }
                     }
                   ]
