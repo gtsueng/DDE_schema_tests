@@ -508,7 +508,7 @@
             "description": "A doi if available",
             "type": "string"
           },
-          "type": {
+          "sourceType": {
             "description": "The @type of resource",
             "enum": [
               "Dataset",
