@@ -627,6 +627,10 @@
             "description": "The DOI for the dataset if available",
             "type": "string"
           },
+          "identifier": {
+            "description": "An identifier for the dataset, preferably a doi",
+            "type": "string"
+          },
           "species": {
             "description": "Species(es) from which dataset has been collected",
             "oneOf": [{

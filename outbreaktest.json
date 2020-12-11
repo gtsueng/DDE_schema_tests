@@ -592,6 +592,10 @@
             "description": "The DOI for the dataset if available",
             "type": "string"
           },
+          "identifier": {
+            "description": "An identifier for the dataset, preferably a doi",
+            "type": "string"
+          },
           "species": {
             "description": "Species(es) from which dataset has been collected",
             "oneOf": [{
@@ -893,6 +897,7 @@
             "type": "string"
           },
           "evaluations":{
+              "description": "Reviews, Ratings, or other types of evaluations on this resource",
               "anyOf":[
               {
                 "type": "array",
@@ -1344,7 +1349,7 @@
         }
       }
     },
-{
+    {
       "@id": "outbreaktest:Correction",
       "@type": "rdfs:Class",
       "rdfs:comment": "This is the schema for describing a Correction used for outbreak.info. A Correction is a specialized subclass of the CitationObject",

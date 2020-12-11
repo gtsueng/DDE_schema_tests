@@ -55,6 +55,21 @@
               "name"
             ]
           },
+          "isRelatedTo": {
+            "description": "Related articles or resources that were not derived from nor a derivative of this publication"
+          },
+          "citedBy": {
+            "description": "other articles or resources that were derived from or otherwise cite this publication"
+          },
+          "curatedBy": {
+            "description": "The source from which this Publication was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another"
+          },
+          "curationDate": {
+            "description": "The date this resource was added into outbreak.info, or was updated in outbreak.info"
+          },
+          "evaluations": {
+            "description": "Reviews, Ratings, or other types of evaluations on this publication"
+          },
           "publicationType": {
             "description": "The type of the medical article, taken from the US NLM MeSH publication type catalog. See also <a href=\"http://www.nlm.nih.gov/mesh/pubtypes.html\">MeSH documentation</a>.",
             "type": "string"
@@ -119,6 +134,9 @@
             "description": "Date of first broadcast/publication.",
             "format": "date",
             "type": "string"
+          },
+          "isBasedOn": {
+            "description": "A resource from which this work is derived or from which it is a modification or adaption."
           },
           "keywords": {
             "description": "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.",
@@ -224,6 +242,76 @@
       "@type": "rdfs:Property",
       "rdfs:comment": "The funding which enabled the study and or it's publication",
       "rdfs:label": "funding",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:isRelatedTo",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Related articles or resources that were not derived from nor a derivative of this publication",
+      "rdfs:label": "isRelatedTo",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:citedBy",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "other articles or resources that were derived from or otherwise cite this publication",
+      "rdfs:label": "citedBy",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:curatedBy",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The source from which this Publication was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another",
+      "rdfs:label": "curatedBy",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:curationDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The date this resource was added into outbreak.info, or was updated in outbreak.info",
+      "rdfs:label": "curationDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:evaluations",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Reviews, Ratings, or other types of evaluations on this publication",
+      "rdfs:label": "evaluations",
       "schema:domainIncludes": {
         "@id": "outbreaktest:Publication"
       },
