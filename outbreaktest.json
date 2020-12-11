@@ -985,7 +985,7 @@
           },
           "datadownload": {
             "description": "A dataset in downloadable form.",
-            "@type": "DataDownload",
+            "@type": "outbreaktest:DataDownload",
             "type": "object",
             "properties": {
               "name": {
@@ -1007,7 +1007,7 @@
           },
           "baseOrgObject":{
             "description": "A barebones Organization object to work around recursion issues in DDE",
-            "@type": "Organization",
+            "@type": "outbreaktest:Organization",
             "type": "object",
             "properties": {
               "name": {
@@ -1025,7 +1025,7 @@
           }, 
           "person": {
               "description": "Reusable person definition",
-              "@type": "Person",
+              "@type": "outbreaktest:Person",
               "type": "object",
               "properties": {
                 "name": {
@@ -1060,7 +1060,7 @@
             },
           "memberObject": {
               "description": "Reusable person definition accounting for recursion issues in DDE",
-              "@type": "Person",
+              "@type": "outbreaktest:Person",
               "type": "object",
               "properties": {
                 "name": {
@@ -1095,7 +1095,7 @@
             },
           "organization": {
             "description": "Reusable organization definition",
-            "@type": "Organization",
+            "@type": "outbreaktest:Organization",
             "type": "object",
             "properties": {
               "name": {
