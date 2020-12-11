@@ -9,7 +9,7 @@
     {
       "@id": "outbreaktest:Publication",
       "@type": "rdfs:Class",
-      "rdfs:comment": "Outbreak related publications",
+      "rdfs:comment": "This is the schema for describing the Publication used for outbreak.info",
       "rdfs:label": "Publication",
       "rdfs:subClassOf": {
         "@id": "schema:MedicalScholarlyArticle"
@@ -18,25 +18,99 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "journalName": {
-            "description": "Journal or preprint server name",
+          "abstract": {
+            "description": "A short descriptive summary",
             "type": "string"
           },
-          "pmid": {
-            "description": "PMID",
-            "type": "integer"
+          "journalName": {
+            "description": "The name of the journal (or publisher if journal name not available)",
+            "type": "string"
           },
           "journalNameAbbrevation": {
-            "description": "Abbreviated Journal Title ",
+            "description": "bbreviated Journal Title (note, this should be autopopulated)",
             "type": "string"
           },
           "volumeNumber": {
-            "description": "volumeNumber",
+            "description": "Volume number of journal in which the article was published",
             "type": "string"
+          },
+          "issueNumber": {
+            "description": "Issue of journal in which the article was published",
+            "type": "string"
+          },
+          "funding": {
+            "description": "The funding which enabled the study and or it's publication",
+            "@type": "outbreaktest:MonetaryGrant",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "isRelatedTo": {
+            "description": "Related articles or resources that were not derived from nor a derivative of this publication"
+          },
+          "citedBy": {
+            "description": "other articles or resources that were derived from or otherwise cite this publication"
+          },
+          "curatedBy": {
+            "description": "The source from which this Publication was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another"
+          },
+          "curationDate": {
+            "description": "The date this resource was added into outbreak.info, or was updated in outbreak.info"
+          },
+          "evaluations": {
+            "description": "Reviews, Ratings, or other types of evaluations on this publication"
+          },
+          "publicationType": {
+            "description": "The type of the medical article, taken from the US NLM MeSH publication type catalog. See also <a href=\"http://www.nlm.nih.gov/mesh/pubtypes.html\">MeSH documentation</a>.",
+            "type": "string"
+          },
+          "pagination": {
+            "description": "Any description of pages that is not separated into pageStart and pageEnd; for example, \"1-6, 9, 55\" or \"10-12, 46-49\".",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
           },
           "author": {
             "description": "The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.",
-            "@type": "Person",
+            "@type": "outbreaktest:Person",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "correction": {
+            "description": "Indicates a correction to a <a class=\"localLink\" href=\"http://schema.org/CreativeWork\">CreativeWork</a>, either via a <a class=\"localLink\" href=\"http://schema.org/CorrectionComment\">CorrectionComment</a>, textually or in another document.",
+            "@type": "outbreaktest:Correction",
             "type": "object",
             "properties": {
               "name": {
@@ -61,9 +135,8 @@
             "format": "date",
             "type": "string"
           },
-          "identifier": {
-            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
-            "type": "string"
+          "isBasedOn": {
+            "description": "A resource from which this work is derived or from which it is a modification or adaption."
           },
           "keywords": {
             "description": "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.",
@@ -82,61 +155,36 @@
           "license": {
             "description": "A license document that applies to this content, typically indicated by URL.",
             "type": "string"
-          },
-          "name": {
-            "description": "The name of the item.",
-            "type": "string"
-          },
-          "pagination": {
-            "description": "Any description of pages that is not separated into pageStart and pageEnd; for example, \"1-6, 9, 55\" or \"10-12, 46-49\".",
-            "type": "string"
-          },
-          "publicationType": {
-            "description": "The type of the medical article, taken from the US NLM MeSH publication type catalog. See also <a href=\"http://www.nlm.nih.gov/mesh/pubtypes.html\">MeSH documentation</a>.",
-            "oneOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "option1",
-                  "option2",
-                  "option3"
-                ]
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "enum": [
-                    "option1",
-                    "option2",
-                    "option3"
-                  ]
-                }
-              }
-            ]
-          },
-          "url": {
-            "description": "URL of the item.",
-            "type": "string",
-            "format": "uri"
           }
         },
         "required": [
-          "author",
-          "datePublished",
+          "journalName",
           "identifier",
           "name",
-          "name",
-          "identifier",
+          "url",
           "author",
           "datePublished"
         ]
       }
     },
     {
+      "@id": "outbreaktest:abstract",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A short descriptive summary",
+      "rdfs:label": "abstract",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
       "@id": "outbreaktest:journalName",
       "@type": "rdfs:Property",
-      "rdfs:comment": "Journal or preprint server name",
+      "rdfs:comment": "The name of the journal (or publisher if journal name not available)",
       "rdfs:label": "journalName",
       "schema:domainIncludes": {
         "@id": "outbreaktest:Publication"
@@ -148,23 +196,9 @@
       ]
     },
     {
-      "@id": "outbreaktest:pmid",
-      "@type": "rdfs:Property",
-      "rdfs:comment": "PMID",
-      "rdfs:label": "pmid",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Publication"
-      },
-      "schema:rangeIncludes": [
-        {
-          "@id": "schema:Integer"
-        }
-      ]
-    },
-    {
       "@id": "outbreaktest:journalNameAbbrevation",
       "@type": "rdfs:Property",
-      "rdfs:comment": "Abbreviated Journal Title ",
+      "rdfs:comment": "bbreviated Journal Title (note, this should be autopopulated)",
       "rdfs:label": "journalNameAbbrevation",
       "schema:domainIncludes": {
         "@id": "outbreaktest:Publication"
@@ -178,8 +212,106 @@
     {
       "@id": "outbreaktest:volumeNumber",
       "@type": "rdfs:Property",
-      "rdfs:comment": "volumeNumber",
+      "rdfs:comment": "Volume number of journal in which the article was published",
       "rdfs:label": "volumeNumber",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:issueNumber",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Issue of journal in which the article was published",
+      "rdfs:label": "issueNumber",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:funding",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The funding which enabled the study and or it's publication",
+      "rdfs:label": "funding",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:isRelatedTo",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Related articles or resources that were not derived from nor a derivative of this publication",
+      "rdfs:label": "isRelatedTo",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:citedBy",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "other articles or resources that were derived from or otherwise cite this publication",
+      "rdfs:label": "citedBy",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:curatedBy",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The source from which this Publication was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another",
+      "rdfs:label": "curatedBy",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:curationDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The date this resource was added into outbreak.info, or was updated in outbreak.info",
+      "rdfs:label": "curationDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:evaluations",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Reviews, Ratings, or other types of evaluations on this publication",
+      "rdfs:label": "evaluations",
       "schema:domainIncludes": {
         "@id": "outbreaktest:Publication"
       },
