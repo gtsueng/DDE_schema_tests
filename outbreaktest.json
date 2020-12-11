@@ -1524,6 +1524,20 @@
       "schema:rangeIncludes": [
         {"@id":"schema:Date"}
       ]
+    },
+    {
+      "@id":"outbreak:evaluations",
+      "@type":"rdf:Property",
+      "rdfs:comment":"One or more reviews, ratings, or other evaluations of this resource",
+      "rdfs:label":"evaluations",
+      "schema:domainIncludes":[
+        {"@id":"outbreaktest:Dataset"}
+      ],
+      "schema:rangeIncludes":[
+        {"@id":"schema:Review"},
+        {"@id":"schema:Rating"},
+        {"@id":"schema:AggregateRating"}
+      ]
     }
   ]
 }
