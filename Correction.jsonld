@@ -1,0 +1,126 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:Correction",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a Correction used for outbreak.info. A Correction is a specialized subclass of the CitationObject",
+      "rdfs:label": "Correction",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "doi": {
+            "description": "The DOI of the published correction ",
+            "type": "string"
+          },
+          "pmid": {
+            "description": "The PMID of the published correction (if available)",
+            "type": "integer"
+          },
+          "correctionType": {
+            "description": "Type of notice or correction: (correction, retraction, expression of convern, withdrawal, erratum, update, correction\\/republication, preprint, peer reviewed version)",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "correction",
+                  "retraction",
+                  "expression of concern",
+                  "withdrawal",
+                  "erratum",
+                  "update",
+                  "correction and re-publication",
+                  "peer reviewed version",
+                  "preprint"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "correction",
+                    "retraction",
+                    "expression of concern",
+                    "withdrawal",
+                    "erratum",
+                    "update",
+                    "correction and re-publication",
+                    "peer reviewed version",
+                    "preprint"
+                  ]
+                }
+              }
+            ]
+          },
+          "datePublished": {
+            "description": "Date of first broadcast/publication.",
+            "format": "date",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:doi",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The DOI of the published correction ",
+      "rdfs:label": "doi",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Correction"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:pmid",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The PMID of the published correction (if available)",
+      "rdfs:label": "pmid",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Correction"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Integer"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:correctionType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of notice or correction: (correction, retraction, expression of convern, withdrawal, erratum, update, correction\\/republication, preprint, peer reviewed version)",
+      "rdfs:label": "correctionType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Correction"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
