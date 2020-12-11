@@ -1,0 +1,424 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:Analysis",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing an Analysis for inclusion in outbreak.info resources",
+      "rdfs:label": "Analysis",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "doi": {
+            "description": "The DOI of the analysis if available",
+            "type": "string"
+          },
+          "domainUrl": {
+            "description": "The domain name or main site on which webpage or specific url can be found",
+            "type": "string",
+            "format": "uri"
+          },
+          "assumption": {
+            "description": "Statement of assumptions / limitations of the model",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "analysisTechnique": {
+            "description": "A technique or technology used in a analysis",
+            "@type": "CreativeWork",
+            "type": "string",
+            "vocabulary": {
+              "ontology": [
+                "[For example:]",
+                "ncbitaxon"
+              ],
+              "children_of": [
+                "[For example:]",
+                "http://purl.obolibrary.org/obo/NCBITaxon_10239"
+              ]
+            },
+            "strict": false
+          },
+          "infectiousAgent": {
+            "description": "infectious agents(s) which are the focus of the analysis",
+            "@type": "CreativeWork",
+            "type": "string",
+            "vocabulary": {
+              "ontology": [
+                "[For example:]",
+                "ncbitaxon"
+              ],
+              "children_of": [
+                "[For example:]",
+                "http://purl.obolibrary.org/obo/NCBITaxon_10239"
+              ]
+            },
+            "strict": false
+          },
+          "infectiousDisease": {
+            "description": "The disease or medical conditions caused by the infectious agent. Important as some agents may cause multiple diseases",
+            "@type": "CreativeWork",
+            "type": "string",
+            "vocabulary": {
+              "ontology": [
+                "[For example:]",
+                "ncbitaxon"
+              ],
+              "children_of": [
+                "[For example:]",
+                "http://purl.obolibrary.org/obo/NCBITaxon_10239"
+              ]
+            },
+            "strict": false
+          },
+          "analysisTopic": {
+            "description": "The underlying question, goal, or aim of the analysis",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "funding": {
+            "description": "The funding that supported the creation or maintenance of the analysis",
+            "@type": "MonetaryGrant",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "citedBy": {
+            "description": "A resource (publication, protocol, dataset, etc.) which was derived from this resource",
+            "@type": "CitationObject",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "isRelatedTo": {
+            "description": "Other resources related to, but not a derivative of nor derived from this resource",
+            "@type": "CitationObject",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "curatedBy": {
+            "description": "The source from which this Analysis was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another",
+            "@type": "CitationObject",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "curationDate": {
+            "description": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
+            "format": "date",
+            "type": "string"
+          },
+          "dateModified": {
+            "description": "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed.",
+            "format": "date",
+            "type": "string"
+          },
+          "keywords": {
+            "description": "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "author": {
+            "description": "The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.",
+            "@type": "Person",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL.",
+            "type": "string"
+          },
+          "isBasedOn": {
+            "description": "A resource from which this work is derived or from which it is a modification or adaption.",
+            "type": "string"
+          },
+          "datePublished": {
+            "description": "Date of first broadcast/publication.",
+            "format": "date",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the item.",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "author",
+          "description",
+          "identifier",
+          "name",
+          "url"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:doi",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The DOI of the analysis if available",
+      "rdfs:label": "doi",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:domainUrl",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The domain name or main site on which webpage or specific url can be found",
+      "rdfs:label": "domainUrl",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:URL"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:assumption",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Statement of assumptions / limitations of the model",
+      "rdfs:label": "assumption",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:analysisTechnique",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A technique or technology used in a analysis",
+      "rdfs:label": "analysisTechnique",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:infectiousAgent",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "infectious agents(s) which are the focus of the analysis",
+      "rdfs:label": "infectiousAgent",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:infectiousDisease",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The disease or medical conditions caused by the infectious agent. Important as some agents may cause multiple diseases",
+      "rdfs:label": "infectiousDisease",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:analysisTopic",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The underlying question, goal, or aim of the analysis",
+      "rdfs:label": "analysisTopic",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:funding",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The funding that supported the creation or maintenance of the analysis",
+      "rdfs:label": "funding",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:MonetaryGrant"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:citedBy",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A resource (publication, protocol, dataset, etc.) which was derived from this resource",
+      "rdfs:label": "citedBy",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:isRelatedTo",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Other resources related to, but not a derivative of nor derived from this resource",
+      "rdfs:label": "isRelatedTo",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:curatedBy",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The source from which this Analysis was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another",
+      "rdfs:label": "curatedBy",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:curationDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
+      "rdfs:label": "curationDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    }
+  ]
+}
