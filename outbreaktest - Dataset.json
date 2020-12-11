@@ -959,7 +959,7 @@
         "definitions": {
           "controlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "CreativeWork",
+            "@type": "schema:DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["efo", "ncit","obi"],
@@ -970,7 +970,7 @@
           },
           "miscControlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "CreativeWork",
+            "@type": "schema:DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["ncbitaxon"],
@@ -980,7 +980,7 @@
           },
           "speciesControlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "CreativeWork",
+            "@type": "schema:DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["ncbitaxon"],
@@ -990,7 +990,7 @@
           },
           "diseaseVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "CreativeWork",
+            "@type": "schema:DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["mondo"],
@@ -1000,7 +1000,7 @@
           },
           "moreControlledVocabulary": {
               "definition": "collection of vocabulary terms defined in ontologies",
-              "@type": "CreativeWork",
+              "@type": "schema:DefinedTerm",
               "type": "string",
               "strict": false,
               "vocabulary": {

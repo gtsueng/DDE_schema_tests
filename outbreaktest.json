@@ -555,41 +555,6 @@
       ]
     },
     {
-      "@id": "outbreaktest:pmid",
-      "@type": "rdfs:Property",
-      "rdfs:comment": "A pubmed identifier if available",
-      "rdfs:label": "pmid",
-      "schema:domainIncludes": [
-          {
-            "@id": "outbreaktest:CitationObject"
-          }
-      ],
-      "schema:rangeIncludes": [
-        {
-          "@id": "schema:Text"
-        }
-      ]
-    },
-    {
-      "@id": "outbreaktest:doi",
-      "@type": "rdfs:Property",
-      "rdfs:comment": "A doi if available",
-      "rdfs:label": "doi",
-      "schema:domainIncludes": [
-          {
-            "@id": "outbreaktest:CitationObject"
-          },
-          {
-            "@id": "outbreaktest:Dataset"  
-          }
-      ],
-      "schema:rangeIncludes": [
-        {
-          "@id": "schema:Text"
-        }
-      ]
-    },
-    {
       "@id": "outbreaktest:type",
       "@type": "rdfs:Property",
       "rdfs:comment": "The type of resource",
@@ -959,7 +924,7 @@
         "definitions": {
           "controlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "CreativeWork",
+            "@type": "schema:DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["efo", "ncit","obi"],
@@ -970,7 +935,7 @@
           },
           "miscControlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "CreativeWork",
+            "@type": "schema:DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["ncbitaxon"],
@@ -980,7 +945,7 @@
           },
           "speciesControlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "CreativeWork",
+            "@type": "schema:DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["ncbitaxon"],
@@ -990,7 +955,7 @@
           },
           "diseaseVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "CreativeWork",
+            "@type": "schema:DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["mondo"],
@@ -1000,7 +965,7 @@
           },
           "moreControlledVocabulary": {
               "definition": "collection of vocabulary terms defined in ontologies",
-              "@type": "CreativeWork",
+              "@type": "schema:DefinedTerm",
               "type": "string",
               "strict": false,
               "vocabulary": {
@@ -1378,6 +1343,125 @@
             }
         }
       }
+    },
+{
+      "@id": "outbreaktest:Correction",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a Correction used for outbreak.info. A Correction is a specialized subclass of the CitationObject",
+      "rdfs:label": "Correction",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "doi": {
+            "description": "The DOI of the published correction or correction notice",
+            "type": "string"
+          },
+          "pmid": {
+            "description": "The PMID of the published correction or correction notice (if available)",
+            "type": "integer"
+          },
+          "correctionType": {
+            "description": "Type of notice or correction: (correction, retraction, expression of convern, withdrawal, erratum, update, correction/republication, preprint, peer reviewed version)",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "correction",
+                  "retraction",
+                  "expression of concern",
+                  "withdrawal",
+                  "erratum",
+                  "update",
+                  "correction and re-publication",
+                  "peer reviewed version",
+                  "preprint"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "correction",
+                    "retraction",
+                    "expression of concern",
+                    "withdrawal",
+                    "erratum",
+                    "update",
+                    "correction and re-publication",
+                    "peer reviewed version",
+                    "preprint"
+                  ]
+                }
+              }
+            ]
+          },
+          "datePublished": {
+            "description": "Publication date of the correction or correction notice",
+            "format": "date",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "An identifier for the published correction or correction notice. DOI (preferred) or PMID (e.g., 10.1126\/sciimmunol.aaw6329, PMID:31471352)",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:correctionType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of notice or correction: (correction, retraction, expression of convern, withdrawal, erratum, update, correction/republication, preprint, peer reviewed version)",
+      "rdfs:label": "correctionType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Correction"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:pmid",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A pubmed identifier if available",
+      "rdfs:label": "pmid",
+      "schema:domainIncludes": [
+          {"@id": "outbreaktest:CitationObject"},
+          {"@id": "outbreaktest:Correction"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Integer"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:doi",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A doi if available",
+      "rdfs:label": "doi",
+      "schema:domainIncludes": [
+          {"@id": "outbreaktest:CitationObject"},
+          {"@id": "outbreaktest:Correction"},
+          {"@id": "outbreaktest:Dataset"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
     },
     {
       "@id": "outbreaktest:funding",
