@@ -633,6 +633,14 @@
             "description": "An identifier for the publication. DOI (preferred) or PMID (e.g., 10.1126/sciimmunol.aaw6329, PMID:31471352)",
             "type": "string"
           },
+          "pmid": {
+            "description": "The Pubmed identifier or PMID of the publication if available",
+            "type": "string"
+          },
+          "doi": {
+            "description": "The DOI of the publication if available",
+            "type": "string"
+          },
           "url": {
               "description": "url where the publication or article can be found",
               "oneOf": [
