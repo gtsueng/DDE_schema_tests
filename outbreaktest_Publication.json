@@ -609,7 +609,6 @@
         "required": []
       }
     },
-    
     {
       "@id": "outbreaktest:Publication",
       "@type": "rdfs:Class",

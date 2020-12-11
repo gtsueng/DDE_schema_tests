@@ -575,778 +575,6 @@
       "rdfs:label": "Dataset",
       "rdfs:subClassOf": {
         "@id": "schema:Dataset"
-      },
-      "$validation": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "Descriptive name of the dataset.",
-            "type": "string"
-          },
-          "description": {
-            "description": "Longer description of what is contained in the dataset.",
-            "type": "string"
-          },
-          "doi": {
-            "description": "The DOI for the dataset if available",
-            "type": "string"
-          },
-          "identifier": {
-            "description": "An identifier for the dataset, preferably a doi",
-            "type": "string"
-          },
-          "species": {
-            "description": "Species(es) from which dataset has been collected",
-            "oneOf": [{
-                "$ref": "#/definitions/speciesControlledVocabulary"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/speciesControlledVocabulary"
-                }
-              }
-            ]
-          },
-          "infectiousAgent": {
-            "description": "infectious agents(s) which are the focus of the dataset",
-            "oneOf": [{
-                "$ref": "#/definitions/miscControlledVocabulary"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/miscControlledVocabulary"
-                }
-              }
-            ]
-          },
-          "infectiousDisease": {
-              "description": "The disease or medical conditions caused by the infectious agent. Important as some agents may cause multiple diseases",
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/diseaseVocabulary"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/diseaseVocabulary"
-                  }
-                }
-              ]
-            },
-          "measurementTechnique": {
-            "description": "A technique or technology used in a Dataset, corresponding to the method used for measuring the corresponding variable(s).",
-            "oneOf": [{
-                "$ref": "#/definitions/controlledVocabulary"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/controlledVocabulary"
-                }
-              }
-            ]
-          },
-          "variableMeasured": {
-            "description": "A technique or technology used in a Dataset, corresponding to the method used for measuring the corresponding variable(s).",
-            "oneOf": [{
-                "$ref": "#/definitions/moreControlledVocabulary"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/moreControlledVocabulary"
-                }
-              }
-            ]
-          },
-          "author": {
-            "description": "Name of the author or organization that created the dataset.  Note: schema.org/author and schema.org/organization have additional fields that can provide more information about the author/organization, if desired.",
-            "anyOf": [
-              {
-                "$ref": "#/definitions/person"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/person"
-                }
-              },
-              {
-                "$ref": "#/definitions/organization"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/organization"
-                }
-              }
-            ]
-          },
-          "distribution": {
-            "description": "Available downloads of the dataset.",
-            "oneOf": [{
-                "$ref": "#/definitions/datadownload"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/datadownload"
-                }
-              }
-            ]
-          },
-          "funding": {
-            "description": "Funding that supports (sponsors) the collection of this dataset through some kind of financial contribution",
-            "oneOf": [{
-                "$ref": "#/definitions/funding"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/funding"
-                }
-              }
-            ]
-          },
-          "dateModified": {
-            "description": "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed.",
-            "format": "date",
-            "type": "string"
-          },
-          "datePublished": {
-            "description": "Date of first broadcast/publication.",
-            "format": "date",
-            "type": "string"
-          },
-          "topicCategory": {
-            "description": "Applicable outbreak.info category",
-            "oneOf": [
-              {
-                "enum": [
-                  "Clinical",
-                  "Case Descriptions",
-                  "Risk Factors",
-                  "Diagnosis",
-                  "Symptoms",
-                  "Rapid Diagnostics",
-                  "Antibody Detection",
-                  "Virus Detection",
-                  "Testing Prevalence",
-                  "Pathology/Radiology",
-                  "Forecasting",
-                  "Mechanism",
-                  "Virus Factors",
-                  "Host Factors",
-                  "Immunological Response",
-                  "Mechanism of Infection",
-                  "Mechanism of Transmission",
-                  "Prevention",
-                  "Public Health Interventions",
-                  "Individual Prevention",
-                  "Transmission",
-                  "Host/Intermediate Reservoirs",
-                  "Viral Shedding / Persistence",
-                  "Treatment",
-                  "Vaccines",
-                  "Pharmaceutical Treatments",
-                  "Medical Care",
-                  "Repurposing",
-                  "Biologics",
-                  "Behavioral Research",
-                  "Epidemiology",
-                  "Classical Epidemiology",
-                  "Molecular Epidemiology"
-                ]
-              },
-              {
-                "type": "array",
-                "items": {
-                  "enum": [
-                    "Clinical",
-                    "Case Descriptions",
-                    "Risk Factors",
-                    "Diagnosis",
-                    "Symptoms",
-                    "Rapid Diagnostics",
-                    "Antibody Detection",
-                    "Virus Detection",
-                    "Testing Prevalence",
-                    "Pathology/Radiology",
-                    "Forecasting",
-                    "Mechanism",
-                    "Virus Factors",
-                    "Host Factors",
-                    "Immunological Response",
-                    "Mechanism of Infection",
-                    "Mechanism of Transmission",
-                    "Prevention",
-                    "Public Health Interventions",
-                    "Individual Prevention",
-                    "Transmission",
-                    "Host/Intermediate Reservoirs",
-                    "Viral Shedding / Persistence",
-                    "Treatment",
-                    "Vaccines",
-                    "Pharmaceutical Treatments",
-                    "Medical Care",
-                    "Repurposing",
-                    "Biologics",
-                    "Behavioral Research",
-                    "Epidemiology",
-                    "Classical Epidemiology",
-                    "Molecular Epidemiology"
-                  ]
-                }
-              }
-            ]
-          },
-          "keywords": {
-            "description": "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
-          },
-          "isBasedOn": {
-            "description": "A citation to a resource (eg- publication, protocol, etc.) on which this dataset was derived (stored as an object, not a string)",
-            "oneOf": [{
-                "$ref": "#/definitions/citation"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/citation"
-                }
-              }
-            ]
-          },
-          "citedBy": {
-            "description": "A citation to a resource (eg- publication, protocol, etc.) which is derived from this dataset (stored as an object, not a string)",
-            "oneOf": [{
-                "$ref": "#/definitions/citation"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/citation"
-                }
-              }
-            ]
-          },
-          "isRelatedTo": {
-            "description": "A citation to a resource (eg- publication, protocol, etc.) which is related to the dataset but is not a derivative nor was derived from the dataset (stored as an object, not a string)",
-            "oneOf": [{
-                "$ref": "#/definitions/citation"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/citation"
-                }
-              }
-            ]
-          },
-          "curatedBy": {
-            "description": "The source from which this Dataset was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another.",
-            "anyOf": [{
-                "$ref": "#/definitions/citation"
-              },
-              {
-                "$ref": "#/definitions/person"
-              },
-              {
-                "$ref": "#/definitions/organization"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/person"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/organization"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/citation"
-                }
-              }
-            ]
-          },
-          "curationDate":{
-            "description": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
-            "type": "string",
-            "format": "date"
-          },
-          "license": {
-            "description": "A license document that applies to this content, typically indicated by URL.",
-            "type": "string"
-          },
-          "evaluations":{
-              "description": "Reviews, Ratings, or other types of evaluations on this resource",
-              "anyOf":[
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/reviewObject"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/ratingObject"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/aggregateRatingObject"
-                }
-              }
-            ]
-            }
-        },
-        "required": [
-          "author",
-          "description",
-          "identifier",
-          "name"
-        ],
-        "definitions": {
-          "controlledVocabulary": {
-            "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "DefinedTerm",
-            "type": "string",
-            "vocabulary": {
-              "ontology": ["efo", "ncit","obi"],
-              "children_of": ["https://www.ebi.ac.uk/efo/EFO_0002694", "http://purl.obolibrary.org/obo/NCIT_C20368",
-                             "http://purl.obolibrary.org/obo/OBI_0000011"]
-            },
-            "strict": false
-          },
-          "miscControlledVocabulary": {
-            "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "DefinedTerm",
-            "type": "string",
-            "vocabulary": {
-              "ontology": ["ncbitaxon"],
-              "children_of": ["http://purl.obolibrary.org/obo/NCBITaxon_10239"]
-            },
-            "strict": false
-          },
-          "speciesControlledVocabulary": {
-            "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "DefinedTerm",
-            "type": "string",
-            "vocabulary": {
-              "ontology": ["ncbitaxon"],
-              "children_of": ["http://purl.obolibrary.org/obo/NCBITaxon_131567"]
-            },
-              "strict": false
-          },
-          "diseaseVocabulary": {
-            "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "DefinedTerm",
-            "type": "string",
-            "vocabulary": {
-              "ontology": ["mondo"],
-              "children_of": ["http://purl.obolibrary.org/obo/MONDO_0000001"]
-            },
-            "strict": false
-          },
-          "moreControlledVocabulary": {
-              "definition": "collection of vocabulary terms defined in ontologies",
-              "@type": "DefinedTerm",
-              "type": "string",
-              "strict": false,
-              "vocabulary": {
-                "ontology": [
-                  "efo",
-                  "cido",
-                  "epo",
-                  "covid19"
-                ],
-                "children_of": [
-                  "https://www.ebi.ac.uk/efo/EFO_0001444",
-                  "http://purl.obolibrary.org/obo/cido.owl",
-                  "http://purl.obolibrary.org/obo/epo",
-                  "https://bioportal.bioontology.org/ontologies/COVID19"
-                ]
-              }
-          },
-          "datadownload": {
-            "description": "A dataset in downloadable form.",
-            "@type": "outbreaktest:DataDownload",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "dateModified": {
-                "type": "string",
-                "format": "date"
-              },
-              "contentUrl": {
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [
-              "dateModified",
-              "contentUrl"
-            ]
-          },
-          "baseOrgObject":{
-            "description": "A barebones Organization object to work around recursion issues in DDE",
-            "@type": "outbreaktest:Organization",
-            "type": "object",
-            "properties": {
-              "name": {
-                "description": "name of the organization",
-                "type": "string"
-              },
-              "alternateName": {
-                "description": "Alternate name or Acronym for the organization.",
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]              
-          }, 
-          "person": {
-              "description": "Reusable person definition",
-              "@type": "outbreaktest:Person",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "givenName": {
-                  "type": "string"
-                },
-                "familyName": {
-                  "type": "string"
-                },
-                "orcid": {
-                  "type": "string"
-                },
-                "affiliation": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/baseOrgObject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/baseOrgObject"
-                      }
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "name"
-              ]
-            },
-          "memberObject": {
-              "description": "Reusable person definition accounting for recursion issues in DDE",
-              "@type": "outbreaktest:Person",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "givenName": {
-                  "type": "string"
-                },
-                "familyName": {
-                  "type": "string"
-                },
-                "orcid": {
-                  "type": "string"
-                },
-                "affiliation": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/baseOrgObject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/baseOrgObject"
-                      }
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "name"
-              ]
-            },
-          "organization": {
-            "description": "Reusable organization definition",
-            "@type": "outbreaktest:Organization",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "alternateName": {
-                "type": "string"
-              },
-              "affiliation": {
-                "$ref": "#/definitions/baseOrgObject"
-              },
-              "members": {
-                 "oneOf": [
-                    {
-                      "$ref": "#/definitions/memberObject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/memberObject"
-                      }
-                    }
-                  ]
-              }
-            },
-            "required": [
-              "name"
-            ]
-          },
-          "funding": {
-            "type": "object",
-            "@type": "outbreaktest:MonetaryGrant",
-            "description": "Information about funding support",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "The name of the monetary grant that funded/funds the Dataset"
-              },
-              "identifier": {
-                "type": "string",
-                "description": "Unique identifier(s) for the grant(s) used to fund the Dataset"
-              },
-              "funder": {
-                "description": "name of the funding organization",
-                "oneOf": [
-              {
-                "$ref": "#/definitions/baseOrgObject"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/baseOrgObject"
-                }
-              }
-            ]
-              },
-              "url": {
-                "type": "string",
-                "format": "uri",
-                "description": "award URL"
-              }
-            },
-            "required": [
-              "funder"
-            ]
-          },
-          "citation": {
-            "description": "A citation object for a resource which is cited by the dataset (ie- is a derivative of the dataset) , related to the dataset, or from which the dataset was based on (ie- is derived from).",
-            "@type": "outbreaktest:CitationObject",
-            "type": "object",
-            "properties": {
-              "name": {
-                "description": "Name of or title of the citation",
-                "type": "string"
-              },
-              "identifier": {
-                "description": "An identifier associated with the citation",
-                "type": "string"
-              },
-              "pmid": {
-                "description": "A pubmed identifier if available",
-                "type": "string"
-              },
-              "doi": {
-                "description": "A doi if available",
-                "type": "string"
-              },
-              "type": {
-                "description": "The type of resource",
-                "enum": [
-                  "Dataset",
-                  "Publication",
-                  "ClinicalTrial", 
-                  "Analysis",
-                  "Protocol", 
-                  "SoftwareApplication",
-                  "CreativeWork"
-                  ]
-              },
-              "url": {
-                "description": "The url of the resource cited.",
-                "type": "string",
-                "format": "uri"
-              },
-              "versionDate": {
-                "description": "The version date of the resource used at the time of the creation of the citation as certain resources (protocols, datasets) may change frequently over time.",
-                "type": "string",
-                "format": "date"
-              },
-              "citeText": {
-                "description": "The bibliographic citation for the referenced resource as is provided",
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          },
-          "reviewObject":{
-                "description": "A review or descriptive evaluation of the resource",
-                "@type": "Review",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the review"
-                  },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
-                    "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-            },
-          "ratingObject":{
-                "description": "A rating or categorical evaluation of the resource",
-                "@type": "Rating",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the rating"
-                  },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
-                    "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-            },
-          "aggregateRatingObject":{
-                "description": "A cumulative evaluation of the resource",
-                "@type": "AggregateRating",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the aggregate rating"
-                  },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
-                    "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-            }
-        }
       }
     },
     {
@@ -1444,731 +672,6 @@
       "rdfs:label": "Publication",
       "rdfs:subClassOf": {
         "@id": "schema:MedicalScholarlyArticle"
-      },
-      "$validation": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "Title of the article or publication",
-            "type": "string"
-          },
-          "abstract": {
-            "description": "A short descriptive summary of the resource",
-            "type": "string"
-          },
-          "identifier": {
-            "description": "An identifier for the publication. DOI (preferred) or PMID (e.g., 10.1126/sciimmunol.aaw6329, PMID:31471352)",
-            "type": "string"
-          },
-          "url": {
-              "description": "url where the publication or article can be found",
-              "oneOf": [
-                {
-                  "type": "string",
-                  "format": "uri"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uri"
-                  }
-                }
-              ]
-            },
-          "journalName": {
-            "description": "The name of the journal (or publisher or preprint server if journal name not available)",
-            "type": "string"
-          },
-          "journalNameAbbrevation": {
-            "description": "abbreviated Journal Title (note, this should be autopopulated)",
-            "type": "string"
-          },
-          "volumeNumber": {
-            "description": "Volume number of journal in which the article was published",
-            "type": "string"
-          },
-          "issueNumber": {
-            "description": "Issue of journal in which the article was published",
-            "type": "string"
-          },
-          "pagination": {
-            "description": "Any description of pages for the article or publication",
-            "type": "string"
-          },
-          "datePublished": {
-              "description": "PublicationDate online if available",
-              "format": "date",
-              "type": "string"
-            },
-          "dateModified": {
-              "description": "Date of Version update",
-              "oneOf": [
-                {
-                  "type": "string",
-                  "format": "date"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "date"
-                  }
-                }
-              ]
-            },
-          "publicationType": {
-              "description": "Type of publication such as preprint, research article, case report, etc",
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              ]
-            },
-          "correction": {
-              "description": "Related corrections or correction notices for this resource (eg- retraction notice, etc.)",
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/correctionObject"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/correctionObject"
-                  }
-                }
-              ]
-            },
-          "author": {
-              "description": "Name of the author or organization that created the dataset.  Note: schema.org/creator and schema.org/organization have additional fields that can provide more information about the author/organization, if desired",
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/person"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/person"
-                  }
-                },
-                {
-                  "$ref": "#/definitions/organization"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/organization"
-                  }
-                }
-              ]
-            },
-          "funding": {
-            "description": "Funding that supports (sponsors) the collection of this dataset through some kind of financial contribution",
-            "oneOf": [{
-                "$ref": "#/definitions/funding"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/funding"
-                }
-              }
-            ]
-          },
-          "topicCategory": {
-            "description": "Applicable outbreak.info category",
-            "oneOf": [
-              {
-                "enum": [
-                  "Clinical",
-                  "Case Descriptions",
-                  "Risk Factors",
-                  "Diagnosis",
-                  "Symptoms",
-                  "Rapid Diagnostics",
-                  "Antibody Detection",
-                  "Virus Detection",
-                  "Testing Prevalence",
-                  "Pathology/Radiology",
-                  "Forecasting",
-                  "Mechanism",
-                  "Virus Factors",
-                  "Host Factors",
-                  "Immunological Response",
-                  "Mechanism of Infection",
-                  "Mechanism of Transmission",
-                  "Prevention",
-                  "Public Health Interventions",
-                  "Individual Prevention",
-                  "Transmission",
-                  "Host/Intermediate Reservoirs",
-                  "Viral Shedding / Persistence",
-                  "Treatment",
-                  "Vaccines",
-                  "Pharmaceutical Treatments",
-                  "Medical Care",
-                  "Repurposing",
-                  "Biologics",
-                  "Behavioral Research",
-                  "Epidemiology",
-                  "Classical Epidemiology",
-                  "Molecular Epidemiology"
-                ]
-              },
-              {
-                "type": "array",
-                "items": {
-                  "enum": [
-                    "Clinical",
-                    "Case Descriptions",
-                    "Risk Factors",
-                    "Diagnosis",
-                    "Symptoms",
-                    "Rapid Diagnostics",
-                    "Antibody Detection",
-                    "Virus Detection",
-                    "Testing Prevalence",
-                    "Pathology/Radiology",
-                    "Forecasting",
-                    "Mechanism",
-                    "Virus Factors",
-                    "Host Factors",
-                    "Immunological Response",
-                    "Mechanism of Infection",
-                    "Mechanism of Transmission",
-                    "Prevention",
-                    "Public Health Interventions",
-                    "Individual Prevention",
-                    "Transmission",
-                    "Host/Intermediate Reservoirs",
-                    "Viral Shedding / Persistence",
-                    "Treatment",
-                    "Vaccines",
-                    "Pharmaceutical Treatments",
-                    "Medical Care",
-                    "Repurposing",
-                    "Biologics",
-                    "Behavioral Research",
-                    "Epidemiology",
-                    "Classical Epidemiology",
-                    "Molecular Epidemiology"
-                  ]
-                }
-              }
-            ]
-          },
-          "keywords": {
-            "description": "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
-          },
-          "isBasedOn": {
-              "description": "Associated datasets, software, protocols, etc. used by the work described in this publication, including reference publications",
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/citation"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/citation"
-                  }
-                }
-              ]
-            },
-          "citedBy": {
-            "description": "A citation to a resource (eg- publication, protocol, etc.) which is derived from this publication (stored as an object, not a string)",
-            "oneOf": [{
-                "$ref": "#/definitions/citation"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/citation"
-                }
-              }
-            ]
-          },
-          "isRelatedTo": {
-            "description": "A citation to a resource (eg- publication, protocol, etc.) which is related to the publication but is not a derivative nor was derived from the publication (stored as an object, not a string)",
-            "oneOf": [{
-                "$ref": "#/definitions/citation"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/citation"
-                }
-              }
-            ]
-          },
-          "curatedBy": {
-            "description": "The source from which this Publication was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another.",
-            "anyOf": [{
-                "$ref": "#/definitions/citation"
-              },
-              {
-                "$ref": "#/definitions/person"
-              },
-              {
-                "$ref": "#/definitions/organization"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/person"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/organization"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/citation"
-                }
-              }
-            ]
-          },
-          "curationDate":{
-            "description": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
-            "type": "string",
-            "format": "date"
-          },
-          "license": {
-            "description": "Licensing that applies to this content, typically indicated by URL.",
-            "type": "string"
-          },
-          "evaluations":{
-              "description": "Reviews, Ratings, or other types of evaluations on this resource",
-              "anyOf":[
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/reviewObject"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/ratingObject"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/aggregateRatingObject"
-                }
-              }
-            ]
-            }
-        },
-        "required": [
-          "journalName",
-          "identifier",
-          "name",
-          "url",
-          "author",
-          "datePublished"
-        ],
-        "definitions": {
-          "baseOrgObject":{
-            "description": "A barebones Organization object to work around recursion issues in DDE",
-            "@type": "outbreaktest:Organization",
-            "type": "object",
-            "properties": {
-              "name": {
-                "description": "name of the organization",
-                "type": "string"
-              },
-              "alternateName": {
-                "description": "Alternate name or Acronym for the organization.",
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]              
-          }, 
-          "person": {
-              "description": "Reusable person definition",
-              "@type": "outbreaktest:Person",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "givenName": {
-                  "type": "string"
-                },
-                "familyName": {
-                  "type": "string"
-                },
-                "orcid": {
-                  "type": "string"
-                },
-                "affiliation": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/baseOrgObject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/baseOrgObject"
-                      }
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "name"
-              ]
-            },
-          "memberObject": {
-              "description": "Reusable person definition accounting for recursion issues in DDE",
-              "@type": "outbreaktest:Person",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "givenName": {
-                  "type": "string"
-                },
-                "familyName": {
-                  "type": "string"
-                },
-                "orcid": {
-                  "type": "string"
-                },
-                "affiliation": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/baseOrgObject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/baseOrgObject"
-                      }
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "name"
-              ]
-            },
-          "organization": {
-            "description": "Reusable organization definition",
-            "@type": "outbreaktest:Organization",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "alternateName": {
-                "type": "string"
-              },
-              "affiliation": {
-                "$ref": "#/definitions/baseOrgObject"
-              },
-              "members": {
-                 "oneOf": [
-                    {
-                      "$ref": "#/definitions/memberObject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/memberObject"
-                      }
-                    }
-                  ]
-              }
-            },
-            "required": [
-              "name"
-            ]
-          },
-          "funding": {
-            "type": "object",
-            "@type": "outbreaktest:MonetaryGrant",
-            "description": "Information about funding support",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "The name of the monetary grant that funded/funds the Dataset"
-              },
-              "identifier": {
-                "type": "string",
-                "description": "Unique identifier(s) for the grant(s) used to fund the Dataset"
-              },
-              "funder": {
-                "description": "name of the funding organization",
-                "oneOf": [
-              {
-                "$ref": "#/definitions/baseOrgObject"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/baseOrgObject"
-                }
-              }
-            ]
-              },
-              "url": {
-                "type": "string",
-                "format": "uri",
-                "description": "award URL"
-              }
-            },
-            "required": [
-              "funder"
-            ]
-          },
-          "correctionObject":{
-              "@type": "outbreaktest:Correction",
-              "type": "object",
-              "properties": {
-                "url": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "correctionType": {
-                  "enum": [
-                    "correction",
-                    "retraction",
-                    "expression of concern",
-                    "withdrawal",
-                    "erratum",
-                    "update",
-                    "correction and re-publication",
-                    "peer reviewed version",
-                    "preprint"
-                  ]
-                },
-                "identifier": {
-                  "type": "string"
-                },
-                "doi": {
-                  "type": "string"
-                },
-                "pmid": {
-                  "type": "integer"
-                },
-                "datePublished": {
-                  "description": "publication date of the correction notice or publication",
-                  "type": "string",
-                  "format": "date"
-                }
-              },
-              "required": [
-                  "url",
-                  "correctionType"
-              ]
-            },
-          "citation": {
-            "description": "A citation object for a resource which is cited by the publication (ie- is a derivative of the publication) , related to the publication, or from which the publication was based on (ie- is derived from).",
-            "@type": "outbreaktest:CitationObject",
-            "type": "object",
-            "properties": {
-              "name": {
-                "description": "Name of or title of the citation",
-                "type": "string"
-              },
-              "identifier": {
-                "description": "An identifier associated with the citation",
-                "type": "string"
-              },
-              "pmid": {
-                "description": "A pubmed identifier if available",
-                "type": "string"
-              },
-              "doi": {
-                "description": "A doi if available",
-                "type": "string"
-              },
-              "type": {
-                "description": "The type of resource",
-                "enum": [
-                  "Dataset",
-                  "Publication",
-                  "ClinicalTrial", 
-                  "Analysis",
-                  "Protocol", 
-                  "SoftwareApplication",
-                  "CreativeWork"
-                  ]
-              },
-              "url": {
-                "description": "The url of the resource cited.",
-                "type": "string",
-                "format": "uri"
-              },
-              "versionDate": {
-                "description": "The version date of the resource used at the time of the creation of the citation as certain resources (protocols, datasets) may change frequently over time.",
-                "type": "string",
-                "format": "date"
-              },
-              "citeText": {
-                "description": "The bibliographic citation for the referenced resource as is provided",
-                "type": "string"
-              }
-            },
-            "required": [
-              "name",
-              "type"
-            ]
-          },
-          "reviewObject":{
-                "description": "A review or descriptive evaluation of the resource",
-                "@type": "Review",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the review"
-                  },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
-                    "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-            },
-          "ratingObject":{
-                "description": "A rating or categorical evaluation of the resource",
-                "@type": "Rating",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the rating"
-                  },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
-                    "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-            },
-          "aggregateRatingObject":{
-                "description": "A cumulative evaluation of the resource",
-                "@type": "AggregateRating",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The name of the aggregate rating"
-                  },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
-                    "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-            }
-        }
       }
     },
     {
@@ -2241,6 +744,830 @@
         }
       ]
     },
+      
+    {
+      "@id": "outbreaktest:Analysis",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing an Analysis for inclusion in outbreak.info resources",
+      "rdfs:label": "Analysis",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the analysis",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the analysis",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "An identifier for the analysis, preferably a doi",
+            "type": "string"
+          },
+          "doi": {
+            "description": "The DOI of the analysis if available",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL where the analysis can be found",
+            "type": "string",
+            "format": "uri"
+          },
+          "domainUrl": {
+            "description": "The domain name or main site on which webpage or specific url of the analysis can be found",
+            "type": "string",
+            "format": "uri"
+          },
+          "datePublished": {
+            "description": "Date of first broadcast/publication of the analysis",
+            "format": "date",
+            "type": "string"
+          },
+          "dateModified": {
+            "description": "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed.",
+            "format": "date",
+            "type": "string"
+          },
+          "author": {
+              "description": "The author of this content or rating.",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/person"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/person"
+                  }
+                },
+                {
+                  "$ref": "#/definitions/organization"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/organization"
+                  }
+                }
+              ]
+            },
+          "assumption": {
+            "description": "Statement of assumptions / limitations of the model",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "keywords": {
+            "description": "Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "topicCategory": {
+              "description": "Applicable outbreak.info category",
+              "oneOf": [
+                {
+                  "enum": [
+                    "Clinical",
+                    "Case Descriptions",
+                    "Risk Factors",
+                    "Diagnosis",
+                    "Symptoms",
+                    "Rapid Diagnostics",
+                    "Antibody Detection",
+                    "Virus Detection",
+                    "Testing Prevalence",
+                    "Pathology/Radiology",
+                    "Forecasting",
+                    "Mechanism",
+                    "Virus Factors",
+                    "Host Factors",
+                    "Immunological Response",
+                    "Mechanism of Infection",
+                    "Mechanism of Transmission",
+                    "Prevention",
+                    "Public Health Interventions",
+                    "Individual Prevention",
+                    "Transmission",
+                    "Host/Intermediate Reservoirs",
+                    "Viral Shedding / Persistence",
+                    "Treatment",
+                    "Vaccines",
+                    "Pharmaceutical Treatments",
+                    "Medical Care",
+                    "Repurposing",
+                    "Biologics",
+                    "Behavioral Research",
+                    "Epidemiology",
+                    "Classical Epidemiology",
+                    "Molecular Epidemiology"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                      "enum": [
+                        "Clinical",
+                        "Case Descriptions",
+                        "Risk Factors",
+                        "Diagnosis",
+                        "Symptoms",
+                        "Rapid Diagnostics",
+                        "Antibody Detection",
+                        "Virus Detection",
+                        "Testing Prevalence",
+                        "Pathology/Radiology",
+                        "Forecasting",
+                        "Mechanism",
+                        "Virus Factors",
+                        "Host Factors",
+                        "Immunological Response",
+                        "Mechanism of Infection",
+                        "Mechanism of Transmission",
+                        "Prevention",
+                        "Public Health Interventions",
+                        "Individual Prevention",
+                        "Transmission",
+                        "Host/Intermediate Reservoirs",
+                        "Viral Shedding / Persistence",
+                        "Treatment",
+                        "Vaccines",
+                        "Pharmaceutical Treatments",
+                        "Medical Care",
+                        "Repurposing",
+                        "Biologics",
+                        "Behavioral Research",
+                        "Epidemiology",
+                        "Classical Epidemiology",
+                        "Molecular Epidemiology"
+                      ]
+                  }
+                }
+              ]
+
+            },
+          "analysisTechnique": {
+            "description": "A technique or technology used in a analysis",
+            "oneOf": [
+                  {
+                    "$ref": "#/definitions/moreControlledVocabulary"
+                  },
+                  {
+                    "enum": [
+                        "predictive/forecasting models",
+                        "observation/visualization models"
+                    ]
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/moreControlledVocabulary"
+                    }
+                  },  
+                  {
+                    "type": "array",
+                    "enum": [
+                        "predictive/forecasting models",
+                        "observation/visualization models"
+                    ]
+                  }
+                ]
+          },
+          "infectiousAgent": {
+            "description": "infectious agents(s) which are the focus of the analysis",
+            "oneOf": [{
+                "$ref": "#/definitions/miscControlledVocabulary"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/miscControlledVocabulary"
+                }
+              }
+            ]
+          },
+          "infectiousDisease": {
+            "description": "The disease or medical conditions caused by the infectious agent. Important as some agents may cause multiple diseases",
+            "oneOf": [
+                {
+                  "$ref": "#/definitions/diseaseVocabulary"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/diseaseVocabulary"
+                  }
+                }
+            ]
+          },
+          "analysisTopic": {
+            "description": "The underlying question, goal, or aim of the analysis",
+            "oneOf": [
+                {
+                  "$ref": "#/definitions/controlledVocabulary"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                        "$ref": "#/definitions/controlledVocabulary"
+                  }
+                }
+            ]
+          },
+          "funding": {
+            "description": "The funding that supported the creation or maintenance of the analysis",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/funding"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/funding"
+                }
+              }
+            ]
+          },          
+          "isBasedOn": {
+              "description": "Associated datasets, software, protocols, etc. used by the work described in this analysis, including reference publications",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/citation"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/citation"
+                  }
+                }
+              ]
+            },
+          "citedBy": {
+            "description": "A citation to a resource (eg- publication, protocol, etc.) which is derived from this analysis (stored as an object, not a string)",
+            "oneOf": [{
+                "$ref": "#/definitions/citation"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/citation"
+                }
+              }
+            ]
+          },
+          "isRelatedTo": {
+            "description": "A citation to a resource (eg- publication, protocol, etc.) which is related to the analysis but is not a derivative nor was derived from the analysis (stored as an object, not a string)",
+            "oneOf": [{
+                "$ref": "#/definitions/citation"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/citation"
+                }
+              }
+            ]
+          },
+          "curatedBy": {
+            "description": "The source from which this analysis was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another.",
+            "anyOf": [{
+                "$ref": "#/definitions/citation"
+              },
+              {
+                "$ref": "#/definitions/person"
+              },
+              {
+                "$ref": "#/definitions/organization"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/person"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/organization"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/citation"
+                }
+              }
+            ]
+          },
+          "curationDate":{
+            "description": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
+            "type": "string",
+            "format": "date"
+          },
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL.",
+            "type": "string"
+          },
+          "evaluations":{
+              "description": "Reviews, Ratings, or other types of evaluations on this resource",
+              "anyOf":[
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/reviewObject"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/ratingObject"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/aggregateRatingObject"
+                }
+              }
+            ]
+            }
+        },
+        "required": [
+          "author",
+          "description",
+          "identifier",
+          "name",
+          "url"
+        ],
+          "definitions": {
+            "controlledVocabulary": {
+              "definition": "collection of vocabulary terms defined in ontologies",
+              "@type": "DefinedTerm",
+              "type": "string",
+              "strict": false,
+              "vocabulary": {
+                  "ontology": [
+                    "covid19",
+                    "cido",
+                    "epo"
+                  ],
+                  "children_of": [
+                  "https://bioportal.bioontology.org/ontologies/COVID19",
+                  "http://purl.obolibrary.org/obo/cido.owl",
+                  "http://purl.obolibrary.org/obo/epo"
+                ]
+                }
+            },
+            "miscControlledVocabulary": {
+              "description": "collection of vocabulary terms defined in ontologies",
+              "@type": "DefinedTerm",
+              "type": "string",
+              "strict": false,
+              "vocabulary": {
+                  "ontology": ["ncbitaxon"],
+                  "children_of": ["http://purl.obolibrary.org/obo/NCBITaxon_10239"]
+                }
+            },
+            "moreControlledVocabulary": {
+              "definition": "collection of vocabulary terms defined in ontologies",
+              "@type": "DefinedTerm",
+              "type": "string",
+              "strict": false,
+              "vocabulary": {
+                  "ontology": [
+                    "mamo"
+                  ],
+                  "children_of": [
+                    "http://identifiers.org/mamo/MAMO_0000037"
+                  ]
+                }
+            },
+            "diseaseVocabulary": {
+              "description": "collection of vocabulary terms defined in ontologies",
+              "@type": "DefinedTerm",
+              "type": "string",
+              "strict": false,
+              "vocabulary": {
+                "ontology": ["mondo"],
+                "children_of": ["http://purl.obolibrary.org/obo/MONDO_0000001"]              
+              }
+            },
+            "baseOrgObject":{
+            "description": "A barebones Organization object to work around recursion issues in DDE",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "name of the organization",
+                "type": "string"
+              },
+              "alternateName": {
+                "description": "Alternate name or Acronym for the organization.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]              
+          }, 
+            "person": {
+              "description": "Reusable person definition",
+              "@type": "outbreaktest:Person",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "givenName": {
+                  "type": "string"
+                },
+                "familyName": {
+                  "type": "string"
+                },
+                "orcid": {
+                  "type": "string"
+                },
+                "affiliation": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/definitions/baseOrgObject"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/baseOrgObject"
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "memberObject": {
+              "description": "Reusable person definition accounting for recursion issues in DDE",
+              "@type": "outbreaktest:Person",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "givenName": {
+                  "type": "string"
+                },
+                "familyName": {
+                  "type": "string"
+                },
+                "orcid": {
+                  "type": "string"
+                },
+                "affiliation": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/definitions/baseOrgObject"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/baseOrgObject"
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "organization": {
+                "description": "Reusable organization definition",
+                "@type": "outbreaktest:Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "type": "string"
+                  },
+                  "affiliation": {
+                    "$ref": "#/definitions/baseOrgObject"
+                  },
+              "members": {
+                 "oneOf": [
+                    {
+                      "$ref": "#/definitions/memberObject"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/memberObject"
+                      }
+                    }
+                  ]
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+            "funding": {
+            "type": "object",
+            "@type": "outbreaktest:MonetaryGrant",
+            "description": "Information about funding support",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the monetary grant that funded/funds the analysis"
+              },
+              "identifier": {
+                "type": "string",
+                "description": "Unique identifier(s) for the grant(s) used to fund the analysis"
+              },
+              "funder": {
+                "description": "name of the funding organization",
+                "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "award URL"
+              }
+            },
+            "required": [
+              "funder"
+            ]
+          },
+            "citation": {
+                "description": "A citation object for a resource which is cited by the analysis (ie- is a derivative of the publication) , related to the analysis, or from which the analysis was based on (ie- is derived from).",
+                "@type": "outbreaktest:CitationObject",
+                "type": "object",
+                "properties": {
+                "name": {
+                    "description": "Name of or title of the citation",
+                    "type": "string"
+                },
+                "identifier": {
+                    "description": "An identifier associated with the citation",
+                    "type": "string"
+                },
+                "pmid": {
+                    "description": "A pubmed identifier if available",
+                    "type": "string"
+                },
+                "doi": {
+                    "description": "A doi if available",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The type of resource",
+                    "enum": [
+                      "Dataset",
+                      "Publication",
+                      "ClinicalTrial", 
+                      "Analysis",
+                      "Protocol", 
+                      "SoftwareApplication",
+                      "CreativeWork"
+                      ]
+                },
+              "url": {
+                "description": "The url of the resource cited.",
+                "type": "string",
+                "format": "uri"
+              },
+              "versionDate": {
+                "description": "The version date of the resource used at the time of the creation of the citation as certain resources (protocols, datasets) may change frequently over time.",
+                "type": "string",
+                "format": "date"
+              },
+              "citeText": {
+                "description": "The bibliographic citation for the referenced resource as is provided",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "type"
+            ]
+          },
+            "reviewObject":{
+                "description": "A review or descriptive evaluation of the resource",
+                "@type": "Review",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the review"
+                    },
+                    "author": {
+                        "description": "The author of this content or rating.",
+                        "anyOf": [
+                          {
+                            "$ref": "#/definitions/person"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/person"
+                          }
+                          },
+                          {
+                            "$ref": "#/definitions/organization"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/organization"
+                            }
+                          }
+                        ]
+                  },
+                    "curationDate":{
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+            },
+            "ratingObject":{
+                "description": "A rating or categorical evaluation of the resource",
+                "@type": "Rating",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the rating"
+                  },
+                  "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                        }
+                      }
+                    ]
+                  },
+                  "curationDate":{
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+            },
+            "aggregateRatingObject":{
+                "description": "A cumulative evaluation of the resource",
+                "@type": "AggregateRating",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the aggregate rating"
+                      },
+                    "author": {
+                        "description": "The author of this content or rating.",
+                        "anyOf": [
+                          {
+                            "$ref": "#/definitions/person"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/person"
+                          }
+                          },
+                          {
+                            "$ref": "#/definitions/organization"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/organization"
+                          }
+                    }
+                  ]
+                },
+                    "curationDate":{
+                        "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "required": [
+                      "name"
+                ]
+              }
+            }
+          }
+        },
+    {
+      "@id": "outbreaktest:domainUrl",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The domain name or main site on which webpage or specific url can be found",
+      "rdfs:label": "domainUrl",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:URL"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:assumption",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Statement of assumptions / limitations of the model",
+      "rdfs:label": "assumption",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:analysisTechnique",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A technique or technology used in a analysis",
+      "rdfs:label": "analysisTechnique",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:analysisTopic",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The underlying question, goal, or aim of the analysis",
+      "rdfs:label": "analysisTopic",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }, 
     {
       "@id": "outbreaktest:pmid",
       "@type": "rdfs:Property",
@@ -2266,7 +1593,8 @@
           {"@id": "outbreaktest:CitationObject"},
           {"@id": "outbreaktest:Correction"},
           {"@id": "outbreaktest:Dataset"},
-          {"@id": "outbreaktest:Publication"}
+          {"@id": "outbreaktest:Publication"},
+          {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes": [
         {
@@ -2277,11 +1605,12 @@
     {
       "@id": "outbreaktest:funding",
       "@type": "rdfs:Property",
-      "rdfs:comment": "Funding that supports (sponsors) the collection of this dataset through some kind of financial contribution",
+      "rdfs:comment": "Funding that supports (sponsors) the creation of this resource through some kind of financial contribution",
       "rdfs:label": "funding",
       "schema:domainIncludes": [
           {"@id": "outbreaktest:Dataset"},
-          {"@id": "outbreaktest:Publication"}
+          {"@id": "outbreaktest:Publication"},
+          {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes": [
         {
@@ -2292,11 +1621,12 @@
     {
       "@id": "outbreaktest:species",
       "@type": "rdfs:Property",
-      "rdfs:comment": "Species(es) from which dataset has been collected",
+      "rdfs:comment": "Species(es) from which dataset has been collected, or the analysis is about",
       "rdfs:label": "species",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Dataset"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
@@ -2306,11 +1636,12 @@
     {
       "@id": "outbreaktest:infectiousAgent",
       "@type": "rdfs:Property",
-      "rdfs:comment": "infectious agents(s) which are the focus of the dataset",
+      "rdfs:comment": "infectious agents(s) which are the focus of the dataset or analysis",
       "rdfs:label": "infectiousAgent",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Dataset"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
@@ -2322,9 +1653,10 @@
       "@type": "rdfs:Property",
       "rdfs:comment": "The disease or medical conditions caused by the infectious agent. Important as some agents may cause multiple diseases",
       "rdfs:label": "infectiousDisease",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Dataset"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
@@ -2338,7 +1670,8 @@
       "rdfs:label": "topicCategory",
       "schema:domainIncludes": [
         {"@id": "outbreaktest:Dataset"},
-        {"@id": "outbreaktest:Publication"}
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes": [
         {
@@ -2354,12 +1687,14 @@
       "rdfs:label": "isBasedOn",
       "schema:domainIncludes": [
         {"@id": "outbreaktest:Dataset"},
-        {"@id": "outbreaktest:Publication"}
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes": [
         {"@id":"outbreaktest:CitationObject"},
         {"@id":"outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
         {"@id":"schema:SoftwareApplication"},
         {"@id":"schema:CreativeWork"}
       ]
@@ -2371,12 +1706,14 @@
       "rdfs:label": "isRelatedTo",
       "schema:domainIncludes": [
         {"@id": "outbreaktest:Dataset"},
-        {"@id": "outbreaktest:Publication"}
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes": [
         {"@id":"outbreaktest:CitationObject"},
         {"@id":"outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
         {"@id":"schema:SoftwareApplication"},
         {"@id":"schema:CreativeWork"}
       ]
@@ -2389,12 +1726,14 @@
       "rdfs:sameAs":{"@id":"owl:inverseOf: outbreaktest:isBasedOn"},
       "schema:domainIncludes": [
         {"@id": "outbreaktest:Dataset"},
-        {"@id": "outbreaktest:Publication"}
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes": [
         {"@id":"outbreaktest:CitationObject"},
         {"@id":"outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
         {"@id":"schema:SoftwareApplication"},
         {"@id":"schema:CreativeWork"}
       ]
@@ -2402,11 +1741,12 @@
     {
       "@id": "outbreaktest:curatedBy",
       "@type": "rdfs:Property",
-      "rdfs:comment": "The source from which this Dataset was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another.",
+      "rdfs:comment": "The source from which this resource was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another.",
       "rdfs:label": "curatedBy",
       "schema:domainIncludes": [
         {"@id": "outbreaktest:Dataset"},
-        {"@id": "outbreaktest:Publication"}
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes": [
         {"@id":"outbreaktest:Person"},
@@ -2414,6 +1754,7 @@
         {"@id":"outbreaktest:CitationObject"},
         {"@id":"outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
         {"@id":"schema:SoftwareApplication"},
         {"@id":"schema:CreativeWork"}
       ]
@@ -2425,7 +1766,8 @@
       "rdfs:label": "curationDate",
       "schema:domainIncludes": [
         {"@id": "outbreaktest:Dataset"},
-        {"@id": "outbreaktest:Publication"}
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes": [
         {"@id":"schema:Date"}
@@ -2438,7 +1780,8 @@
       "rdfs:label":"evaluations",
       "schema:domainIncludes":[
         {"@id":"outbreaktest:Dataset"},
-        {"@id": "outbreaktest:Publication"}
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"}
       ],
       "schema:rangeIncludes":[
         {"@id":"schema:Review"},
