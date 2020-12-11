@@ -642,56 +642,31 @@
           },
           "infectiousAgent": {
             "description": "infectious agents(s) which are the focus of the dataset",
-            "oneOf": [{
+            "type": "array",
+              "items": {
                 "$ref": "#/definitions/miscControlledVocabulary"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/miscControlledVocabulary"
-                }
-              }
-            ]
+                } 
           },
           "infectiousDisease": {
               "description": "The disease or medical conditions caused by the infectious agent. Important as some agents may cause multiple diseases",
-              "oneOf": [
-                {
+              "type": "array",
+                "items": {
                   "$ref": "#/definitions/diseaseVocabulary"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/diseaseVocabulary"
                   }
-                }
-              ]
-            },
+          },
           "measurementTechnique": {
             "description": "A technique or technology used in a Dataset, corresponding to the method used for measuring the corresponding variable(s).",
-            "oneOf": [{
+            "type": "array",
+              "items": {
                 "$ref": "#/definitions/controlledVocabulary"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/controlledVocabulary"
                 }
-              }
-            ]
           },
           "variableMeasured": {
             "description": "A technique or technology used in a Dataset, corresponding to the method used for measuring the corresponding variable(s).",
-            "oneOf": [{
+            "type": "array",
+              "items": {
                 "$ref": "#/definitions/moreControlledVocabulary"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/moreControlledVocabulary"
                 }
-              }
-            ]
           },
           "author": {
             "description": "Name of the author or organization that created the dataset.  Note: schema.org/author and schema.org/organization have additional fields that can provide more information about the author/organization, if desired.",
