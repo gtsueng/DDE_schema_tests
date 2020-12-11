@@ -522,7 +522,8 @@
           }
         },
         "required": [
-          "name"
+          "name",
+          "sourceType"
         ]
       }
     },
@@ -1217,7 +1218,7 @@
             },
             "required": [
               "name",
-              "type"
+              "sourceType"
             ]
           },
           "reviewObject":{
@@ -2047,7 +2048,7 @@
             },
             "required": [
               "name",
-              "type"
+              "sourceType"
             ]
           },
           "reviewObject":{
@@ -2884,7 +2885,7 @@
             },
             "required": [
               "name",
-              "type"
+              "sourceType"
             ]
           },
             "reviewObject":{
