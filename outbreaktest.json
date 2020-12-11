@@ -924,7 +924,7 @@
         "definitions": {
           "controlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "schema:DefinedTerm",
+            "@type": "DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["efo", "ncit","obi"],
@@ -935,7 +935,7 @@
           },
           "miscControlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "schema:DefinedTerm",
+            "@type": "DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["ncbitaxon"],
@@ -945,7 +945,7 @@
           },
           "speciesControlledVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "schema:DefinedTerm",
+            "@type": "DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["ncbitaxon"],
@@ -955,7 +955,7 @@
           },
           "diseaseVocabulary": {
             "description": "collection of vocabulary terms defined in ontologies",
-            "@type": "schema:DefinedTerm",
+            "@type": "DefinedTerm",
             "type": "string",
             "vocabulary": {
               "ontology": ["mondo"],
@@ -965,7 +965,7 @@
           },
           "moreControlledVocabulary": {
               "definition": "collection of vocabulary terms defined in ontologies",
-              "@type": "schema:DefinedTerm",
+              "@type": "DefinedTerm",
               "type": "string",
               "strict": false,
               "vocabulary": {
@@ -1217,7 +1217,7 @@
           },
           "reviewObject":{
                 "description": "A review or descriptive evaluation of the resource",
-                "@type": "schema:Review",
+                "@type": "Review",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -1259,7 +1259,7 @@
             },
           "ratingObject":{
                 "description": "A rating or categorical evaluation of the resource",
-                "@type": "schema:Rating",
+                "@type": "Rating",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -1301,7 +1301,7 @@
             },
           "aggregateRatingObject":{
                 "description": "A cumulative evaluation of the resource",
-                "@type": "schema:AggregateRating",
+                "@type": "AggregateRating",
                 "type": "object",
                 "properties": {
                   "name": {
