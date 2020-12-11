@@ -555,10 +555,10 @@
       ]
     },
     {
-      "@id": "outbreaktest:type",
+      "@id": "outbreaktest:sourceType",
       "@type": "rdfs:Property",
       "rdfs:comment": "The type of resource",
-      "rdfs:label": "type",
+      "rdfs:label": "sourceType",
       "schema:domainIncludes": {
         "@id": "outbreaktest:CitationObject"
       },
@@ -1188,7 +1188,7 @@
                 "description": "A doi if available",
                 "type": "string"
               },
-              "type": {
+              "sourceType": {
                 "description": "The type of resource",
                 "enum": [
                   "Dataset",
@@ -2018,7 +2018,7 @@
                 "description": "A doi if available",
                 "type": "string"
               },
-              "type": {
+              "sourceType": {
                 "description": "The type of resource",
                 "enum": [
                   "Dataset",
@@ -2855,7 +2855,7 @@
                     "description": "A doi if available",
                     "type": "string"
                 },
-                "type": {
+                "sourceType": {
                     "description": "The type of resource",
                     "enum": [
                       "Dataset",
