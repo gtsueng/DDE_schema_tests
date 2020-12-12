@@ -1,0 +1,87 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:ObProduct",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a reagent, material, sample, or some other product used in a protocol resource in outbreak.info",
+      "rdfs:label": "ObProduct",
+      "rdfs:subClassOf": {
+        "@id": "schema:Product"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "description": "The manufacturer of the product.",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "alternatename": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "category": {
+            "description": "A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "chemical or reagent",
+                  "biological sample",
+                  "PPE",
+                  "other"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "chemical or reagent",
+                    "biological sample",
+                    "PPE",
+                    "other"
+                  ]
+                }
+              }
+            ]
+          },
+          "brand": {
+            "description": "The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person.",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    }
+  ]
+}
