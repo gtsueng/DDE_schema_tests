@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:Instrument",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing an instrument used in a protocol resource listed in outbreak.info",
+      "rdfs:label": "Instrument",
+      "rdfs:subClassOf": {
+        "@id": "schema:Product"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "description": "The manufacturer of the product.",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "alternateName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "model": {
+            "description": "The model of the product. Use with the URL of a ProductModel or a textual representation of the model identifier. The URL of the ProductModel can be from an external source. It is recommended to additionally provide strong product identifiers via the gtin8/gtin13/gtin14 and mpn properties.",
+            "type": "string"
+          },
+          "brand": {
+            "description": "The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    }
+  ]
+}
