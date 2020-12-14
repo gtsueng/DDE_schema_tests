@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:Intervention",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "a schema to describe Interventions discussed in Clinical Studies/Trials for inclusion in outbreak.info Resources",
+      "rdfs:label": "Intervention",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "category": {
+            "description": "he category of an intervention in the study",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the item.",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:category",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "he category of an intervention in the study",
+      "rdfs:label": "category",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Intervention"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
