@@ -1,0 +1,2122 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:Person",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the Person schema for describing authors and people for outbreak.info resources",
+      "rdfs:label": "Person",
+      "rdfs:subClassOf": {
+        "@id": "schema:Person"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the person.",
+            "type": "string"
+          },
+          "alternateName": {
+            "description": "An alias for the person.",
+            "type": "string"
+          },
+          "familyName": {
+            "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.",
+            "type": "string"
+          },
+          "givenName": {
+            "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.",
+            "type": "string"
+          },
+          "affiliation": {
+            "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          },
+          "orcid": {
+            "description": "the ORCID ID of the person",
+            "type": "string"
+          },
+          "role": {
+            "description": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "definitions":{
+            "baseOrgObject": {
+                "@type": "outbreaktest:Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]   
+            }
+        }
+      }
+    },
+    {
+      "@id": "outbreaktest:orcid",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the ORCID ID of the person",
+      "rdfs:label": "orcid",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Person"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Organization",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the organization schema for describing authors, funders and other organizations referenced by outbreak.info resources",
+      "rdfs:label": "Organization",
+      "rdfs:subClassOf": {
+        "@id": "schema:Organization"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the organization.",
+            "type": "string"
+          },
+          "alternateName": {
+            "description": "An alias or acronym for the organization.",
+            "type": "string"
+          },
+          "affiliation": {
+            "description": "consortia or other organizations with which this organization is affiliated",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          },
+          "class": {
+            "description": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [U.S. National Institutes of Health, Other U.S. Federal agencies, Industry, All others]",
+            "type": "string"
+          },
+          "role": {
+            "description": "The role of an organization in its involvement with a resource",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+              }
+            ]
+          },
+          "members": {
+            "description": "Members of this organization, team, or group",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/basePersonObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/basePersonObject"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "definitions": {
+            "baseOrgObject":{
+                "description": "Affiliated Organization",
+                "@type": "outbreaktest:Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "name of the organization",
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "description": "Alternate name or Acronym for the organization.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]              
+            },
+            "basePersonObject":{
+                "@type": "outbreaktest:Person",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "alternateName": {
+                        "type": "string"
+                    },
+                    "givenName": {
+                        "type": "string"
+                    },
+                    "familyName": {
+                        "type": "string"
+                    },
+                    "orcid": {
+                        "type": "string"
+                    },
+                    "affiliation": {
+                        "description": "consortia or other organizations with which this person is affiliated",
+                        "oneOf": [
+                          {
+                            "$ref": "#/definitions/baseOrgObject"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/baseOrgObject"
+                            }
+                          }
+                        ]
+                      }
+                },
+                "required": [
+                    "name"
+                ]                
+            }
+        }
+      }
+    },
+    {
+      "@id": "outbreaktest:affiliation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "consortia or other organizations with which this organization is affiliated",
+      "rdfs:label": "affiliation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Organization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Organization"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:members",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Members of this organization, team, or group",
+      "rdfs:label": "members",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Organization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Person"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:class",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A classification of the organization by a resource. Eg- for ClinicalTrials funders, it's [U.S. National Institutes of Health, Other U.S. Federal agencies, Industry, All others]",
+      "rdfs:label": "class",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Organization"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:role",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource",
+      "rdfs:label": "role",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Person"},
+        {"@id": "outbreaktest:Organization"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:MonetaryGrant",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the MonetaryGrant schema used for outbreak.info",
+      "rdfs:label": "MonetaryGrant",
+      "rdfs:subClassOf": {
+        "@id": "schema:MonetaryGrant"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the grant or funding.",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The funding or grant id",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the grant or funding award.",
+            "type": "string",
+            "format": "uri"
+          },
+          "funder": {
+            "description": "The organization(s) that supported (sponsored) the grant through some kind of financial contribution.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          },
+          "recipient": {
+            "description": "The person or organization to whom or to which the grant was awarded",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/basePersonObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/basePersonObject"
+                }
+              },
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+          }   
+        },
+        "required": [
+          "funder"
+        ],
+        "definitions": {
+            "baseOrgObject":{
+                "description": "Affiliated Organization",
+                "@type": "outbreaktest:Organization",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "name of the organization",
+                    "type": "string"
+                  },
+                  "alternateName": {
+                    "description": "Alternate name or Acronym for the organization.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]              
+            },
+            "basePersonObject":{
+                "@type": "outbreaktest:Person",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "alternateName": {
+                        "type": "string"
+                    },
+                    "givenName": {
+                        "type": "string"
+                    },
+                    "familyName": {
+                        "type": "string"
+                    },
+                    "orcid": {
+                        "type": "string"
+                    },
+                    "affiliation": {
+                        "description": "consortia or other organizations with which this person is affiliated",
+                        "oneOf": [
+                          {
+                            "$ref": "#/definitions/baseOrgObject"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/baseOrgObject"
+                            }
+                          }
+                        ]
+                      }
+                },
+                "required": [
+                    "name"
+                ]                
+            }
+        }
+      }
+    },
+    {
+      "@id": "outbreaktest:recipient",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The person or organization to whom or to which the grant was awarded",
+      "rdfs:label": "recipient",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:MonetaryGrant"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Person"
+        },
+        {
+          "@id": "schema:Organization"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:DataDownload",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the DataDownload schema used for outbreak.info.",
+      "rdfs:label": "DataDownload",
+      "rdfs:subClassOf": {
+        "@id": "schema:DataDownload"
+      }
+    },
+    {
+      "@id": "outbreaktest:CitationObject",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "A citation object for a resource which is cited by the subject (ie- is a derivative of the subject), related to the subject, or from which the subject was based on (ie- is derived from).",
+      "rdfs:label": "CitationObject",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name or title of the cited resource.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the cited resource.",
+            "type": "string",
+            "format": "uri"
+          },
+          "identifier": {
+            "description": "An identifier associated with the citation",
+            "type": "string"
+          },
+          "citeText": {
+            "description": "The bibliographic citation for the referenced resource as is provided",
+            "type": "string"
+          },
+          "versionDate": {
+            "description": "The version date of the resource used at the time of the creation of the citation as certain resources (protocols, datasets) may change frequently over time.",
+            "format": "date",
+            "type": "string"
+          },
+          "pmid": {
+            "description": "A pubmed identifier if available",
+            "type": "string"
+          },
+          "doi": {
+            "description": "A doi if available",
+            "type": "string"
+          },
+          "sourceType": {
+            "description": "The @type of resource",
+            "enum": [
+              "Dataset",
+              "Publication",
+              "ClinicalTrial",
+              "Analysis",
+              "Protocol",
+              "SoftwareApplication",
+              "CreativeWork"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "sourceType"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:citeText",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The bibliographic citation for the referenced resource as is provided",
+      "rdfs:label": "citeText",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:CitationObject"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:versionDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The version date of the resource used at the time of the creation of the citation as certain resources (protocols, datasets) may change frequently over time.",
+      "rdfs:label": "versionDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:CitationObject"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:sourceType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of resource",
+      "rdfs:label": "sourceType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:CitationObject"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Dataset",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the Dataset schema used for outbreak.info.",
+      "rdfs:label": "Dataset",
+      "rdfs:subClassOf": {
+        "@id": "schema:Dataset"
+      }
+    },
+    {
+      "@id": "outbreaktest:Correction",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a Correction used for outbreak.info. A Correction is a specialized subclass of the CitationObject",
+      "rdfs:label": "Correction",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "doi": {
+            "description": "The DOI of the published correction or correction notice",
+            "type": "string"
+          },
+          "pmid": {
+            "description": "The PMID of the published correction or correction notice (if available)",
+            "type": "integer"
+          },
+          "correctionType": {
+            "description": "Type of notice or correction: (correction, retraction, expression of convern, withdrawal, erratum, update, correction/republication, preprint, peer reviewed version)",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "correction",
+                  "retraction",
+                  "expression of concern",
+                  "withdrawal",
+                  "erratum",
+                  "update",
+                  "correction and re-publication",
+                  "peer reviewed version",
+                  "preprint"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "correction",
+                    "retraction",
+                    "expression of concern",
+                    "withdrawal",
+                    "erratum",
+                    "update",
+                    "correction and re-publication",
+                    "peer reviewed version",
+                    "preprint"
+                  ]
+                }
+              }
+            ]
+          },
+          "datePublished": {
+            "description": "Publication date of the correction or correction notice",
+            "format": "date",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "An identifier for the published correction or correction notice. DOI (preferred) or PMID (e.g., 10.1126\/sciimmunol.aaw6329, PMID:31471352)",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:correctionType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of notice or correction: (correction, retraction, expression of convern, withdrawal, erratum, update, correction/republication, preprint, peer reviewed version)",
+      "rdfs:label": "correctionType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Correction"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Publication",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the Publication used for outbreak.info",
+      "rdfs:label": "Publication",
+      "rdfs:subClassOf": {
+        "@id": "schema:MedicalScholarlyArticle"
+      }
+    },
+    {
+      "@id": "outbreaktest:abstract",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A short descriptive summary of the publication",
+      "rdfs:label": "abstract",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:journalName",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The name of the journal (or publisher if journal name not available)",
+      "rdfs:label": "journalName",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:journalNameAbbrevation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "abbreviated Journal Title (note, this should be autopopulated)",
+      "rdfs:label": "journalNameAbbrevation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:volumeNumber",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Volume number of journal in which the article was published",
+      "rdfs:label": "volumeNumber",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:issueNumber",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Issue of journal in which the article was published",
+      "rdfs:label": "issueNumber",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Publication"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Analysis",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing an Analysis for inclusion in outbreak.info resources",
+      "rdfs:label": "Analysis",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      }
+    },
+    {
+      "@id": "outbreaktest:domainUrl",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The domain name or main site on which webpage or specific url can be found",
+      "rdfs:label": "domainUrl",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:URL"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:assumption",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Statement of assumptions / limitations of the model",
+      "rdfs:label": "assumption",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:analysisTechnique",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A technique or technology used in a analysis",
+      "rdfs:label": "analysisTechnique",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:analysisTopic",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The underlying question, goal, or aim of the analysis",
+      "rdfs:label": "analysisTopic",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Product",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a reagent, material, sample, or some other product used in a protocol resource in outbreak.info",
+      "rdfs:label": "Product",
+      "rdfs:subClassOf": {
+        "@id": "schema:Product"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "description": "The manufacturer of the reagent, material, sample or product.",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "alternatename": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "category": {
+            "description": "The type of product (chemical/reagent, biological sample, PPE, or other.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "chemical or reagent",
+                  "biological sample",
+                  "PPE",
+                  "other"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "chemical or reagent",
+                    "biological sample",
+                    "PPE",
+                    "other"
+                  ]
+                }
+              }
+            ]
+          },
+          "brand": {
+            "description": "The brand(s) associated with the product",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "An identifier for the product (preferably the manufacturer's identifier for the product)",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the reagent/sample/material/product",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the product",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:Instrument",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing an instrument used in a protocol resource listed in outbreak.info",
+      "rdfs:label": "Instrument",
+      "rdfs:subClassOf": {
+        "@id": "schema:Product"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "description": "The manufacturer of the instrument",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "alternateName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "model": {
+            "description": "The model of the instrument",
+            "type": "string"
+          },
+          "brand": {
+            "description": "The brand(s) associated with the instrument",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the instrument",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the product page for the instrument",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:Protocol",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the Protocols for outbreak.info Resources.",
+      "rdfs:label": "Protocol",
+      "rdfs:subClassOf": {
+        "@id": "schema:HowTo"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the protocol",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "description": {
+            "description": "A description of the protocol",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "datePublished": {
+            "description": "Publication Date of the protocol online if available",
+            "format": "date",
+            "type": "string"
+          },
+          "url": {
+            "description": "url where the protocol can be found",
+            "type": "string",
+            "format": "uri"
+          },
+          "identifier": {
+            "description": "An identifier associated with the protocol",
+            "type": "string"
+          },
+          "doi": {
+            "description": "the DOI of the protocol",
+            "type": "string"
+          },
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL.",
+            "type": "string"
+          },
+          "warning": {
+            "description": "Precautions, warnings, and/or safety warnings associated with or highlighted by the protocol",
+            "type": "string"
+          },
+          "dateModified": {
+              "description": "Date of protocol update",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              ]
+          },
+          "correctionNote": {
+            "description": "statement of what was updated/changed since prior version",
+            "type": "string"
+          },
+          "protocolStatus": {
+            "description": "The status of the protocol",
+            "enum": [
+                "Working--In use by author",
+                "Working--not in use by author",
+                "Working--in use by others",
+                "Not working",
+                "In Development",
+                "Deprecated"
+              ]
+          },
+          "material": {
+              "description": "the reagent, biological sample, or material such as PPE source materials) used or tested in this protocol",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/product"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/product"
+                  }
+                }
+              ]
+            },
+          "instrument": {
+              "description": "For LabProtocols it would be a laboratory equipment use by a person to follow one or more steps described in this LabProtocol.",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/instrument"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/instrument"
+                  }
+                }
+              ]
+          },
+          "measurementTechnique": {
+                "description": "A technique or technology used in this protocol.",
+                "oneOf": [{
+                    "$ref": "#/definitions/controlledVocabulary"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/controlledVocabulary"
+                    }
+                  }
+                ]
+          },
+          "protocolSetting": {
+              "description": "The type of 'protocol' based on setting in which it would apply",
+              "enum": [
+                    "clinical",
+                    "experimental",
+                    "field",
+                    "computational",
+                    "public"
+              ]
+          },
+          "protocolCategory": {
+              "description": "The type of 'protocol' based on degree of specificity and purpose",
+              "enum": [
+                    "protocol",
+                    "procedure",
+                    "policy",
+                    "guideline"
+              ]
+          },
+          "usedToGenerate": {
+              "description": "Type of evidence/data generated by the protocol",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/miscControlledVocabulary"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/miscControlledVocabulary"
+                  }
+                }
+              ]
+          },
+          "inComplianceWith": {
+              "description": "Guidelines or Standards to which these protocols adhere. ie- GMP, GCP, other EQUATOR guidelines. Useful for selecting protocols where certain standards/guidelines must be met",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+          },
+          "keywords": {
+              "description": "keywords",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+          },
+          "topicCategory": {
+              "description": "Applicable outbreak.info category",
+              "oneOf": [
+                {
+                  "enum": [
+                    "Clinical",
+                    "Case Descriptions",
+                    "Risk Factors",
+                    "Diagnosis",
+                    "Symptoms",
+                    "Rapid Diagnostics",
+                    "Antibody Detection",
+                    "Virus Detection",
+                    "Testing Prevalence",
+                    "Pathology/Radiology",
+                    "Forecasting",
+                    "Mechanism",
+                    "Virus Factors",
+                    "Host Factors",
+                    "Immunological Response",
+                    "Mechanism of Infection",
+                    "Mechanism of Transmission",
+                    "Prevention",
+                    "Public Health Interventions",
+                    "Individual Prevention",
+                    "Transmission",
+                    "Host/Intermediate Reservoirs",
+                    "Viral Shedding / Persistence",
+                    "Treatment",
+                    "Vaccines",
+                    "Pharmaceutical Treatments",
+                    "Medical Care",
+                    "Repurposing",
+                    "Biologics",
+                    "Behavioral Research",
+                    "Epidemiology",
+                    "Classical Epidemiology",
+                    "Molecular Epidemiology"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                      "enum": [
+                        "Clinical",
+                        "Case Descriptions",
+                        "Risk Factors",
+                        "Diagnosis",
+                        "Symptoms",
+                        "Rapid Diagnostics",
+                        "Antibody Detection",
+                        "Virus Detection",
+                        "Testing Prevalence",
+                        "Pathology/Radiology",
+                        "Forecasting",
+                        "Mechanism",
+                        "Virus Factors",
+                        "Host Factors",
+                        "Immunological Response",
+                        "Mechanism of Infection",
+                        "Mechanism of Transmission",
+                        "Prevention",
+                        "Public Health Interventions",
+                        "Individual Prevention",
+                        "Transmission",
+                        "Host/Intermediate Reservoirs",
+                        "Viral Shedding / Persistence",
+                        "Treatment",
+                        "Vaccines",
+                        "Pharmaceutical Treatments",
+                        "Medical Care",
+                        "Repurposing",
+                        "Biologics",
+                        "Behavioral Research",
+                        "Epidemiology",
+                        "Classical Epidemiology",
+                        "Molecular Epidemiology"
+                      ]
+                  }
+                }
+              ]
+
+          },
+          "author": {
+              "description": "person, people, or organization that created the protocol",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/person"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/person"
+                  }
+                },
+                {
+                  "$ref": "#/definitions/organization"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/organization"
+                  }
+                }
+              ]
+          },
+          "funding": {
+              "description": "The funder of the Protocol",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/funding"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/funding"
+                  }
+                }
+              ]
+          },
+          "citedBy": {
+              "description": "Associated guidelines, protocols, publications, etc. that include, adapt, modify, expand, etc. this protocol.",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/citation"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/citation"
+                  }
+                }
+              ]
+          },
+          "isBasedOn": {
+              "description": "Associated resource (guidelines, protocols, publications, etc.) from which this protocol was derived",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/citation"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/citation"
+                  }
+                }
+              ]
+          },
+          "isRelatedTo": {
+              "description": "Other resources related to, but not a derivative of nor derived from this protocol",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/citation"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/citation"
+                  }
+                }
+              ]
+          },
+            "curatedBy": {
+            "description": "The source from which this Protocol was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another.",
+            "anyOf": [{
+                "$ref": "#/definitions/citation"
+              },
+              {
+                "$ref": "#/definitions/person"
+              },
+              {
+                "$ref": "#/definitions/organization"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/person"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/organization"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/citation"
+                }
+              }
+            ]
+          },
+          "curationDate":{
+            "description": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
+            "type": "string",
+            "format": "date"
+          }  
+        },
+        "required": [
+          "description",
+          "identifier",
+          "name",
+          "url",
+          "author"
+        ],
+        "definitions": {
+          "controlledVocabulary": {
+              "definition": "collection of vocabulary terms defined in ontologies",
+              "@type": "DefinedTerm",
+              "type": "string",
+              "strict": false,
+              "vocabulary": {
+                "ontology": [
+                  "efo",
+                  "eco",
+                  "obi"
+                ],
+                "children_of": [
+                  "https://www.ebi.ac.uk/efo/EFO_0002694",
+                  "http://purl.obolibrary.org/obo/ECO_0000000",
+                  "http://purl.obolibrary.org/obo/OBI_0000011"
+                ]
+              }
+          },
+          "miscControlledVocabulary": {
+              "definition": "collection of vocabulary terms defined in ontologies",
+              "@type": "DefinedTerm",
+              "type": "string",
+              "strict": false,
+              "vocabulary": {
+                "ontology": [
+                  "eco"
+                ],
+                "children_of": [
+                  "http://purl.obolibrary.org/obo/ECO_0000000"
+                ]
+              }
+          },
+          "product": {
+              "type": "object",
+              "@type": "Product",
+              "description": "the reagent, biological sample, or material such as PPE source materials) used or tested in this protocol",
+              "properties": {
+                "name": {
+                  "description": "The name of the material or reagent",
+                  "type": "string"
+                },
+                "manufacturer": {
+                  "description": "The manufacturer of the material, biosample, or reagent",
+                  "$ref": "#/definitions/baseOrgObject"
+                },
+                "brand": {
+                  "description": "The brand of the reagent, material, or biological sample (if different from the manufacturer)",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "The catalog number or identifier of the material or reagent",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "category": {
+                  "description": "The type of material. Reagent, PPE, biological samples, etc.",
+                  "enum": [
+                    "chemical or reagent",
+                    "biological sample",
+                    "PPE",
+                    "other"
+                  ]
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+          "instrument": {
+              "type": "object",
+              "@type": "Product",
+              "description": "A laboratory equipment use by a person to follow one or more steps described in this protocol.",
+              "properties": {
+                "name": {
+                  "description": "The name of the instrument",
+                  "type": "string"
+                },
+                "manufacturer": {
+                  "description": "The name of the manufacturer of the material, biosample, or reagent",
+                  "$ref": "#/definitions/baseOrgObject"
+                },
+                "brand": {
+                  "description": "The brand of the instrument",
+                  "type": "string"
+                },
+                "model": {
+                  "description": "The model number of the instrument",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+          "baseOrgObject":{
+            "description": "A barebones Organization object to work around recursion issues in DDE",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "name of the organization",
+                "type": "string"
+              },
+              "alternateName": {
+                "description": "Alternate name or Acronym for the organization.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]              
+          }, 
+          "person": {
+              "description": "Reusable person definition",
+              "@type": "outbreaktest:Person",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "givenName": {
+                  "type": "string"
+                },
+                "familyName": {
+                  "type": "string"
+                },
+                "orcid": {
+                  "type": "string"
+                },
+                "affiliation": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/definitions/baseOrgObject"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/baseOrgObject"
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+          "memberObject": {
+              "description": "Reusable person definition accounting for recursion issues in DDE",
+              "@type": "outbreaktest:Person",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "givenName": {
+                  "type": "string"
+                },
+                "familyName": {
+                  "type": "string"
+                },
+                "orcid": {
+                  "type": "string"
+                },
+                "affiliation": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/definitions/baseOrgObject"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/baseOrgObject"
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+          "organization": {
+            "description": "Reusable organization definition",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "alternateName": {
+                "type": "string"
+              },
+              "affiliation": {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              "members": {
+                 "oneOf": [
+                    {
+                      "$ref": "#/definitions/memberObject"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/memberObject"
+                      }
+                    }
+                  ]
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "funding": {
+            "type": "object",
+            "@type": "outbreaktest:MonetaryGrant",
+            "description": "Information about funding support",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the monetary grant that funded/funds the Dataset"
+              },
+              "identifier": {
+                "type": "string",
+                "description": "Unique identifier(s) for the grant(s) used to fund the Dataset"
+              },
+              "funder": {
+                "description": "name of the funding organization",
+                "oneOf": [
+              {
+                "$ref": "#/definitions/baseOrgObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/baseOrgObject"
+                }
+              }
+            ]
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "award URL"
+              }
+            },
+            "required": [
+              "funder"
+            ]
+          },
+          "citation": {
+            "description": "A citation object for a resource which is cited by the protocol (ie- is a derivative of the protocol), related to the protocol, or from which the protocol was based on (ie- is derived from).",
+            "@type": "outbreaktest:CitationObject",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "Name of or title of the citation",
+                "type": "string"
+              },
+              "identifier": {
+                "description": "An identifier associated with the citation",
+                "type": "string"
+              },
+              "pmid": {
+                "description": "A pubmed identifier if available",
+                "type": "string"
+              },
+              "doi": {
+                "description": "A doi if available",
+                "type": "string"
+              },
+              "sourceType": {
+                "description": "The type of resource",
+                "enum": [
+                  "Dataset",
+                  "Publication",
+                  "ClinicalTrial", 
+                  "Analysis",
+                  "Protocol", 
+                  "SoftwareApplication",
+                  "CreativeWork"
+                  ]
+              },
+              "url": {
+                "description": "The url of the resource cited.",
+                "type": "string",
+                "format": "uri"
+              },
+              "versionDate": {
+                "description": "The version date of the resource used at the time of the creation of the citation as certain resources (protocols, datasets) may change frequently over time.",
+                "type": "string",
+                "format": "date"
+              },
+              "citeText": {
+                "description": "The bibliographic citation for the referenced resource as is provided",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "sourceType"
+            ]
+          },
+          "reviewObject":{
+                "description": "A review or descriptive evaluation of the resource",
+                "@type": "Review",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the review"
+                  },
+                  "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                      }
+                }
+              ]
+            },
+                  "curationDate":{
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+            },
+          "ratingObject":{
+                "description": "A rating or categorical evaluation of the resource",
+                "@type": "Rating",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the rating"
+                  },
+                  "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                      }
+                }
+              ]
+            },
+                  "curationDate":{
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+            },
+          "aggregateRatingObject":{
+                "description": "A cumulative evaluation of the resource",
+                "@type": "AggregateRating",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the aggregate rating"
+                  },
+                  "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                      }
+                }
+              ]
+            },
+                  "curationDate":{
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+            }
+        }
+      }
+    },
+    {
+      "@id": "outbreaktest:warning",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Precautions, warnings, and/or safety warnings associated with or highlighted by the protocol",
+      "rdfs:label": "warning",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:correctionNote",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "statement of what was updated/changed since prior version",
+      "rdfs:label": "correctionNote",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:protocolStatus",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The status of the protocol",
+      "rdfs:label": "protocolStatus",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:instrument",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A laboratory equipment use by a person to follow one or more steps described in this Protocol",
+      "rdfs:label": "instrument",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Instrument"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:measurementTechnique",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A technique or technology used in this protocol",
+      "rdfs:label": "measurementTechnique",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:protocolSetting",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of 'protocol' based on setting in which it would apply",
+      "rdfs:label": "protocolSetting",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:protocolCategory",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of 'protocol' based on degree of specificity and purpose",
+      "rdfs:label": "protocolCategory",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:usedToGenerate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of evidence/data generated by the protocol",
+      "rdfs:label": "usedToGenerate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:inComplianceWith",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Guidelines or Standards to which these protocols adhere. ie- GMP, GCP, other EQUATOR guidelines. Useful for selecting protocols where certain standards/guidelines must be met",
+      "rdfs:label": "inComplianceWith",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },    
+    {
+      "@id": "outbreaktest:pmid",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A pubmed identifier if available",
+      "rdfs:label": "pmid",
+      "schema:domainIncludes": [
+          {"@id": "outbreaktest:CitationObject"},
+          {"@id": "outbreaktest:Correction"},
+          {"@id": "outbreaktest:Publication"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Integer"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:doi",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A doi if available",
+      "rdfs:label": "doi",
+      "schema:domainIncludes": [
+          {"@id": "outbreaktest:CitationObject"},
+          {"@id": "outbreaktest:Correction"},
+          {"@id": "outbreaktest:Dataset"},
+          {"@id": "outbreaktest:Publication"},
+          {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:funding",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Funding that supports (sponsors) the collection of this dataset through some kind of financial contribution",
+      "rdfs:label": "funding",
+      "schema:domainIncludes": [
+          {"@id": "outbreaktest:Dataset"},
+          {"@id": "outbreaktest:Publication"},
+          {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:MonetaryGrant"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:species",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Species(es) from which dataset has been collected",
+      "rdfs:label": "species",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:infectiousAgent",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "infectious agents(s) which are the focus of the dataset",
+      "rdfs:label": "infectiousAgent",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:infectiousDisease",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The disease or medical conditions caused by the infectious agent. Important as some agents may cause multiple diseases",
+      "rdfs:label": "infectiousDisease",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:topicCategory",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Applicable outbreak.info category",
+      "rdfs:label": "topicCategory",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+
+    {
+      "@id": "outbreaktest:isBasedOn",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A citation to a resource (eg- publication, protocol, etc.) on which this resource was derived (stored as an object, not a string)",
+      "rdfs:label": "isBasedOn",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {"@id":"outbreaktest:CitationObject"},
+        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id":"schema:SoftwareApplication"},
+        {"@id":"schema:CreativeWork"}
+      ]
+    },
+    {
+      "@id": "outbreaktest:isRelatedTo",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A citation to a resource (eg- publication, protocol, etc.) which is related to the resource but is not a derivative nor was derived from the resource (stored as an object, not a string)",
+      "rdfs:label": "isRelatedTo",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {"@id":"outbreaktest:CitationObject"},
+        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id":"schema:SoftwareApplication"},
+        {"@id":"schema:CreativeWork"}
+      ]
+    },
+    {
+      "@id": "outbreaktest:citedBy",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A citation to a resource (eg- publication, protocol, etc.) which is derived from this resource (stored as an object, not a string)",
+      "rdfs:label": "citedBy",
+      "rdfs:sameAs":{"@id":"owl:inverseOf: outbreaktest:isBasedOn"},
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {"@id":"outbreaktest:CitationObject"},
+        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id":"schema:SoftwareApplication"},
+        {"@id":"schema:CreativeWork"}
+      ]
+    },
+    {
+      "@id": "outbreaktest:curatedBy",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The source from which this Dataset was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another.",
+      "rdfs:label": "curatedBy",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {"@id":"outbreaktest:Person"},
+        {"@id":"outbreaktest:Organization"},
+        {"@id":"outbreaktest:CitationObject"},
+        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id":"schema:SoftwareApplication"},
+        {"@id":"schema:CreativeWork"}
+      ]
+    },
+    {
+      "@id": "outbreaktest:curationDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
+      "rdfs:label": "curationDate",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {"@id":"schema:Date"}
+      ]
+    },
+    {
+      "@id":"outbreak:evaluations",
+      "@type":"rdf:Property",
+      "rdfs:comment":"One or more reviews, ratings, or other evaluations of this resource",
+      "rdfs:label":"evaluations",
+      "schema:domainIncludes":[
+        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes":[
+        {"@id":"schema:Review"},
+        {"@id":"schema:Rating"},
+        {"@id":"schema:AggregateRating"}
+      ]
+    }
+  ]
+}
