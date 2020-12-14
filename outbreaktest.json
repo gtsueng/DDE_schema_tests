@@ -3072,7 +3072,135 @@
           "@id": "schema:Text"
         }
       ]
-    }, 
+    },
+    {
+      "@id": "outbreaktest:Product",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a reagent, material, sample, or some other product used in a protocol resource in outbreak.info",
+      "rdfs:label": "Product",
+      "rdfs:subClassOf": {
+        "@id": "schema:Product"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "description": "The manufacturer of the reagent, material, sample or product.",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "alternatename": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "category": {
+            "description": "The type of product (chemical/reagent, biological sample, PPE, or other.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "chemical or reagent",
+                  "biological sample",
+                  "PPE",
+                  "other"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "chemical or reagent",
+                    "biological sample",
+                    "PPE",
+                    "other"
+                  ]
+                }
+              }
+            ]
+          },
+          "brand": {
+            "description": "The brand(s) associated with the product",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "An identifier for the product (preferably the manufacturer's identifier for the product)",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the reagent/sample/material/product",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the product",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:Instrument",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing an instrument used in a protocol resource listed in outbreak.info",
+      "rdfs:label": "Instrument",
+      "rdfs:subClassOf": {
+        "@id": "schema:Product"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "manufacturer": {
+            "description": "The manufacturer of the instrument",
+            "@type": "outbreaktest:Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "alternateName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "model": {
+            "description": "The model of the instrument",
+            "type": "string"
+          },
+          "brand": {
+            "description": "The brand(s) associated with the instrument",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the instrument",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the product page for the instrument",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
     {
       "@id": "outbreaktest:pmid",
       "@type": "rdfs:Property",
