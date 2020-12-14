@@ -1,0 +1,216 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:Eligibility",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing information about Clinical Trials/Studies eligibility criteria for inclusion in outbreak.info Resources",
+      "rdfs:label": "Eligibility",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "inclusionCriteria": {
+            "description": "\"criteria for inclusion in the study",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "minimumAge": {
+            "description": "the minimum age for a participant to be included in the study",
+            "type": "string"
+          },
+          "maximumAge": {
+            "description": "the maximum age for a participant to be included in the study",
+            "type": "string"
+          },
+          "gender": {
+            "description": "the sex requirement to be included in the study",
+            "type": "string"
+          },
+          "genderBased": {
+            "description": "Boolean for whether or not participation is based on gender"
+          },
+          "healthyVolunteers": {
+            "description": "Boolean to indicate whether or not healthy volunteers may be included in the study"
+          },
+          "stdAge": {
+            "description": "the age category of a participant to be included in the study if a minimum and maximum age is not specified",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "exclusionCriteria": {
+            "description": "criteria for exclusion from the study",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "criteriaText": {
+            "description": "The descriptive criteria as published for the Clinical Trial",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:inclusionCriteria",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "\"criteria for inclusion in the study",
+      "rdfs:label": "inclusionCriteria",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:minimumAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the minimum age for a participant to be included in the study",
+      "rdfs:label": "minimumAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:maximumAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the maximum age for a participant to be included in the study",
+      "rdfs:label": "maximumAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:gender",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the sex requirement to be included in the study",
+      "rdfs:label": "gender",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:genderBased",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Boolean for whether or not participation is based on gender",
+      "rdfs:label": "genderBased",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:healthyVolunteers",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Boolean to indicate whether or not healthy volunteers may be included in the study",
+      "rdfs:label": "healthyVolunteers",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:stdAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the age category of a participant to be included in the study if a minimum and maximum age is not specified",
+      "rdfs:label": "stdAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:exclusionCriteria",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "criteria for exclusion from the study",
+      "rdfs:label": "exclusionCriteria",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:criteriaText",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The descriptive criteria as published for the Clinical Trial",
+      "rdfs:label": "criteriaText",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
