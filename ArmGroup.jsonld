@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:ArmGroup",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing arm groups in clinical studies/trials for inclusion in outbreak.info Resources",
+      "rdfs:label": "ArmGroup",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "role": {
+            "description": "The role of the arm or factor in the study this is equivalent to the ArmType in ClinicalTrials.gov",
+            "type": "string"
+          },
+          "intervention": {
+            "description": "The interventions (if any) in this ArmGroup",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the item.",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:role",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The role of the arm or factor in the study this is equivalent to the ArmType in ClinicalTrials.gov",
+      "rdfs:label": "role",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ArmGroup"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:intervention",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The interventions (if any) in this ArmGroup",
+      "rdfs:label": "intervention",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ArmGroup"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Intervention"
+        }
+      ]
+    }
+  ]
+}
