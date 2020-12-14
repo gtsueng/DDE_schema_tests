@@ -1,0 +1,152 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:StudyLocation",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing Clinical Trial/Study locations for inclusion in outbreak.info Resources",
+      "rdfs:label": "StudyLocation",
+      "rdfs:subClassOf": {
+        "@id": "schema:Place"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "studyLocation": {
+            "description": "The location of the study",
+            "@type": "Place",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "studyLocationCity": {
+            "description": "The city in which the facility used for the study is located",
+            "@type": "City",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "studyLocationState": {
+            "description": "The state or province in which the facility used for the study is located",
+            "@type": "State",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "studyLocationCountry": {
+            "description": "The country in which the facility used for the study is located",
+            "@type": "Country",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "studyLocationStatus": {
+            "description": "The recruitment status of the study at the specific study site",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:studyLocation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The location of the study",
+      "rdfs:label": "studyLocation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Place"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationCity",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The city in which the facility used for the study is located",
+      "rdfs:label": "studyLocationCity",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:City"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationState",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The state or province in which the facility used for the study is located",
+      "rdfs:label": "studyLocationState",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:State"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationCountry",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The country in which the facility used for the study is located",
+      "rdfs:label": "studyLocationCountry",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Country"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationStatus",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The recruitment status of the study at the specific study site",
+      "rdfs:label": "studyLocationStatus",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
