@@ -928,7 +928,7 @@
         "properties": {
           "name": {
             "description": "The name of the protocol",
-            "type": "string
+            "type": "string"
           },
           "description": {
             "description": "A description of the protocol",
