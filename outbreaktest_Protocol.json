@@ -928,31 +928,11 @@
         "properties": {
           "name": {
             "description": "The name of the protocol",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
+            "type": "string
           },
           "description": {
             "description": "A description of the protocol",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
+            "type": "string"
           },
           "datePublished": {
             "description": "Publication Date of the protocol online if available",
