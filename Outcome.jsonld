@@ -1,0 +1,95 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:Outcome",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a Clinical Trial/Study Outcome for inclusion in  outbreak.info Resources",
+      "rdfs:label": "Outcome",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "outcomeMeasure": {
+            "description": "The outcome measure for the study",
+            "type": "string"
+          },
+          "outcomeTimeFrame": {
+            "description": "The specific time point(s) and overall duration of evaluation must be specified in this section",
+            "type": "string"
+          },
+          "outcomeType": {
+            "description": "The classification of the outcome measure as either primary, secondary, or exploratory",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "primary",
+                  "secondary",
+                  "exploratory"
+                ]
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:outcomeMeasure",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The outcome measure for the study",
+      "rdfs:label": "outcomeMeasure",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:outcomeTimeFrame",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The specific time point(s) and overall duration of evaluation must be specified in this section",
+      "rdfs:label": "outcomeTimeFrame",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Duration"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:outcomeType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The classification of the outcome measure as either primary, secondary, or exploratory",
+      "rdfs:label": "outcomeType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
