@@ -4156,6 +4156,243 @@
       ]
     }, 
     {
+      "@id": "outbreaktest:StudyEvent",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing StudyEvents, a class that describes categorical events in Clinical Trials added to outbreak.info",
+      "rdfs:label": "StudyEvent",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "studyEventType": {
+            "description": "Type of the event status such as StudyStart, PrimaryCompletion, Completion, StudyFirstSubmit, StudyFirstSubmitQC, LastUpdateSubmit",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "StudyStart",
+                  "PrimaryCompletion",
+                  "Completion",
+                  "StudyFirstSubmit",
+                  "StudyFirstSubmitQC",
+                  "LastUpdateSubmit"
+                ]
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "studyEventDate": {
+            "description": "The corresponding/actual date of the study event (ie- the StartDate, Primary CompletionDate, CompletionDate, StudyFirstSubmitDate, StudyFirstSubmitQCDate, LastUpdateSubmitDate)",
+            "format": "date",
+            "type": "string"
+          },
+          "studyEventDateType": {
+            "description": "the type of date provided (actual, anticipated, or estimated)",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "actual",
+                  "anticipated",
+                  "estimated"
+                ]
+              },
+              {
+                "type": "string",
+              }
+            ]
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:studyEventType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of the event status such as StudyStart, PrimaryCompletion, Completion, StudyFirstSubmit, StudyFirstSubmitQC, LastUpdateSubmit",
+      "rdfs:label": "studyEventType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyEventDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The corresponding/actual date of the study event (ie- the StartDate, Primary CompletionDate, CompletionDate, StudyFirstSubmitDate, StudyFirstSubmitQCDate, LastUpdateSubmitDate)",
+      "rdfs:label": "studyEventDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyEventDateType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the type of date provided (actual, anticipated, or estimated)",
+      "rdfs:label": "studyEventDateType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },  
+    {
+      "@id": "outbreaktest:StudyStatus",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the status of a ClinicalTrial resource in outbreak.info",
+      "rdfs:label": "StudyStatus",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "statusExpandedAccess": {
+            "description": "Flag for whether or not the study has expanded Access status",
+            "type": "string"
+          },
+          "statusDate": {
+            "description": "The date that the status was verified. Equivalent to NCT's StatusVerifiedDate",
+            "format": "date",
+            "type": "string"
+          },
+          "enrollmentCount": {
+            "description": "The number of participants enrolled in the study",
+            "type": "string"
+          },
+          "enrollmentType": {
+            "description": "The type of estimation used to determine the enrollmentCount (actual counts, target size, etc.)",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "actual counts",
+                  "target size"
+                ]
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "whyStopped": {
+            "description": "A brief explanation of the reason(s) why such clinical study was stopped (for a clinical study that is Suspended, Terminated, or Withdrawn prior to its planned completion as anticipated by the protocol)",
+            "type": "string"
+          },
+          "status": {
+            "description": "The recruitment status of the study",
+            "type": "string"
+          }
+        },
+        "required": [
+            "status"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:status",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The recruitment status of the study",
+      "rdfs:label": "status",
+      "rdfs:sameAs":{"@id":"schema:status"},
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:statusExpandedAccess",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Flag for whether or not the study has expanded Access status",
+      "rdfs:label": "statusExpandedAccess",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:statusDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The date that the status was verified. Equivalent to NCT's StatusVerifiedDate",
+      "rdfs:label": "statusDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:enrollmentCount",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The number of participants enrolled in the study",
+      "rdfs:label": "enrollmentCount",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Number"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:enrollmentType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of estimation used to determine the enrollmentCount (actual counts, target size, etc.)",
+      "rdfs:label": "enrollmentType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:whyStopped",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A brief explanation of the reason(s) why such clinical study was stopped (for a clinical study that is Suspended, Terminated, or Withdrawn prior to its planned completion as anticipated by the protocol)",
+      "rdfs:label": "whyStopped",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }, 
+    {
       "@id": "outbreaktest:pmid",
       "@type": "rdfs:Property",
       "rdfs:comment": "A pubmed identifier if available",
