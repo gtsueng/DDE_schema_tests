@@ -1,0 +1,230 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:StudyDesign",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the study design of a clinical trial/study for inclusion into outbreak.info resources",
+      "rdfs:label": "StudyDesign",
+      "rdfs:subClassOf": {
+        "@id": "schema:MedicalStudy"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "studyType": {
+            "description": "Type of human study, can be subtypes of observational study or interventional studies and may include the temporal relationship of observation period to time of participant enrollment.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "phase": {
+            "description": "Stage or phase of the study in the U.S. if applicable",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "phaseNumber": {
+            "description": "The number of the phase or stage of the study",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "designAllocation": {
+            "description": "The method by which the study participants were allocated into groups",
+            "type": "string"
+          },
+          "designModel": {
+            "description": "The general design of the strategy for assigning interventions to participants in a clinical intervention study OR the general design of the strategy for identifying and following up with participants during an observational study",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "designPrimaryPurpose": {
+            "description": "The primary purpose of the study",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "designWhoMasked": {
+            "description": "The people who do not know which participants have been assigned to which interventions",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "designStudyText": {
+            "description": "String description of the study design if structured information not available",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:studyType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of human study, can be subtypes of observational study or interventional studies and may include the temporal relationship of observation period to time of participant enrollment.",
+      "rdfs:label": "studyType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:phase",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Stage or phase of the study in the U.S. if applicable",
+      "rdfs:label": "phase",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:phaseNumber",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The number of the phase or stage of the study",
+      "rdfs:label": "phaseNumber",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Number"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designAllocation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The method by which the study participants were allocated into groups",
+      "rdfs:label": "designAllocation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designModel",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The general design of the strategy for assigning interventions to participants in a clinical intervention study OR the general design of the strategy for identifying and following up with participants during an observational study",
+      "rdfs:label": "designModel",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designPrimaryPurpose",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The primary purpose of the study",
+      "rdfs:label": "designPrimaryPurpose",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designWhoMasked",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The people who do not know which participants have been assigned to which interventions",
+      "rdfs:label": "designWhoMasked",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designStudyText",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "String description of the study design if structured information not available",
+      "rdfs:label": "designStudyText",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
