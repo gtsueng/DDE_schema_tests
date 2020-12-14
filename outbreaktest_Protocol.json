@@ -1974,7 +1974,7 @@
         {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-          {"@id": "outbreaktest:Protocol"}
+        {"@id": "outbreaktest:Protocol"}
       ],
       "schema:rangeIncludes": [
         {
@@ -1992,15 +1992,16 @@
         {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-          {"@id": "outbreaktest:Protocol"}
+        {"@id": "outbreaktest:Protocol"}
       ],
       "schema:rangeIncludes": [
-        {"@id":"outbreaktest:CitationObject"},
-        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:CitationObject"},
+        {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-        {"@id":"schema:SoftwareApplication"},
-        {"@id":"schema:CreativeWork"}
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "schema:SoftwareApplication"},
+        {"@id": "schema:CreativeWork"}
       ]
     },
     {
@@ -2012,15 +2013,16 @@
         {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-          {"@id": "outbreaktest:Protocol"}
+        {"@id": "outbreaktest:Protocol"}
       ],
       "schema:rangeIncludes": [
-        {"@id":"outbreaktest:CitationObject"},
-        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:CitationObject"},
+        {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-        {"@id":"schema:SoftwareApplication"},
-        {"@id":"schema:CreativeWork"}
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "schema:SoftwareApplication"},
+        {"@id": "schema:CreativeWork"}
       ]
     },
     {
@@ -2033,15 +2035,16 @@
         {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-          {"@id": "outbreaktest:Protocol"}
+        {"@id": "outbreaktest:Protocol"}
       ],
       "schema:rangeIncludes": [
-        {"@id":"outbreaktest:CitationObject"},
-        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:CitationObject"},
+        {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-        {"@id":"schema:SoftwareApplication"},
-        {"@id":"schema:CreativeWork"}
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "schema:SoftwareApplication"},
+        {"@id": "schema:CreativeWork"}
       ]
     },
     {
@@ -2053,17 +2056,18 @@
         {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-          {"@id": "outbreaktest:Protocol"}
+        {"@id": "outbreaktest:Protocol"}
       ],
       "schema:rangeIncludes": [
-        {"@id":"outbreaktest:Person"},
-        {"@id":"outbreaktest:Organization"},
-        {"@id":"outbreaktest:CitationObject"},
-        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Person"},
+        {"@id": "outbreaktest:Organization"},
+        {"@id": "outbreaktest:CitationObject"},
+        {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
-        {"@id":"schema:SoftwareApplication"},
-        {"@id":"schema:CreativeWork"}
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "schema:SoftwareApplication"},
+        {"@id": "schema:CreativeWork"}
       ]
     },
     {
@@ -2078,7 +2082,7 @@
         {"@id": "outbreaktest:Protocol"}
       ],
       "schema:rangeIncludes": [
-        {"@id":"schema:Date"}
+        {"@id": "schema:Date"}
       ]
     },
     {
@@ -2087,15 +2091,15 @@
       "rdfs:comment":"One or more reviews, ratings, or other evaluations of this resource",
       "rdfs:label":"evaluations",
       "schema:domainIncludes":[
-        {"@id":"outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Dataset"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:Analysis"},
         {"@id": "outbreaktest:Protocol"}
       ],
       "schema:rangeIncludes":[
-        {"@id":"schema:Review"},
-        {"@id":"schema:Rating"},
-        {"@id":"schema:AggregateRating"}
+        {"@id": "schema:Review"},
+        {"@id": "schema:Rating"},
+        {"@id": "schema:AggregateRating"}
       ]
     }
   ]
