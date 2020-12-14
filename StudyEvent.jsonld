@@ -1,0 +1,127 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:StudyEvent",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing StudyEvents, a class that describes categorical events in Clinical Trials added to outbreak.info",
+      "rdfs:label": "StudyEvent",
+      "rdfs:subClassOf": {
+        "@id": "schema:Event"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "studyEventType": {
+            "description": "Type of the event status such as StudyStart, PrimaryCompletion, Completion, StudyFirstSubmit, StudyFirstSubmitQC, LastUpdateSubmit",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "StudyStart",
+                  "PrimaryCompletion",
+                  "Completion",
+                  "StudyFirstSubmit",
+                  "StudyFirstSubmitQC",
+                  "LastUpdateSubmit"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "StudyStart",
+                    "PrimaryCompletion",
+                    "Completion",
+                    "StudyFirstSubmit",
+                    "StudyFirstSubmitQC",
+                    "LastUpdateSubmit"
+                  ]
+                }
+              }
+            ]
+          },
+          "studyEventDate": {
+            "description": "The corresponding/actual date of the study event (ie- the StartDate, Primary CompletionDate, CompletionDate, StudyFirstSubmitDate, StudyFirstSubmitQCDate, LastUpdateSubmitDate)",
+            "format": "date",
+            "type": "string"
+          },
+          "studyEventDateType": {
+            "description": "the type of date provided (actual, anticipated, or estimated)",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "actual",
+                  "anticipated",
+                  "estimated"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "actual",
+                    "anticipated",
+                    "estimated"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:studyEventType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of the event status such as StudyStart, PrimaryCompletion, Completion, StudyFirstSubmit, StudyFirstSubmitQC, LastUpdateSubmit",
+      "rdfs:label": "studyEventType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyEventDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The corresponding/actual date of the study event (ie- the StartDate, Primary CompletionDate, CompletionDate, StudyFirstSubmitDate, StudyFirstSubmitQCDate, LastUpdateSubmitDate)",
+      "rdfs:label": "studyEventDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyEventDateType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the type of date provided (actual, anticipated, or estimated)",
+      "rdfs:label": "studyEventDateType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
