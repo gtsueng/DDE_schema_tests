@@ -4847,6 +4847,429 @@
       ]
     },
     {
+      "@id": "outbreaktest:Outcome",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a Clinical Trial/Study Outcome for inclusion in  outbreak.info Resources",
+      "rdfs:label": "Outcome",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+            "outcomeTimeFrame": {
+                "description": "The specific time point(s) and overall duration of evaluation must be specified in this section. ",
+                "type": "string"
+            },
+            "outcomeMeasure": {
+                "description": "The outcome measure for the study",
+                "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                ]
+            },
+            "outcomeType": {
+                "description": "The classification of the outcome measure as either primary, secondary, or exploratory",
+                "enum": [
+                    "primary",
+                    "secondary",
+                    "other"
+                  ]
+            }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:outcomeMeasure",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The outcome measure for the study",
+      "rdfs:label": "outcomeMeasure",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:outcomeTimeFrame",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The specific time point(s) and overall duration of evaluation must be specified in this section",
+      "rdfs:label": "outcomeTimeFrame",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Duration"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:outcomeType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The classification of the outcome measure as either primary, secondary, or exploratory",
+      "rdfs:label": "outcomeType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Eligibility",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing information about Clinical Trials/Studies eligibility criteria for inclusion in outbreak.info Resources",
+      "rdfs:label": "Eligibility",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "minimumAge": {
+            "description": "the minimum age for a participant to be included in the study",
+            "type": "string"
+          },
+          "maximumAge": {
+            "description": "the maximum age for a participant to be included in the study",
+            "type": "string"
+          },
+          "criteriaText": {
+            "description": "The descriptive criteria as published for the Clinical Trial",
+            "type": "string"
+          },
+          "inclusionCriteria": {
+            "description": "criteria for inclusion in the study",
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+          },
+          "exclusionCriteria": {
+            "description": "criteria for exclusion from the study",
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+          },
+          "gender": {
+            "description": "the sex requirement to be included in the study",
+            "enum": [
+                    "male",
+                    "female",
+                    "all"
+                ]
+          },
+          "genderBased": {
+            "description": "Boolean for whether or not participation is based on gender",
+                  "type": "boolean"
+          },
+          "healthyVolunteers": {
+            "description": "Boolean to indicate whether or not healthy volunteers may be included in the study",
+            "type": "boolean"
+          },
+          "stdAge": {
+            "description": "the age category of a participant to be included in the study if a minimum and maximum age is not specified",
+            "oneOf": [
+                {
+                    "enum": [
+                        "Child (birth-17)",
+                        "Adult (18-64)",
+                        "Older Adult (65+)"
+                      ]
+                },
+                {
+                    "items": {
+                        "enum": [
+                          "Child (birth-17)",
+                          "Adult (18-64)",
+                          "Older Adult (65+)"
+                        ]
+                    }
+                }
+            ]
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:inclusionCriteria",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "\"criteria for inclusion in the study",
+      "rdfs:label": "inclusionCriteria",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:minimumAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the minimum age for a participant to be included in the study",
+      "rdfs:label": "minimumAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:maximumAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the maximum age for a participant to be included in the study",
+      "rdfs:label": "maximumAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:gender",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the sex requirement to be included in the study",
+      "rdfs:label": "gender",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:genderBased",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Boolean for whether or not participation is based on gender",
+      "rdfs:label": "genderBased",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:healthyVolunteers",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Boolean to indicate whether or not healthy volunteers may be included in the study",
+      "rdfs:label": "healthyVolunteers",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:stdAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the age category of a participant to be included in the study if a minimum and maximum age is not specified",
+      "rdfs:label": "stdAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:exclusionCriteria",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "criteria for exclusion from the study",
+      "rdfs:label": "exclusionCriteria",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:criteriaText",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The descriptive criteria as published for the Clinical Trial",
+      "rdfs:label": "criteriaText",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:StudyLocation",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing Clinical Trial/Study locations for inclusion in outbreak.info Resources",
+      "rdfs:label": "StudyLocation",
+      "rdfs:subClassOf": {
+        "@id": "schema:Place"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "studyLocation": {
+            "description": "The location of the study as listed in the resouce.",
+            "type": "string"
+          },
+          "studyLocationCity": {
+            "description": "The city in which the facility used for the study is located",
+            "type": "string"
+          },
+          "studyLocationState": {
+            "description": "The state or province in which the facility used for the study is located",
+            "type": "string"
+          },
+          "studyLocationCountry": {
+            "description": "The country in which the facility used for the study is located",
+            "type": "string"
+          },
+          "studyLocationStatus": {
+            "description": "The recruitment status of the study at the specific study site",
+            "enum": [
+                "not yet recruiting",
+                "recruiting",
+                "enrolling by invitation",
+                "active",
+                "not recruiting",
+                "suspended",
+                "terminated",
+                "completed",
+                "withdrawn",
+                "unknown status"
+            ]
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "outbreaktest:studyLocation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The location of the study",
+      "rdfs:label": "studyLocation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Place"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationCity",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The city in which the facility used for the study is located",
+      "rdfs:label": "studyLocationCity",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:City"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationState",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The state or province in which the facility used for the study is located",
+      "rdfs:label": "studyLocationState",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:State"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationCountry",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The country in which the facility used for the study is located",
+      "rdfs:label": "studyLocationCountry",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Country"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationStatus",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The recruitment status of the study at the specific study site",
+      "rdfs:label": "studyLocationStatus",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
       "@id": "outbreaktest:pmid",
       "@type": "rdfs:Property",
       "rdfs:comment": "A pubmed identifier if available",
