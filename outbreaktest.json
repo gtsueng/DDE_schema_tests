@@ -1012,7 +1012,7 @@
               "contentUrl"
             ]
           },
-          "baseOrgObject":{
+          "baseOrgObject": {
             "description": "A barebones Organization object to work around recursion issues in DDE",
             "@type": "outbreaktest:Organization",
             "type": "object",
@@ -1222,7 +1222,7 @@
               "sourceType"
             ]
           },
-          "reviewObject":{
+          "reviewObject": {
             "description": "A review or descriptive evaluation of the resource",
             "@type": "Review",
             "type": "object",
@@ -1273,10 +1273,9 @@
                   }
                 },
               "required": [
-                  "name"
               ]
             },
-          "ratingObject":{
+          "ratingObject": {
                 "description": "A rating or categorical evaluation of the resource",
                 "@type": "Rating",
                 "type": "object",
@@ -1327,10 +1326,9 @@
                   }
                 },
                 "required": [
-                  "name"
                 ]
             },
-          "aggregateRatingObject":{
+          "aggregateRatingObject": {
              "description": "A cumulative evaluation of the resource",
              "@type": "AggregateRating",
              "type": "object",
@@ -1401,7 +1399,6 @@
                 }
                 },
                 "required": [
-                  "name"
                 ]
             }
         }
@@ -2014,7 +2011,7 @@
               "funder"
             ]
           },
-          "correctionObject":{
+          "correctionObject": {
               "@type": "outbreaktest:Correction",
               "type": "object",
               "properties": {
@@ -2108,16 +2105,28 @@
               "sourceType"
             ]
           },
-          "reviewObject":{
-                "description": "A review or descriptive evaluation of the resource",
-                "@type": "Review",
-                "type": "object",
-                "properties": {
-                  "name": {
+          "reviewObject": {
+            "description": "A review or descriptive evaluation of the resource",
+            "@type": "Review",
+            "type": "object",
+            "properties": {
+              "name": {
                     "type": "string",
                     "description": "The name of the review"
                   },
-                  "author": {
+              "reviewAspect":{
+                    "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
+                    "type": "string"
+                  },
+              "reviewBody": {
+                      "description": "The actual body of the review.",
+                      "type": "string"
+                  },
+              "reviewRating": {
+                "description": "The rating given in this review",
+                    "$ref": "#/definitions/ratingObject"      
+                },
+              "author": {
                     "description": "The author of this content or rating.",
                     "anyOf": [
                       {
@@ -2140,17 +2149,16 @@
                 }
               ]
             },
-                  "curationDate":{
+              "curationDate":{
                     "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
                     "type": "string",
                     "format": "date"
                   }
                 },
-                "required": [
-                  "name"
-                ]
+              "required": [
+              ]
             },
-          "ratingObject":{
+          "ratingObject": {
                 "description": "A rating or categorical evaluation of the resource",
                 "@type": "Rating",
                 "type": "object",
@@ -2159,47 +2167,17 @@
                     "type": "string",
                     "description": "The name of the rating"
                   },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                  "ratingExplanation": {
                     "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-            },
-          "aggregateRatingObject":{
-                "description": "A cumulative evaluation of the resource",
-                "@type": "AggregateRating",
-                "type": "object",
-                "properties": {
-                  "name": {
+                    "description": "An explanation of the rating"    
+                  },
+                  "ratingValue": {
                     "type": "string",
-                    "description": "The name of the aggregate rating"
+                    "description": "The rating for the content."
+                  },
+                  "reviewAspect": {
+                    "type": "string",
+                    "description": "This Review or Rating is relevant to this part or facet of the itemReviewed"
                   },
                   "author": {
                     "description": "The author of this content or rating.",
@@ -2231,7 +2209,79 @@
                   }
                 },
                 "required": [
-                  "name"
+                ]
+            },
+          "aggregateRatingObject": {
+             "description": "A cumulative evaluation of the resource",
+             "@type": "AggregateRating",
+             "type": "object",
+             "properties": {
+                "name": {
+                "type": "string",
+                "description": "The name of the aggregate rating"
+                },
+                "reviewAspect":{
+                  "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
+                  "type": "string"
+                },
+                "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                      }
+                }
+              ]
+            },
+                "curationDate": {
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  },
+                "reviews": {
+                  "oneOf": [
+                      {
+                        "$ref": "#/definitions/reviewObject"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/reviewObject"
+                        }
+                      }
+                      
+                  ]
+                },
+                "ratings": {
+                  "oneOf": [
+                      {
+                        "$ref": "#/definitions/ratingObject"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/ratingObject"
+                        }
+                      }
+                      
+                  ]
+                }
+                },
+                "required": [
                 ]
             }
         }
@@ -2945,49 +2995,60 @@
               "sourceType"
             ]
           },
-            "reviewObject":{
-                "description": "A review or descriptive evaluation of the resource",
-                "@type": "Review",
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the review"
-                    },
-                    "author": {
-                        "description": "The author of this content or rating.",
-                        "anyOf": [
-                          {
-                            "$ref": "#/definitions/person"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/definitions/person"
-                          }
-                          },
-                          {
-                            "$ref": "#/definitions/organization"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/definitions/organization"
-                            }
-                          }
-                        ]
+            "reviewObject": {
+              "description": "A review or descriptive evaluation of the resource",
+              "@type": "Review",
+              "type": "object",
+              "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the review"
+                },
+                "reviewAspect":{
+                    "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
+                    "type": "string"
+                },
+                "reviewBody": {
+                      "description": "The actual body of the review.",
+                      "type": "string"
+                },
+                "reviewRating": {
+                  "description": "The rating given in this review",
+                    "$ref": "#/definitions/ratingObject"      
                   },
-                    "curationDate":{
+                "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                      }
+                }
+              ]
+            },
+                "curationDate":{
                     "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
                     "type": "string",
                     "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
+                }
+              },
+              "required": [
+              ]
             },
-            "ratingObject":{
+            "ratingObject": {
                 "description": "A rating or categorical evaluation of the resource",
                 "@type": "Rating",
                 "type": "object",
@@ -2995,6 +3056,18 @@
                   "name": {
                     "type": "string",
                     "description": "The name of the rating"
+                  },
+                  "ratingExplanation": {
+                    "type": "string",
+                    "description": "An explanation of the rating"    
+                  },
+                  "ratingValue": {
+                    "type": "string",
+                    "description": "The rating for the content."
+                  },
+                  "reviewAspect": {
+                    "type": "string",
+                    "description": "This Review or Rating is relevant to this part or facet of the itemReviewed"
                   },
                   "author": {
                     "description": "The author of this content or rating.",
@@ -3015,10 +3088,10 @@
                         "type": "array",
                         "items": {
                           "$ref": "#/definitions/organization"
-                        }
                       }
-                    ]
-                  },
+                }
+              ]
+            },
                   "curationDate":{
                     "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
                     "type": "string",
@@ -3026,51 +3099,81 @@
                   }
                 },
                 "required": [
-                  "name"
                 ]
             },
-            "aggregateRatingObject":{
-                "description": "A cumulative evaluation of the resource",
-                "@type": "AggregateRating",
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the aggregate rating"
+            "aggregateRatingObject": {
+              "description": "A cumulative evaluation of the resource",
+              "@type": "AggregateRating",
+              "type": "object",
+              "properties": {
+                "name": {
+                "type": "string",
+                "description": "The name of the aggregate rating"
+                },
+                "reviewAspect":{
+                  "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
+                  "type": "string"
+                },
+                "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
                       },
-                    "author": {
-                        "description": "The author of this content or rating.",
-                        "anyOf": [
-                          {
-                            "$ref": "#/definitions/person"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/definitions/person"
-                          }
-                          },
-                          {
-                            "$ref": "#/definitions/organization"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "$ref": "#/definitions/organization"
-                          }
-                    }
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                      }
+                }
+              ]
+            },
+                "curationDate": {
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  },
+                "reviews": {
+                  "oneOf": [
+                      {
+                        "$ref": "#/definitions/reviewObject"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/reviewObject"
+                        }
+                      }
+                      
                   ]
                 },
-                    "curationDate":{
-                        "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
-                        "type": "string",
-                        "format": "date"
-                    }
-                },
-                "required": [
-                      "name"
-                ]
-              }
+                "ratings": {
+                  "oneOf": [
+                      {
+                        "$ref": "#/definitions/ratingObject"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/ratingObject"
+                        }
+                      }
+                      
+                  ]
+                }
+              },
+              "required": [
+              ]
+            }
             }
           }
         },
@@ -3634,7 +3737,30 @@
             "description": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
             "type": "string",
             "format": "date"
-          }  
+          },
+          "evaluations":{
+              "description": "Reviews, Ratings, or other types of evaluations on this resource",
+              "anyOf":[
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/reviewObject"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/ratingObject"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/aggregateRatingObject"
+                }
+              }
+            ]
+            }  
         },
         "required": [
           "description",
@@ -3957,16 +4083,28 @@
               "sourceType"
             ]
           },
-          "reviewObject":{
-                "description": "A review or descriptive evaluation of the resource",
-                "@type": "Review",
-                "type": "object",
-                "properties": {
-                  "name": {
+          "reviewObject": {
+            "description": "A review or descriptive evaluation of the resource",
+            "@type": "Review",
+            "type": "object",
+            "properties": {
+              "name": {
                     "type": "string",
                     "description": "The name of the review"
                   },
-                  "author": {
+              "reviewAspect":{
+                    "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
+                    "type": "string"
+                  },
+              "reviewBody": {
+                      "description": "The actual body of the review.",
+                      "type": "string"
+                  },
+              "reviewRating": {
+                "description": "The rating given in this review",
+                    "$ref": "#/definitions/ratingObject"      
+                },
+              "author": {
                     "description": "The author of this content or rating.",
                     "anyOf": [
                       {
@@ -3989,66 +4127,35 @@
                 }
               ]
             },
-                  "curationDate":{
+              "curationDate":{
                     "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
                     "type": "string",
                     "format": "date"
                   }
                 },
-                "required": [
-                  "name"
-                ]
-          },
-          "ratingObject":{
-                "description": "A rating or categorical evaluation of the resource",
-                "@type": "Rating",
-                "type": "object",
-                "properties": {
+              "required": [
+              ]
+            },
+          "ratingObject": {
+            "description": "A rating or categorical evaluation of the resource",
+            "@type": "Rating",
+            "type": "object",
+            "properties": {
                   "name": {
                     "type": "string",
                     "description": "The name of the rating"
                   },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                  "ratingExplanation": {
                     "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-          },
-          "aggregateRatingObject":{
-                "description": "A cumulative evaluation of the resource",
-                "@type": "AggregateRating",
-                "type": "object",
-                "properties": {
-                  "name": {
+                    "description": "An explanation of the rating"    
+                  },
+                  "ratingValue": {
                     "type": "string",
-                    "description": "The name of the aggregate rating"
+                    "description": "The rating for the content."
+                  },
+                  "reviewAspect": {
+                    "type": "string",
+                    "description": "This Review or Rating is relevant to this part or facet of the itemReviewed"
                   },
                   "author": {
                     "description": "The author of this content or rating.",
@@ -4079,10 +4186,82 @@
                     "format": "date"
                   }
                 },
-                "required": [
-                  "name"
-                ]
-            }
+            "required": [
+            ]
+          },
+          "aggregateRatingObject": {
+            "description": "A cumulative evaluation of the resource",
+            "@type": "AggregateRating",
+            "type": "object",
+            "properties": {
+                "name": {
+                "type": "string",
+                "description": "The name of the aggregate rating"
+                },
+                "reviewAspect":{
+                  "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
+                  "type": "string"
+                },
+                "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                      }
+                }
+              ]
+            },
+                "curationDate": {
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  },
+                "reviews": {
+                  "oneOf": [
+                      {
+                        "$ref": "#/definitions/reviewObject"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/reviewObject"
+                        }
+                      }
+                      
+                  ]
+                },
+                "ratings": {
+                  "oneOf": [
+                      {
+                        "$ref": "#/definitions/ratingObject"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/ratingObject"
+                        }
+                      }
+                      
+                  ]
+                }
+                },
+            "required": [
+            ]
+          }
         }
       }
     },
