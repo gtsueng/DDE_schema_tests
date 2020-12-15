@@ -1971,8 +1971,8 @@
           "@id": "schema:Text"
         }
       ]
-    },   
- {
+    },
+{
       "@id": "outbreaktest:ClinicalTrial",
       "@type": "rdfs:Class",
       "rdfs:comment": "This is the schema for describing the Clinical Trials and other medical studies used for outbreak.info Resources",

@@ -278,11 +278,12 @@
     {
       "@id": "outbreaktest:role",
       "@type": "rdfs:Property",
-      "rdfs:comment": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource",
+      "rdfs:comment": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource. In a Clinical Study/Trial ArmGroup, it's equivalent to the ArmType in ClinicalTrials.gov",
       "rdfs:label": "role",
       "schema:domainIncludes": [
         {"@id": "outbreaktest:Person"},
-        {"@id": "outbreaktest:Organization"}
+        {"@id": "outbreaktest:Organization"},
+        {"@id": "outbreaktest:ArmGroup"}
       ],
       "schema:rangeIncludes": [
         {
@@ -434,6 +435,15 @@
       ]
     },
     {
+      "@id": "outbreaktest:DataDownload",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the DataDownload schema used for outbreak.info.",
+      "rdfs:label": "DataDownload",
+      "rdfs:subClassOf": {
+        "@id": "schema:DataDownload"
+      }
+    },
+    {
       "@id": "outbreaktest:CitationObject",
       "@type": "rdfs:Class",
       "rdfs:comment": "A citation object for a resource which is cited by the subject (ie- is a derivative of the subject), related to the subject, or from which the subject was based on (ie- is derived from).",
@@ -475,7 +485,7 @@
             "description": "A doi if available",
             "type": "string"
           },
-          "type": {
+          "sourceType": {
             "description": "The @type of resource",
             "enum": [
               "Dataset",
@@ -489,7 +499,8 @@
           }
         },
         "required": [
-          "name"
+          "name",
+          "sourceType"
         ]
       }
     },
@@ -522,10 +533,10 @@
       ]
     },
     {
-      "@id": "outbreaktest:type",
+      "@id": "outbreaktest:sourceType",
       "@type": "rdfs:Property",
       "rdfs:comment": "The type of resource",
-      "rdfs:label": "type",
+      "rdfs:label": "sourceType",
       "schema:domainIncludes": {
         "@id": "outbreaktest:CitationObject"
       },
@@ -534,6 +545,15 @@
           "@id": "schema:Text"
         }
       ]
+    },
+    {
+      "@id": "outbreaktest:Dataset",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the Dataset schema used for outbreak.info.",
+      "rdfs:label": "Dataset",
+      "rdfs:subClassOf": {
+        "@id": "schema:Dataset"
+      }
     },
     {
       "@id": "outbreaktest:Correction",
@@ -608,6 +628,20 @@
         },
         "required": []
       }
+    },
+    {
+      "@id": "outbreaktest:correctionType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of notice or correction: (correction, retraction, expression of convern, withdrawal, erratum, update, correction/republication, preprint, peer reviewed version)",
+      "rdfs:label": "correctionType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Correction"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
     },
     {
       "@id": "outbreaktest:Publication",
@@ -799,7 +833,8 @@
                   "Behavioral Research",
                   "Epidemiology",
                   "Classical Epidemiology",
-                  "Molecular Epidemiology"
+                  "Molecular Epidemiology",
+                  "Information Sciences"
                 ]
               },
               {
@@ -838,7 +873,8 @@
                     "Behavioral Research",
                     "Epidemiology",
                     "Classical Epidemiology",
-                    "Molecular Epidemiology"
+                    "Molecular Epidemiology",
+                    "Information Sciences"
                   ]
                 }
               }
@@ -1128,7 +1164,7 @@
               "funder"
             ]
           },
-          "correctionObject":{
+          "correctionObject": {
               "@type": "outbreaktest:Correction",
               "type": "object",
               "properties": {
@@ -1190,7 +1226,7 @@
                 "description": "A doi if available",
                 "type": "string"
               },
-              "type": {
+              "sourceType": {
                 "description": "The type of resource",
                 "enum": [
                   "Dataset",
@@ -1199,7 +1235,7 @@
                   "Analysis",
                   "Protocol", 
                   "SoftwareApplication",
-                  "Other"
+                  "CreativeWork"
                   ]
               },
               "url": {
@@ -1219,19 +1255,31 @@
             },
             "required": [
               "name",
-              "type"
+              "sourceType"
             ]
           },
-          "reviewObject":{
-                "description": "A review or descriptive evaluation of the resource",
-                "@type": "Review",
-                "type": "object",
-                "properties": {
-                  "name": {
+          "reviewObject": {
+            "description": "A review or descriptive evaluation of the resource",
+            "@type": "Review",
+            "type": "object",
+            "properties": {
+              "name": {
                     "type": "string",
                     "description": "The name of the review"
                   },
-                  "author": {
+              "reviewAspect":{
+                    "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
+                    "type": "string"
+                  },
+              "reviewBody": {
+                      "description": "The actual body of the review.",
+                      "type": "string"
+                  },
+              "reviewRating": {
+                "description": "The rating given in this review",
+                    "$ref": "#/definitions/ratingObject"      
+                },
+              "author": {
                     "description": "The author of this content or rating.",
                     "anyOf": [
                       {
@@ -1254,17 +1302,16 @@
                 }
               ]
             },
-                  "curationDate":{
+              "curationDate":{
                     "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
                     "type": "string",
                     "format": "date"
                   }
                 },
-                "required": [
-                  "name"
-                ]
+              "required": [
+              ]
             },
-          "ratingObject":{
+          "ratingObject": {
                 "description": "A rating or categorical evaluation of the resource",
                 "@type": "Rating",
                 "type": "object",
@@ -1273,47 +1320,17 @@
                     "type": "string",
                     "description": "The name of the rating"
                   },
-                  "author": {
-                    "description": "The author of this content or rating.",
-                    "anyOf": [
-                      {
-                        "$ref": "#/definitions/person"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/person"
-                      }
-                      },
-                      {
-                        "$ref": "#/definitions/organization"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "$ref": "#/definitions/organization"
-                      }
-                }
-              ]
-            },
-                  "curationDate":{
-                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                  "ratingExplanation": {
                     "type": "string",
-                    "format": "date"
-                  }
-                },
-                "required": [
-                  "name"
-                ]
-            },
-          "aggregateRatingObject":{
-                "description": "A cumulative evaluation of the resource",
-                "@type": "AggregateRating",
-                "type": "object",
-                "properties": {
-                  "name": {
+                    "description": "An explanation of the rating"    
+                  },
+                  "ratingValue": {
                     "type": "string",
-                    "description": "The name of the aggregate rating"
+                    "description": "The rating for the content."
+                  },
+                  "reviewAspect": {
+                    "type": "string",
+                    "description": "This Review or Rating is relevant to this part or facet of the itemReviewed"
                   },
                   "author": {
                     "description": "The author of this content or rating.",
@@ -1345,25 +1362,76 @@
                   }
                 },
                 "required": [
-                  "name"
                 ]
-            }
+            },
+          "aggregateRatingObject": {
+              "description": "A cumulative evaluation of the resource",
+              "@type": "AggregateRating",
+              "type": "object",
+              "properties": {
+                "name": {
+                "type": "string",
+                "description": "The name of the aggregate rating"
+                },
+                "ratingValue": {
+                    "type": "string",
+                    "description": "The rating for the content."
+                },
+                "reviewAspect":{
+                  "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
+                  "type": "string"
+                },
+                "author": {
+                    "description": "The author of this content or rating.",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/person"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/person"
+                      }
+                      },
+                      {
+                        "$ref": "#/definitions/organization"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/organization"
+                      }
+                }
+              ]
+            },
+                "curationDate": {
+                    "description": "The date this evaluation was added into outbreak.info, or was updated in outbreak.info.",
+                    "type": "string",
+                    "format": "date"
+                  },
+                "reviews": {
+                  "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/reviewObject"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/ratingObject"
+                        }
+                      }
+                      
+                  ]
+                }
+                },
+            "required": [
+            ]
+          }
         }
       }
-    },
-    {
-      "@id": "outbreaktest:abstract",
-      "@type": "rdfs:Property",
-      "rdfs:comment": "A short descriptive summary of the publication",
-      "rdfs:label": "abstract",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Publication"
-      },
-      "schema:rangeIncludes": [
-        {
-          "@id": "schema:Text"
-        }
-      ]
     },
     {
       "@id": "outbreaktest:journalName",
@@ -1422,13 +1490,1129 @@
       ]
     },
     {
-      "@id": "outbreaktest:correctionType",
+      "@id": "outbreaktest:Analysis",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing an Analysis for inclusion in outbreak.info resources",
+      "rdfs:label": "Analysis",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      }
+        },
+    {
+      "@id": "outbreaktest:domainUrl",
       "@type": "rdfs:Property",
-      "rdfs:comment": "Type of notice or correction: (correction, retraction, expression of convern, withdrawal, erratum, update, correction/republication, preprint, peer reviewed version)",
-      "rdfs:label": "correctionType",
+      "rdfs:comment": "The domain name or main site on which webpage or specific url can be found",
+      "rdfs:label": "domainUrl",
       "schema:domainIncludes": {
-        "@id": "outbreaktest:Correction"
+        "@id": "outbreaktest:Analysis"
       },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:URL"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:assumption",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Statement of assumptions / limitations of the model",
+      "rdfs:label": "assumption",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:analysisTechnique",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A technique or technology used in a analysis",
+      "rdfs:label": "analysisTechnique",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:analysisTopic",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The underlying question, goal, or aim of the analysis",
+      "rdfs:label": "analysisTopic",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Analysis"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Product",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a reagent, material, sample, or some other product used in a protocol resource in outbreak.info",
+      "rdfs:label": "Product",
+      "rdfs:subClassOf": {
+        "@id": "schema:Product"
+      }
+    },
+    {
+      "@id": "outbreaktest:Instrument",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing an instrument used in a protocol resource listed in outbreak.info",
+      "rdfs:label": "Instrument",
+      "rdfs:subClassOf": {
+        "@id": "schema:Product"
+      }
+    },
+    {
+      "@id": "outbreaktest:Protocol",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the Protocols for outbreak.info Resources.",
+      "rdfs:label": "Protocol",
+      "rdfs:subClassOf": {
+        "@id": "schema:HowTo"
+      }
+    },
+    {
+      "@id": "outbreaktest:warning",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Precautions, warnings, and/or safety warnings associated with or highlighted by the protocol",
+      "rdfs:label": "warning",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:correctionNote",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "statement of what was updated/changed since prior version",
+      "rdfs:label": "correctionNote",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:protocolStatus",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The status of the protocol",
+      "rdfs:label": "protocolStatus",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:instrument",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A laboratory equipment use by a person to follow one or more steps described in this Protocol",
+      "rdfs:label": "instrument",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Instrument"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:protocolSetting",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of 'protocol' based on setting in which it would apply",
+      "rdfs:label": "protocolSetting",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:protocolCategory",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of 'protocol' based on degree of specificity and purpose",
+      "rdfs:label": "protocolCategory",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:usedToGenerate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of evidence/data generated by the protocol",
+      "rdfs:label": "usedToGenerate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:inComplianceWith",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Guidelines or Standards to which these protocols adhere. ie- GMP, GCP, other EQUATOR guidelines. Useful for selecting protocols where certain standards/guidelines must be met",
+      "rdfs:label": "inComplianceWith",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Protocol"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }, 
+    {
+      "@id": "outbreaktest:StudyEvent",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing StudyEvents, a class that describes categorical events in Clinical Trials added to outbreak.info",
+      "rdfs:label": "StudyEvent",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "outbreaktest:studyEventType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of the event status such as StudyStart, PrimaryCompletion, Completion, StudyFirstSubmit, StudyFirstSubmitQC, LastUpdateSubmit",
+      "rdfs:label": "studyEventType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyEventDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The corresponding/actual date of the study event (ie- the StartDate, Primary CompletionDate, CompletionDate, StudyFirstSubmitDate, StudyFirstSubmitQCDate, LastUpdateSubmitDate)",
+      "rdfs:label": "studyEventDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyEventDateType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the type of date provided (actual, anticipated, or estimated)",
+      "rdfs:label": "studyEventDateType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyEvent"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },  
+    {
+      "@id": "outbreaktest:StudyStatus",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the status of a ClinicalTrial resource in outbreak.info",
+      "rdfs:label": "StudyStatus",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "outbreaktest:status",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The recruitment status of the study",
+      "rdfs:label": "status",
+      "rdfs:sameAs":{"@id":"schema:status"},
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:statusExpandedAccess",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Flag for whether or not the study has expanded Access status",
+      "rdfs:label": "statusExpandedAccess",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:statusDate",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The date that the status was verified. Equivalent to NCT's StatusVerifiedDate",
+      "rdfs:label": "statusDate",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:enrollmentCount",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The number of participants enrolled in the study",
+      "rdfs:label": "enrollmentCount",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Number"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:enrollmentType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of estimation used to determine the enrollmentCount (actual counts, target size, etc.)",
+      "rdfs:label": "enrollmentType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:whyStopped",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A brief explanation of the reason(s) why such clinical study was stopped (for a clinical study that is Suspended, Terminated, or Withdrawn prior to its planned completion as anticipated by the protocol)",
+      "rdfs:label": "whyStopped",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyStatus"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:StudyDesign",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the study design of a clinical trial/study for inclusion into outbreak.info resources",
+      "rdfs:label": "StudyDesign",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "outbreaktest:studyType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Type of human study, can be subtypes of observational study or interventional studies and may include the temporal relationship of observation period to time of participant enrollment.",
+      "rdfs:label": "studyType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:phase",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Stage or phase of the study in the U.S. if applicable",
+      "rdfs:label": "phase",
+      "rdfs:sameAs":{"@id":"schema:phase"},
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:phaseNumber",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The number of the phase or stage of the study",
+      "rdfs:label": "phaseNumber",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Number"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designAllocation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The method by which the study participants were allocated into groups",
+      "rdfs:label": "designAllocation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designModel",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The general design of the strategy for assigning interventions to participants in a clinical intervention study OR the general design of the strategy for identifying and following up with participants during an observational study",
+      "rdfs:label": "designModel",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designPrimaryPurpose",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The primary purpose of the study",
+      "rdfs:label": "designPrimaryPurpose",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designWhoMasked",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The people who do not know which participants have been assigned to which interventions",
+      "rdfs:label": "designWhoMasked",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:designStudyText",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "String description of the study design if structured information not available",
+      "rdfs:label": "designStudyText",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyDesign"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Intervention",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "a schema to describe Interventions discussed in Clinical Studies/Trials for inclusion in outbreak.info Resources",
+      "rdfs:label": "Intervention",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "outbreaktest:category",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The category of an intervention in the study",
+      "rdfs:label": "category",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Intervention"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:ArmGroup",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing arm groups in clinical studies/trials for inclusion in outbreak.info Resources",
+      "rdfs:label": "ArmGroup",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "role": {
+            "description": "The role of the arm or factor in the study this is equivalent to the ArmType in ClinicalTrials.gov",
+            "enum": [
+                "experimental arm",
+                "active comparator arm",
+                "placebo comparator arm",
+                "sham comparator arm",
+                "no intervention arm"
+            ]
+          },
+          "intervention": {
+            "description": "The interventions (if any) in this ArmGroup",
+            "type": "array",
+            "oneOf": [
+                {
+                  "$ref": "#/definitions/intervention"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/intervention"
+                  }
+                }
+            ]
+          },
+          "name": {
+            "description": "The name of the arm or factor (can include a specific intervention, a placebo or even a lack of intervention, ie- 'no intervention' group)",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the arm or factor",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "definitions":{
+          "intervention": {
+              "type": "object",
+              "@type": "outbreaktest:Intervention",
+              "properties": {
+                "name": {
+                  "description": "The name of the intervention in the study",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "A description of the intervention in the study",
+                  "type": "string"
+                },
+                "category": {
+                  "description": "The category of an intervention in the study",
+                  "enum": [
+                    "drugs",
+                    "medical devices",
+                    "procedures",
+                    "vaccines",
+                    "education",
+                    "behavioral modification",
+                    "diet",
+                    "exercise",
+                    "counseling",
+                    "placebo",
+                    "other"
+                  ]
+                }
+              }
+            }  
+        }
+      }
+    },
+    {
+      "@id": "outbreaktest:intervention",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The interventions (if any) in this ArmGroup",
+      "rdfs:label": "intervention",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ArmGroup"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Intervention"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Outcome",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing a Clinical Trial/Study Outcome for inclusion in  outbreak.info Resources",
+      "rdfs:label": "Outcome",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "outbreaktest:outcomeMeasure",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The outcome measure for the study",
+      "rdfs:label": "outcomeMeasure",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:outcomeTimeFrame",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The specific time point(s) and overall duration of evaluation must be specified in this section",
+      "rdfs:label": "outcomeTimeFrame",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Duration"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:outcomeType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The classification of the outcome measure as either primary, secondary, or exploratory",
+      "rdfs:label": "outcomeType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Outcome"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:Eligibility",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing information about Clinical Trials/Studies eligibility criteria for inclusion in outbreak.info Resources",
+      "rdfs:label": "Eligibility",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "outbreaktest:inclusionCriteria",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "\"criteria for inclusion in the study",
+      "rdfs:label": "inclusionCriteria",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:minimumAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the minimum age for a participant to be included in the study",
+      "rdfs:label": "minimumAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:maximumAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the maximum age for a participant to be included in the study",
+      "rdfs:label": "maximumAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:gender",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the sex requirement to be included in the study",
+      "rdfs:label": "gender",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:genderBased",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Boolean for whether or not participation is based on gender",
+      "rdfs:label": "genderBased",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:healthyVolunteers",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Boolean to indicate whether or not healthy volunteers may be included in the study",
+      "rdfs:label": "healthyVolunteers",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:stdAge",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "the age category of a participant to be included in the study if a minimum and maximum age is not specified",
+      "rdfs:label": "stdAge",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:exclusionCriteria",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "criteria for exclusion from the study",
+      "rdfs:label": "exclusionCriteria",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:criteriaText",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The descriptive criteria as published for the Clinical Trial",
+      "rdfs:label": "criteriaText",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:Eligibility"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:StudyLocation",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing Clinical Trial/Study locations for inclusion in outbreak.info Resources",
+      "rdfs:label": "StudyLocation",
+      "rdfs:subClassOf": {
+        "@id": "schema:Place"
+      }
+    },
+    {
+      "@id": "outbreaktest:studyLocation",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The location of the study",
+      "rdfs:label": "studyLocation",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Place"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationCity",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The city in which the facility used for the study is located",
+      "rdfs:label": "studyLocationCity",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:City"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationState",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The state or province in which the facility used for the study is located",
+      "rdfs:label": "studyLocationState",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:State"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationCountry",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The country in which the facility used for the study is located",
+      "rdfs:label": "studyLocationCountry",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Country"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyLocationStatus",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The recruitment status of the study at the specific study site",
+      "rdfs:label": "studyLocationStatus",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:StudyLocation"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+{
+      "@id": "outbreaktest:ClinicalTrial",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the Clinical Trials and other medical studies used for outbreak.info Resources",
+      "rdfs:label": "ClinicalTrial",
+      "rdfs:subClassOf": {
+        "@id": "schema:MedicalStudy"
+      }
+    },
+    {
+      "@id": "outbreaktest:identifierSource",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Source of identifier assignment or type of identifier (NCTid, China CTRid, EudraCT Number, etc.)",
+      "rdfs:label": "identifierSource",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:dateModifiedType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of date. Equivalent to NCT's LastUpdatePostDateType",
+      "rdfs:label": "dateModifiedType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:healthConditionIdentifier",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Ontological or controlled vocabulary identifier for the health condition or disease",
+      "rdfs:label": "healthConditionIdentifier",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        },
+        {
+          "@id": "schema:DefinedTerm"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:hasResults",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Boolean for if the clinical trial has published any results",
+      "rdfs:label": "hasResults",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyEvent",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "an event status such as StudyStart, PrimaryCompletion, Completion, StudyFirstSubmit, StudyFirstSubmitQC, LastUpdateSubmit",
+      "rdfs:label": "studyEvent",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:StudyEvent"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyStatus",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The status of the study",
+      "rdfs:label": "studyStatus",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:StudyStatus"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyDesign",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The general design of the study",
+      "rdfs:label": "studyDesign",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:StudyDesign"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:armGroup",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The arm or factor of an interventional study",
+      "rdfs:label": "armGroup",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:ArmGroup"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:outcome",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The arm or factor of an interventional study",
+      "rdfs:label": "outcome",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Outcome"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:eligibilityCriteria",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "eligibility criteria",
+      "rdfs:label": "eligibilityCriteria",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Eligibility"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:author",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The author of this resource, content, or rating",
+      "rdfs:label": "author",
+      "rdfs:sameAs": {"@id":"schema:author"},
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Person"
+        },
+        {
+          "@id": "outbreaktest:Organization"
+        }  
+      ]
+    },
+    {
+      "@id": "outbreaktest:dateCreated",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Date the record was created",
+      "rdfs:label": "dateCreated",
+      "rdfs:sameAs": {"@id":"schema:dateCreated"},
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:datePublished",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Date of first broadcast/publication",
+      "rdfs:label": "datePublished",
+      "rdfs:sameAs": {"@id":"schema:datePublished"},
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:dateModified",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed",
+      "rdfs:label": "dateModified",
+      "rdfs:sameAs": {"@id":"schema:dateModified"},
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:keywords",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "keywords for describing the record",
+      "rdfs:label": "keywords",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:abstract",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A short descriptive summary of the publication or study",
+      "rdfs:label": "abstract",
+      "rdfs:sameAs": {"@id":"schema:abstract"},
+      "schema:domainIncludes": [
+          {"@id": "outbreaktest:Publication"},
+          {"@id": "outbreaktest:ClinicalTrial"}
+      ],
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
@@ -1459,7 +2643,10 @@
       "schema:domainIncludes": [
           {"@id": "outbreaktest:CitationObject"},
           {"@id": "outbreaktest:Correction"},
-          {"@id": "outbreaktest:Publication"}
+          {"@id": "outbreaktest:Dataset"},
+          {"@id": "outbreaktest:Publication"},
+          {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"}
       ],
       "schema:rangeIncludes": [
         {
@@ -1473,7 +2660,11 @@
       "rdfs:comment": "Funding that supports (sponsors) the collection of this dataset through some kind of financial contribution",
       "rdfs:label": "funding",
       "schema:domainIncludes": [
-          {"@id": "outbreaktest:Publication"}
+          {"@id": "outbreaktest:Dataset"},
+          {"@id": "outbreaktest:Publication"},
+          {"@id": "outbreaktest:Analysis"},
+          {"@id": "outbreaktest:Protocol"},
+          {"@id": "outbreaktest:ClinicalTrial"}
       ],
       "schema:rangeIncludes": [
         {
@@ -1482,32 +2673,118 @@
       ]
     },
     {
+      "@id": "outbreaktest:measurementTechnique",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A technique or technology used in this resource",
+      "rdfs:label": "measurementTechnique",
+      "rdfs:sameAs": {"@id":"schema:measurementTechnique"},
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Protocol"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        },
+        {
+          "@id": "schema:DefinedTerm"
+        }  
+      ]
+    },
+    {
+      "@id": "outbreaktest:species",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Species(es) from which dataset has been collected",
+      "rdfs:label": "species",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        },
+        {
+          "@id": "schema:DefinedTerm"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:infectiousAgent",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "infectious agents(s) which are the focus of the dataset",
+      "rdfs:label": "infectiousAgent",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        },
+        {
+          "@id": "schema:DefinedTerm"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:infectiousDisease",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The disease or medical conditions caused by the infectious agent. Important as some agents may cause multiple diseases",
+      "rdfs:label": "infectiousDisease",
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Analysis"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        },
+        {
+          "@id": "schema:DefinedTerm"
+        }
+      ]
+    },
+    {
       "@id": "outbreaktest:topicCategory",
       "@type": "rdfs:Property",
       "rdfs:comment": "Applicable outbreak.info category",
       "rdfs:label": "topicCategory",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Publication"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
         }
       ]
     },
+
     {
       "@id": "outbreaktest:isBasedOn",
       "@type": "rdfs:Property",
       "rdfs:comment": "A citation to a resource (eg- publication, protocol, etc.) on which this resource was derived (stored as an object, not a string)",
       "rdfs:label": "isBasedOn",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Publication"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
       "schema:rangeIncludes": [
-        {"@id":"outbreaktest:CitationObject"},
-        {"@id":"outbreaktest:Publication"},
-        {"@id":"schema:SoftwareApplication"},
-        {"@id":"schema:CreativeWork"}
+        {"@id": "outbreaktest:CitationObject"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"},
+        {"@id": "schema:SoftwareApplication"},
+        {"@id": "schema:CreativeWork"}
       ]
     },
     {
@@ -1515,14 +2792,22 @@
       "@type": "rdfs:Property",
       "rdfs:comment": "A citation to a resource (eg- publication, protocol, etc.) which is related to the resource but is not a derivative nor was derived from the resource (stored as an object, not a string)",
       "rdfs:label": "isRelatedTo",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Publication"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
       "schema:rangeIncludes": [
-        {"@id":"outbreaktest:CitationObject"},
-        {"@id":"outbreaktest:Publication"},
-        {"@id":"schema:SoftwareApplication"},
-        {"@id":"schema:CreativeWork"}
+        {"@id": "outbreaktest:CitationObject"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"},
+        {"@id": "schema:SoftwareApplication"},
+        {"@id": "schema:CreativeWork"}
       ]
     },
     {
@@ -1531,14 +2816,22 @@
       "rdfs:comment": "A citation to a resource (eg- publication, protocol, etc.) which is derived from this resource (stored as an object, not a string)",
       "rdfs:label": "citedBy",
       "rdfs:sameAs":{"@id":"owl:inverseOf: outbreaktest:isBasedOn"},
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Publication"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
       "schema:rangeIncludes": [
-        {"@id":"outbreaktest:CitationObject"},
-        {"@id":"outbreaktest:Publication"},
-        {"@id":"schema:SoftwareApplication"},
-        {"@id":"schema:CreativeWork"}
+        {"@id": "outbreaktest:CitationObject"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"},
+        {"@id": "schema:SoftwareApplication"},
+        {"@id": "schema:CreativeWork"}
       ]
     },
     {
@@ -1546,16 +2839,24 @@
       "@type": "rdfs:Property",
       "rdfs:comment": "The source from which this Dataset was identified for inclusion into Outbreak.info. Provides provenance for a resource which was curated by another.",
       "rdfs:label": "curatedBy",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Publication"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
       "schema:rangeIncludes": [
-        {"@id":"outbreaktest:Person"},
-        {"@id":"outbreaktest:Organization"},
-        {"@id":"outbreaktest:CitationObject"},
-        {"@id":"outbreaktest:Publication"},
-        {"@id":"schema:SoftwareApplication"},
-        {"@id":"schema:CreativeWork"}
+        {"@id": "outbreaktest:Person"},
+        {"@id": "outbreaktest:Organization"},
+        {"@id": "outbreaktest:CitationObject"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"},
+        {"@id": "schema:SoftwareApplication"},
+        {"@id": "schema:CreativeWork"}
       ]
     },
     {
@@ -1563,25 +2864,33 @@
       "@type": "rdfs:Property",
       "rdfs:comment": "The date this resource was added into outbreak.info, or was updated in outbreak.info.",
       "rdfs:label": "curationDate",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:Publication"
-      },
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
       "schema:rangeIncludes": [
-        {"@id":"schema:Date"}
+        {"@id": "schema:Date"}
       ]
     },
     {
-      "@id":"outbreak:evaluations",
-      "@type":"rdf:Property",
+      "@id": "outbreak:evaluations",
+      "@type": "rdf:Property",
       "rdfs:comment":"One or more reviews, ratings, or other evaluations of this resource",
-      "rdfs:label":"evaluations",
+      "rdfs:label": "evaluations",
       "schema:domainIncludes":[
-        {"@id":"outbreaktest:Publication"}
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:ClinicalTrial"}
       ],
       "schema:rangeIncludes":[
-        {"@id":"schema:Review"},
-        {"@id":"schema:Rating"},
-        {"@id":"schema:AggregateRating"}
+        {"@id": "schema:Review"},
+        {"@id": "schema:Rating"},
+        {"@id": "schema:AggregateRating"}
       ]
     }
   ]
