@@ -2311,12 +2311,12 @@
             "description": "Expected or actual outcomes of the study.",
             "oneOf": [
               {
-                "$ref": "#/definitions/outcome"
+                "$ref": "#/definitions/outcomeObject"
               },
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/outcome"
+                  "$ref": "#/definitions/outcomeObject"
                 }
               }
             ]
@@ -3008,7 +3008,7 @@
                 }
               }
           },
-          "outcome": {
+          "outcomeObject": {
               "type": "object",
               "@type": "outbreaktest:Outcome",
               "properties": {
@@ -3377,20 +3377,6 @@
       ]
     },
     {
-      "@id": "outbreaktest:author",
-      "@type": "rdfs:Property",
-      "rdfs:comment": "The study's author, this includes ResponsiblePartyInvestigator, Contacts, and OverallOfficials",
-      "rdfs:label": "author",
-      "schema:domainIncludes": {
-        "@id": "outbreaktest:ClinicalTrial"
-      },
-      "schema:rangeIncludes": [
-        {
-          "@id": "outbreaktest:Person"
-        }
-      ]
-    },
-    {
       "@id": "outbreaktest:dateModifiedType",
       "@type": "rdfs:Property",
       "rdfs:comment": "The type of date. Equivalent to NCT's LastUpdatePostDateType",
@@ -3492,6 +3478,20 @@
       ]
     },
     {
+      "@id": "outbreaktest:outcome",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The arm or factor of an interventional study",
+      "rdfs:label": "outcome",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Outcome"
+        }
+      ]
+    },
+    {
       "@id": "outbreaktest:eligibilityCriteria",
       "@type": "rdfs:Property",
       "rdfs:comment": "eligibility criteria",
@@ -3503,6 +3503,28 @@
         {
           "@id": "outbreaktest:Eligibility"
         }
+      ]
+    },
+    {
+      "@id": "outbreaktest:author",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The author of this resource, content, or rating",
+      "rdfs:label": "author",
+      "rdfs:sameAs": {"@id":"schema:author"},
+      "schema:domainIncludes": [
+        {"@id": "outbreaktest:Analysis"},
+        {"@id": "outbreaktest:Dataset"},
+        {"@id": "outbreaktest:Protocol"},
+        {"@id": "outbreaktest:Publication"},
+        {"@id": "outbreaktest:ClinicalTrial"}
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Person"
+        },
+        {
+          "@id": "outbreaktest:Organization"
+        }  
       ]
     },
     {
