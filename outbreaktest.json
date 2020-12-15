@@ -1374,23 +1374,12 @@
                     "format": "date"
                   },
                 "reviews": {
-                  "oneOf": [
-                      {
-                        "$ref": "#/definitions/reviewObject"
-                      },
+                  "anyOf": [
                       {
                         "type": "array",
                         "items": {
                           "$ref": "#/definitions/reviewObject"
                         }
-                      }
-                      
-                  ]
-                },
-                "ratings": {
-                  "oneOf": [
-                      {
-                        "$ref": "#/definitions/ratingObject"
                       },
                       {
                         "type": "array",
@@ -2261,23 +2250,12 @@
                     "format": "date"
                   },
                 "reviews": {
-                  "oneOf": [
-                      {
-                        "$ref": "#/definitions/reviewObject"
-                      },
+                  "anyOf": [
                       {
                         "type": "array",
                         "items": {
                           "$ref": "#/definitions/reviewObject"
                         }
-                      }
-                      
-                  ]
-                },
-                "ratings": {
-                  "oneOf": [
-                      {
-                        "$ref": "#/definitions/ratingObject"
                       },
                       {
                         "type": "array",
@@ -3155,23 +3133,12 @@
                     "format": "date"
                   },
                 "reviews": {
-                  "oneOf": [
-                      {
-                        "$ref": "#/definitions/reviewObject"
-                      },
+                  "anyOf": [
                       {
                         "type": "array",
                         "items": {
                           "$ref": "#/definitions/reviewObject"
                         }
-                      }
-                      
-                  ]
-                },
-                "ratings": {
-                  "oneOf": [
-                      {
-                        "$ref": "#/definitions/ratingObject"
                       },
                       {
                         "type": "array",
@@ -4247,23 +4214,12 @@
                     "format": "date"
                   },
                 "reviews": {
-                  "oneOf": [
-                      {
-                        "$ref": "#/definitions/reviewObject"
-                      },
+                  "anyOf": [
                       {
                         "type": "array",
                         "items": {
                           "$ref": "#/definitions/reviewObject"
                         }
-                      }
-                      
-                  ]
-                },
-                "ratings": {
-                  "oneOf": [
-                      {
-                        "$ref": "#/definitions/ratingObject"
                       },
                       {
                         "type": "array",
@@ -4274,9 +4230,7 @@
                       
                   ]
                 }
-                },
-            "required": [
-            ]
+            }
           }
         }
       }
