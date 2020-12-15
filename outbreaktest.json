@@ -1329,13 +1329,17 @@
                 ]
             },
           "aggregateRatingObject": {
-             "description": "A cumulative evaluation of the resource",
-             "@type": "AggregateRating",
-             "type": "object",
-             "properties": {
+              "description": "A cumulative evaluation of the resource",
+              "@type": "AggregateRating",
+              "type": "object",
+              "properties": {
                 "name": {
                 "type": "string",
                 "description": "The name of the aggregate rating"
+                },
+                "ratingValue": {
+                    "type": "string",
+                    "description": "The rating for the content."
                 },
                 "reviewAspect":{
                   "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
@@ -1398,9 +1402,9 @@
                   ]
                 }
                 },
-                "required": [
-                ]
-            }
+            "required": [
+            ]
+          }
         }
       }
     },
@@ -2212,13 +2216,17 @@
                 ]
             },
           "aggregateRatingObject": {
-             "description": "A cumulative evaluation of the resource",
-             "@type": "AggregateRating",
-             "type": "object",
-             "properties": {
+              "description": "A cumulative evaluation of the resource",
+              "@type": "AggregateRating",
+              "type": "object",
+              "properties": {
                 "name": {
                 "type": "string",
                 "description": "The name of the aggregate rating"
+                },
+                "ratingValue": {
+                    "type": "string",
+                    "description": "The rating for the content."
                 },
                 "reviewAspect":{
                   "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
@@ -2281,9 +2289,9 @@
                   ]
                 }
                 },
-                "required": [
-                ]
-            }
+            "required": [
+            ]
+          }
         }
       }
     },
@@ -3110,6 +3118,10 @@
                 "type": "string",
                 "description": "The name of the aggregate rating"
                 },
+                "ratingValue": {
+                    "type": "string",
+                    "description": "The rating for the content."
+                },
                 "reviewAspect":{
                   "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
                   "type": "string"
@@ -3170,10 +3182,10 @@
                       
                   ]
                 }
-              },
-              "required": [
-              ]
-            }
+                },
+            "required": [
+            ]
+          }
             }
           }
         },
@@ -4197,6 +4209,10 @@
                 "name": {
                 "type": "string",
                 "description": "The name of the aggregate rating"
+                },
+                "ratingValue": {
+                    "type": "string",
+                    "description": "The rating for the content."
                 },
                 "reviewAspect":{
                   "description": "This Review or Rating is relevant to this part or facet of the itemReviewed",
