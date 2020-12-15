@@ -3566,7 +3566,7 @@
         {"@id": "outbreaktest:Protocol"},
         {"@id": "outbreaktest:Publication"},
         {"@id": "outbreaktest:ClinicalTrial"}
-      ]
+      ],
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
