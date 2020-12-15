@@ -2075,7 +2075,7 @@
                 }
               ]
           },
-          "healthConditionIidentifier": {
+          "healthConditionIdentifier": {
               "description": "Ontological or controlled vocabulary identifier for the health condition or disease",
               "oneOf": [
                 {
