@@ -5415,6 +5415,9 @@
       "schema:rangeIncludes": [
         {
           "@id": "schema:Place"
+        },
+        {
+          "@id": "schema:Text"
         }
       ]
     },
@@ -5429,6 +5432,9 @@
       "schema:rangeIncludes": [
         {
           "@id": "schema:City"
+        },
+        {
+          "@id": "schema:Text"
         }
       ]
     },
@@ -5443,6 +5449,9 @@
       "schema:rangeIncludes": [
         {
           "@id": "schema:State"
+        },
+        {
+          "@id": "schema:Text"
         }
       ]
     },
@@ -5457,6 +5466,9 @@
       "schema:rangeIncludes": [
         {
           "@id": "schema:Country"
+        },
+        {
+          "@id": "schema:Text"
         }
       ]
     },
