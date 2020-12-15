@@ -278,11 +278,12 @@
     {
       "@id": "outbreaktest:role",
       "@type": "rdfs:Property",
-      "rdfs:comment": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource",
+      "rdfs:comment": "authorship, sponsorship, or other contribution role played by the person or organization in the creation of this resource. In a Clinical Study/Trial ArmGroup, it's equivalent to the ArmType in ClinicalTrials.gov",
       "rdfs:label": "role",
       "schema:domainIncludes": [
         {"@id": "outbreaktest:Person"},
-        {"@id": "outbreaktest:Organization"}
+        {"@id": "outbreaktest:Organization"},
+        {"@id": "outbreaktest:ArmGroup"}
       ],
       "schema:rangeIncludes": [
         {
@@ -4267,7 +4268,18 @@
         "properties": {
           "statusExpandedAccess": {
             "description": "Flag for whether or not the study has expanded Access status",
-            "type": "string"
+            "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "enum": [
+                        "yes",
+                        "no",
+                        "unknown"
+                      ]
+                    }
+                  ]
           },
           "statusDate": {
             "description": "The date that the status was verified. Equivalent to NCT's StatusVerifiedDate",
@@ -4276,7 +4288,7 @@
           },
           "enrollmentCount": {
             "description": "The number of participants enrolled in the study",
-            "type": "string"
+            "type": "integer"
           },
           "enrollmentType": {
             "description": "The type of estimation used to determine the enrollmentCount (actual counts, target size, etc.)",
@@ -4299,7 +4311,18 @@
           },
           "status": {
             "description": "The recruitment status of the study",
-            "type": "string"
+            "enum": [
+                "not yet recruiting",
+                "recruiting",
+                "enrolling by invitation",
+                "active",
+                "not recruiting",
+                "suspended",
+                "terminated",
+                "completed",
+                "withdrawn",
+                "unknown status"
+            ]
           }
         },
         "required": [
@@ -4406,76 +4429,130 @@
         "properties": {
           "studyType": {
             "description": "Type of human study, can be subtypes of observational study or interventional studies and may include the temporal relationship of observation period to time of participant enrollment.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
+            "enum": [
+                "interventional",
+                "observational"
             ]
           },
           "phase": {
             "description": "Stage or phase of the study in the U.S. if applicable",
             "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
+                    {
+                      "enum": [
+                        "Early Phase 1",
+                        "Phase 1",
+                        "Phase 2",
+                        "Phase 3",
+                        "Phase 4",
+                        "Not Applicable"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "Early Phase 1",
+                          "Phase 1",
+                          "Phase 2",
+                          "Phase 3",
+                          "Phase 4",
+                          "Not Applicable"
+                        ]
+                      }
+                    }
+                  ]
           },
           "phaseNumber": {
             "description": "The number of the phase or stage of the study",
             "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
+                    {
+                      "enum": [
+                        "0",
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "Not Applicable"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "0",
+                          "1",
+                          "2",
+                          "3",
+                          "4",
+                          "Not Applicable"
+                        ]
+                      }
+                    }
+                  ]
           },
           "designAllocation": {
             "description": "The method by which the study participants were allocated into groups",
-            "type": "string"
+            "enum": [
+                "randomized",
+                "nonrandomized",
+                "other"
+            ]
           },
           "designModel": {
-            "description": "The general design of the strategy for assigning interventions to participants in a clinical intervention study OR the general design of the strategy for identifying and following up with participants during an observational study",
+            "description": "The general design of the strategy for assigning interventions to participants in a clinical intervention study OR the general design of the strategy for identifying and following up with participants during an observational study.",
             "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
+                {
+                    "enum": [
+                        "single group assignment",
+                        "parallel assignment",
+                        "cross-over assignment",
+                        "factorial assignment",
+                        "cohort",
+                        "case-control",
+                        "case-only",
+                        "case-cross-over",
+                        "ecologic or community studies",
+                        "family-based",
+                        "other",
+                        "retrospective",
+                        "prospective",
+                        "cross-sectional"
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "enum": [
+                          "single group assignment",
+                          "parallel assignment",
+                          "cross-over assignment",
+                          "factorial assignment",
+                          "cohort",
+                          "case-control",
+                          "case-only",
+                          "case-cross-over",
+                          "ecologic or community studies",
+                          "family-based",
+                          "other",
+                          "retrospective",
+                          "prospective",
+                          "cross-sectional"
+                        ]
+                    }
                 }
-              }
             ]
           },
           "designPrimaryPurpose": {
             "description": "The primary purpose of the study",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
+            "enum": [
+                "treatment",
+                "prevention",
+                "diagnostic",
+                "supportive care",
+                "screening",
+                "health services research",
+                "basic science",
+                "other"
             ]
           },
           "designWhoMasked": {
@@ -4494,7 +4571,27 @@
           },
           "designStudyText": {
             "description": "String description of the study design if structured information not available",
-            "type": "string"
+            "oneOf": [
+                {
+                    "enum": [
+                        "Participant",
+                        "Investigator",
+                        "Outcomes Assessor",
+                        "Care Provider"
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "enum": [
+                          "Participant",
+                          "Investigator",
+                          "Outcomes Assessor",
+                          "Care Provider"
+                        ]
+                    }
+                }
+            ]
           }
         },
         "required": []
@@ -4625,18 +4722,30 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "category": {
-            "description": "he category of an intervention in the study",
-            "type": "string"
-          },
-          "name": {
-            "description": "The name of the intervention",
-            "type": "string"
-          },
-          "description": {
-            "description": "A description of the intervention",
-            "type": "string"
-          }
+            "name": {
+              "description": "The name of the intervention in the study",
+              "type": "string"
+            },
+            "description": {
+              "description": "A description of the intervention in the study",
+              "type": "string"
+            },
+            "category": {
+              "description": "The category of an intervention in the study",
+              "enum": [
+                "drugs",
+                "medical devices",
+                "procedures",
+                "vaccines",
+                "education",
+                "behavioral modification",
+                "diet",
+                "exercise",
+                "counseling",
+                "placebo",
+                "other"
+              ]
+            }
         },
         "required": []
       }
@@ -4652,6 +4761,101 @@
       "schema:rangeIncludes": [
         {
           "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:ArmGroup",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing arm groups in clinical studies/trials for inclusion in outbreak.info Resources",
+      "rdfs:label": "ArmGroup",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "role": {
+            "description": "The role of the arm or factor in the study this is equivalent to the ArmType in ClinicalTrials.gov",
+            "enum": [
+                "experimental arm",
+                "active comparator arm",
+                "placebo comparator arm",
+                "sham comparator arm",
+                "no intervention arm"
+            ]
+          },
+          "intervention": {
+            "description": "The interventions (if any) in this ArmGroup",
+            "type": "array",
+            "oneOf": [
+                {
+                  "$ref": "#/definitions/intervention"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/intervention"
+                  }
+                }
+            ]
+          },
+          "name": {
+            "description": "The name of the arm or factor (can include a specific intervention, a placebo or even a lack of intervention, ie- 'no intervention' group)",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the arm or factor",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "definitions":{
+          "intervention": {
+              "type": "object",
+              "@type": "Thing",
+              "properties": {
+                "name": {
+                  "description": "The name of the intervention in the study",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "A description of the intervention in the study",
+                  "type": "string"
+                },
+                "category": {
+                  "description": "The category of an intervention in the study",
+                  "enum": [
+                    "drugs",
+                    "medical devices",
+                    "procedures",
+                    "vaccines",
+                    "education",
+                    "behavioral modification",
+                    "diet",
+                    "exercise",
+                    "counseling",
+                    "placebo",
+                    "other"
+                  ]
+                }
+              }
+            }  
+        }
+      }
+    },
+    {
+      "@id": "outbreaktest:intervention",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The interventions (if any) in this ArmGroup",
+      "rdfs:label": "intervention",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ArmGroup"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Intervention"
         }
       ]
     },
