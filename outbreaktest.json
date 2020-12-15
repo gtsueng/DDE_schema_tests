@@ -4801,7 +4801,7 @@
         "definitions":{
           "intervention": {
               "type": "object",
-              "@type": "Thing",
+              "@type": "outbreaktest:Intervention",
               "properties": {
                 "name": {
                   "description": "The name of the intervention in the study",
