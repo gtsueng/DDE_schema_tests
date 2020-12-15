@@ -1,0 +1,513 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "outbreaktest": "http://discovery.biothings.io/view/"
+  },
+  "@graph": [
+    {
+      "@id": "outbreaktest:ClinicalTrial",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "This is the schema for describing the Clinical Trials and other medical studies used for outbreak.info Resources",
+      "rdfs:label": "ClinicalTrial",
+      "rdfs:subClassOf": {
+        "@id": "schema:MedicalStudy"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "identifierSource": {
+            "description": "Source of identifier assignment or type of identifier (NCTid, China CTRid, EudraCT Number, etc.)",
+            "type": "string"
+          },
+          "funding": {
+            "description": "Funding, sponsorship, and collaborations for the study.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/funding"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/funding"
+                }
+              }
+            ]
+          },
+          "author": {
+            "description": "The study's author, this includes ResponsiblePartyInvestigator, Contacts, and OverallOfficials",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/person"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/person"
+                }
+              }
+            ]
+          },
+          "abstract": {
+            "description": "A brief summary of the study",
+            "type": "string"
+          },
+          "dateCreated": {
+            "description": "Date the record was created",
+            "format": "date",
+            "type": "string"
+          },
+          "datePublished": {
+            "description": "Date the record was published",
+            "format": "date",
+            "type": "string"
+          },
+          "dateModified": {
+            "description": "Date when the record was modified. Equivalent to NCT's LastUpdatePostDate",
+            "format": "date",
+            "type": "string"
+          },
+          "dateModifiedType": {
+            "description": "The type of date. Equivalent to NCT's LastUpdatePostDateType",
+            "oneOf": [
+              {
+                "enum": [
+                  "actual",
+                  "anticipated",
+                  "estimated"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "actual",
+                    "anticipated",
+                    "estimated"
+                  ]
+                }
+              }
+            ]
+          },
+          "healthConditionIdentifier": {
+            "description": "Ontological or controlled vocabulary identifier for the health condition or disease",
+            "type": "string"
+          },
+          "keywords": {
+            "description": "keywords for describing the record",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "topicCategory": {
+            "description": "Applicable outbreak.info category"
+          },
+          "hasResults": {
+            "description": "Boolean for if the clinical trial has published any results",
+            "type": "boolean"
+          },
+          "studyEvent": {
+            "description": "an event status such as StudyStart, PrimaryCompletion, Completion, StudyFirstSubmit, StudyFirstSubmitQC, LastUpdateSubmit",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/studyevent"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/studyevent"
+                }
+              }
+            ]
+          },
+          "studyStatus": {
+            "description": "The status of the study",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/studystatus"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/studystatus"
+                }
+              }
+            ]
+          },
+          "studyDesign": {
+            "description": "The general design of the study",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/studydesign"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/studydesign"
+                }
+              }
+            ]
+          },
+          "armGroup": {
+            "description": "The arm or factor of an interventional study",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/armgroup"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/armgroup"
+                }
+              }
+            ]
+          },
+          "eligibilityCriteria": {
+            "description": "eligibility criteria",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/eligibility"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/eligibility"
+                }
+              }
+            ]
+          },
+          "studyLocation": {
+            "description": "The location in which the study is taking/took place.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/studylocation"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/studylocation"
+                }
+              }
+            ]
+          },
+          "healthCondition": {
+            "description": "Specifying the health condition(s) of a patient, medical study, or other target audience.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "outcome": {
+            "description": "Expected or actual outcomes of the study.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/outcome"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/outcome"
+                }
+              }
+            ]
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "description": {
+            "description": "A description of the item.",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "identifierSource",
+          "funding",
+          "author",
+          "healthCondition",
+          "description",
+          "identifier",
+          "name"
+        ]
+      }
+    },
+    {
+      "@id": "outbreaktest:identifierSource",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Source of identifier assignment or type of identifier (NCTid, China CTRid, EudraCT Number, etc.)",
+      "rdfs:label": "identifierSource",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:funding",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Funding, sponsorship, and collaborations for the study.",
+      "rdfs:label": "funding",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:MonetaryGrant"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:author",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The study's author, this includes ResponsiblePartyInvestigator, Contacts, and OverallOfficials",
+      "rdfs:label": "author",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Person"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:abstract",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "A brief summary of the study",
+      "rdfs:label": "abstract",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:dateCreated",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Date the record was created",
+      "rdfs:label": "dateCreated",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:datePublished",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Date the record was published",
+      "rdfs:label": "datePublished",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:dateModified",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Date when the record was modified. Equivalent to NCT's LastUpdatePostDate",
+      "rdfs:label": "dateModified",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:dateModifiedType",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The type of date. Equivalent to NCT's LastUpdatePostDateType",
+      "rdfs:label": "dateModifiedType",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:healthConditionIdentifier",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Ontological or controlled vocabulary identifier for the health condition or disease",
+      "rdfs:label": "healthConditionIdentifier",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:DefinedTerm"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:keywords",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "keywords for describing the record",
+      "rdfs:label": "keywords",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:topicCategory",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Applicable outbreak.info category",
+      "rdfs:label": "topicCategory",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:hasResults",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "Boolean for if the clinical trial has published any results",
+      "rdfs:label": "hasResults",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Boolean"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyEvent",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "an event status such as StudyStart, PrimaryCompletion, Completion, StudyFirstSubmit, StudyFirstSubmitQC, LastUpdateSubmit",
+      "rdfs:label": "studyEvent",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:StudyEvent"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyStatus",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The status of the study",
+      "rdfs:label": "studyStatus",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:StudyStatus"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:studyDesign",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The general design of the study",
+      "rdfs:label": "studyDesign",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:StudyDesign"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:armGroup",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "The arm or factor of an interventional study",
+      "rdfs:label": "armGroup",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:ArmGroup"
+        }
+      ]
+    },
+    {
+      "@id": "outbreaktest:eligibilityCriteria",
+      "@type": "rdfs:Property",
+      "rdfs:comment": "eligibility criteria",
+      "rdfs:label": "eligibilityCriteria",
+      "schema:domainIncludes": {
+        "@id": "outbreaktest:ClinicalTrial"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "outbreaktest:Eligibility"
+        }
+      ]
+    }
+  ]
+}
