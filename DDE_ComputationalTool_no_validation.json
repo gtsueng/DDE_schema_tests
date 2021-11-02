@@ -69,6 +69,36 @@
               }
             ]
           },
+          "codeRepository": {
+            "description": "Link to the source code repository of the tool.",
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ]
+          },
+          "programmingLanguage": {
+            "description": "The main programming language(s) used to build or execute the tool. Please use terms from the ‘Programming language’ table in the Bio.Tools documentation",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
           "softwareVersion": {
             "description": "Version of the software instance."
           },
@@ -123,6 +153,37 @@
           }
         }
       }
+    },
+    {
+      "@id": "niaidtemp:codeRepository",
+      "@type": "rdf:Property",
+      "rdfs:comment": "Link to the source code repository of the tool.",
+      "rdfs:label": "codeRepository",
+      "schema:domainIncludes": {
+        "@id": "niaidtemp:NiaidComputationalTool"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:URL"
+        }
+      ]
+    },
+    {
+      "@id": "niaidtemp:programmingLanguage",
+      "@type": "rdf:Property",
+      "rdfs:comment": "The main programming language(s) used to build or execute the tool. Please use terms from the ‘Programming language’ table in the Bio.Tools documentation",
+      "rdfs:label": "programmingLanguage",
+      "schema:domainIncludes": {
+        "@id": "niaidtemp:NiaidComputationalTool"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        },
+        {
+          "@id": "schema:ComputerLanguage"
+        }
+      ]
     }
   ]
 }
