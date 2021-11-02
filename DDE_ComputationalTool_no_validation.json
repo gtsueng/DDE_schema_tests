@@ -100,10 +100,43 @@
             ]
           },
           "softwareVersion": {
-            "description": "Version of the software instance."
+            "description": "Version(s) of the tool, which this information is valid for. Can also be a comma-delimited list and include hyphen-separated ranges of versions.",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/versionInfo"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/versionInfo"
+                }
+              }
+            ]
           },
           "featureList": {
-            "description": "Features or modules provided by this application (and possibly required by other applications)."
+            "description": "Features or modules provided by this application (and possibly required by other applications). Functionality provided by the tool. This is similar to measurementTechnique in Dataset.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/edamOperation"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/edamOperation"
+                }
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ]
           },
           "url": {
             "description": "URL of the item."
@@ -136,6 +169,31 @@
               ],
               "children_of": [
                 "http://edamontology.org/topic_0003"
+              ],
+              "property": {
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "identifier": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "edamOperation": {
+            "@type": "DefinedTerm",
+            "type": "object",
+            "strict": false,
+            "vocabulary": {
+              "ontology": [
+                "edamOperation"
+              ],
+              "children_of": [
+                "http://edamontology.org/operation_0004"
               ],
               "property": {
                 "name": {
