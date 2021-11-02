@@ -153,7 +153,17 @@
             "format": "uri"
           },
           "citation": {
-            "description": "A citation or reference to another creative work, such as another publication, web page, scholarly article, etc."
+            "description": "Journal article or other publication associated with the computational tool (stored as an object, not a string)",
+            "oneOf": [{
+                "$ref": "#/definitions/article"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/article"
+                }
+              }
+            ]
           },
           "creator": {
             "description": "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork."
@@ -213,6 +223,23 @@
                 }
               }
             }
+          },
+          "article": {
+            "description": "A scholarly article in which the computational tool is cited.",
+            "@type": "ScholarlyArticle",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "url"
+            ]
           }
         }
       }
