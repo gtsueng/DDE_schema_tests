@@ -1,0 +1,186 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "niaidtemp": "http://discovery.biothings.io/view/niaidtemp/"
+  },
+  "@graph": [
+    {
+      "@id": "niaidtemp:NiaidComputationalTool",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "A schema describing a minimal ComputationalTool for the National Institute of Allergy and Infectious Disease (NIAID). A ComputationalTool is a software used for the collection, processing, distribution, analysis, visualization, interpretation, etc. of data. Additional schema.org and/or custom properties could be added.",
+      "rdfs:label": "NiaidComputationalTool",
+      "rdfs:subClassOf": {
+        "@id": "bioschemas:ComputationalTool"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "codeRepository": {
+            "description": "Link to the source code repository of the tool.",
+            "oneOf": [
+              {
+                "format": "uri",
+                "type": "string"
+              },
+              {
+                "items": {
+                  "format": "uri",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "programmingLanguage": {
+            "description": "The main programming language(s) used to build or execute the tool. Please use terms from the \u2018Programming language\u2019 table in the Bio.Tools documentation",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "applicationCategory": {
+            "description": "Type of software application, e.g. 'Game, Multimedia'. Please use terms from the 'Tool type' table in the biotools documentation.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ]
+          },
+          "applicationSubCategory": {
+            "description": "Subcategory of the application, e.g. 'Arcade Game'. Use an EDAM:Topic to describe the category of application",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/edamTopic"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/edamTopic"
+                }
+              }
+            ]
+          },
+          "featureList": {
+            "description": "Features or modules provided by this application (and possibly required by other applications). Functionality provided by the tool. This is similar to measurementTechnique in Dataset.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/edamOperation"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/edamOperation"
+                }
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ]
+          },
+          "softwareVersion": {
+            "description": "Version of the software instance.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "required": [],
+        "definitions": {
+           "edamTopic": {
+            "@type": "DefinedTerm",
+            "type": "object",
+            "strict": false,
+            "vocabulary": {
+              "ontology": [
+                "edamTopic"
+              ],
+              "children_of": [
+                "http://edamontology.org/topic_0003"
+              ],
+              "property": {
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "identifier": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+           "edamOperation": {
+            "@type": "DefinedTerm",
+            "type": "object",
+            "strict": false,
+            "vocabulary": {
+              "ontology": [
+                "edamOperation"
+              ],
+              "children_of": [
+                "http://edamontology.org/operation_0004"
+              ],
+              "property": {
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "identifier": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+      }
+      }
+    }
+  ]
+}
