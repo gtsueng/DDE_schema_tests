@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "niaidtemp": "http://discovery.biothings.io/view/niaidtemp/"
+  },
+  "@graph": [
+    {
+      "@id": "niaidtemp:NiaidComputationalTool",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "A schema describing a minimal ComputationalTool for the National Institute of Allergy and Infectious Disease (NIAID). A ComputationalTool is a software used for the collection, processing, distribution, analysis, visualization, interpretation, etc. of data. Additional schema.org and/or custom properties could be added.",
+      "rdfs:label": "NiaidComputationalTool",
+      "rdfs:subClassOf": {
+        "@id": "schema:SoftwareApplication"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "applicationSubCategory": {
+            "description": "Subcategory of the application, e.g. 'Arcade Game'."
+          },
+          "applicationCategory": {
+            "description": "Type of software application, e.g. 'Game, Multimedia'."
+          },
+          "softwareVersion": {
+            "description": "Version of the software instance."
+          },
+          "featureList": {
+            "description": "Features or modules provided by this application (and possibly required by other applications)."
+          },
+          "description": {
+            "description": "A description of the item."
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details."
+          },
+          "name": {
+            "description": "The name of the item."
+          },
+          "url": {
+            "description": "URL of the item."
+          },
+          "citation": {
+            "description": "A citation or reference to another creative work, such as another publication, web page, scholarly article, etc."
+          },
+          "creator": {
+            "description": "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork."
+          },
+          "dateModified": {
+            "description": "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed."
+          },
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL."
+          }
+        },
+        "required": []
+      }
+    }
+  ]
+}
