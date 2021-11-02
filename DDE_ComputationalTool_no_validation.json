@@ -103,12 +103,12 @@
             "description": "Version(s) of the tool, which this information is valid for. Can also be a comma-delimited list and include hyphen-separated ranges of versions.",
             "oneOf": [
               {
-                "$ref": "#/definitions/versionInfo"
+                "type": "string"
               },
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/versionInfo"
+                  "type": "string"
                 }
               }
             ]
