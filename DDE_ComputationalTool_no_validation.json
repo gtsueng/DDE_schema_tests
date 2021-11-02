@@ -56,7 +56,18 @@
             ]
           },
           "applicationSubCategory": {
-            "description": "Subcategory of the application, e.g. 'Arcade Game'."
+            "description": "Subcategory of the application, e.g. 'Arcade Game'. Use an EDAM:Topic to describe the category of application",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/edamTopic"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/edamTopic"
+                }
+              }
+            ]
           },
           "softwareVersion": {
             "description": "Version of the software instance."
@@ -83,7 +94,34 @@
         "required": [
           "name",
           "description"
-        ]
+        ],
+        "definitions": {
+          "edamTopic": {
+            "@type": "DefinedTerm",
+            "type": "object",
+            "strict": false,
+            "vocabulary": {
+              "ontology": [
+                "edamTopic"
+              ],
+              "children_of": [
+                "http://edamontology.org/topic_0003"
+              ],
+              "property": {
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "identifier": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
     }
   ]
