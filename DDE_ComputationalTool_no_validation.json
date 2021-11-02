@@ -166,7 +166,26 @@
             ]
           },
           "creator": {
-            "description": "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork."
+            "description": "Name of the author or organization that created the computational tool.  Note: schema.org/creator and schema.org/organization have additional fields that can provide more information about the author/organization, if desired.",
+            "anyOf": [{
+                "$ref": "#/definitions/person"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/person"
+                }
+              },
+              {
+                "$ref": "#/definitions/organization"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/organization"
+                }
+              }
+            ]
           }
         },
         "required": [
@@ -239,6 +258,32 @@
             },
             "required": [
               "url"
+            ]
+          },
+          "person": {
+            "description": "Reusable person definition",
+            "@type": "Person",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "organization": {
+            "description": "Reusable organization definition",
+            "@type": "Organization",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
             ]
           }
         }
