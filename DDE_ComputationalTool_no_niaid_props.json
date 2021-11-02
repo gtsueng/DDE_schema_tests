@@ -30,6 +30,55 @@
             "description": "A short unique identifier for the computational tool (ideally less than 15 characters)",
             "type": "string"
           },
+          "creator": {
+            "description": "Name of the author or organization that created the computational tool.  Note: schema.org/creator and schema.org/organization have additional fields that can provide more information about the author/organization, if desired.",
+            "anyOf": [{
+                "$ref": "#/definitions/person"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/person"
+                }
+              },
+              {
+                "$ref": "#/definitions/organization"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/organization"
+                }
+              }
+            ]
+          },
+          "url": {
+            "description": "software/code location.",
+            "type": "string",
+            "format": "uri"
+          },
+          "dateModified": {
+            "type": "string",
+            "format": "date"
+          },
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL.",
+            "type": "string",
+            "format": "uri"
+          },
+          "citation": {
+            "description": "Journal article or other publication associated with the computational tool (stored as an object, not a string)",
+            "oneOf": [{
+                "$ref": "#/definitions/article"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/article"
+                }
+              }
+            ]
+          },
           "applicationCategory": {
             "description": "Type of software application, e.g. 'Game, Multimedia'. Please use terms from the 'Tool type' table in the biotools documentation.",
             "anyOf": [
@@ -138,51 +187,41 @@
               }
             ]
           },
-          "url": {
-            "description": "software/code location.",
-            "type": "string",
-            "format": "uri"
-          },
-          "dateModified": {
-            "type": "string",
-            "format": "date"
-          },
-          "license": {
-            "description": "A license document that applies to this content, typically indicated by URL.",
-            "type": "string",
-            "format": "uri"
-          },
-          "citation": {
-            "description": "Journal article or other publication associated with the computational tool (stored as an object, not a string)",
+          "species": {
+            "description": "Species(es) from which the computation tool is based",
             "oneOf": [{
-                "$ref": "#/definitions/article"
+                "$ref": "#/definitions/speciesControlledVocabulary"
               },
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/article"
+                  "$ref": "#/definitions/speciesControlledVocabulary"
                 }
               }
             ]
           },
-          "creator": {
-            "description": "Name of the author or organization that created the computational tool.  Note: schema.org/creator and schema.org/organization have additional fields that can provide more information about the author/organization, if desired.",
-            "anyOf": [{
-                "$ref": "#/definitions/person"
+          "infectiousAgent": {
+            "description": "Infectious agent(s) / pathogen(s) which are the focus of the computational tool (e.g. SARS-CoV-2)",
+            "oneOf": [{
+                "$ref": "#/definitions/pathogenControlledVocabulary"
               },
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/person"
+                  "$ref": "#/definitions/pathogenControlledVocabulary"
                 }
-              },
-              {
-                "$ref": "#/definitions/organization"
+              }
+            ]
+          },
+          "infectiousDisease": {
+            "description": "Infectious disease(s) or condition(s) which are the focus of the computational tool (e.g. COVID-19, pneumonia, etc.)",
+            "oneOf": [{
+                "$ref": "#/definitions/diseaseControlledVocabulary"
               },
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/organization"
+                  "$ref": "#/definitions/diseaseControlledVocabulary"
                 }
               }
             ]
@@ -190,7 +229,10 @@
         },
         "required": [
           "name",
-          "description"
+          "description",
+          "identifier",
+          "creator",
+          "url"
         ],
         "definitions": {
           "edamTopic": {
@@ -285,6 +327,36 @@
             "required": [
               "name"
             ]
+          },
+          "pathogenControlledVocabulary": {
+            "description": "collection of vocabulary terms defined in ontologies",
+            "@type": "CreativeWork",
+            "type": "string",
+            "vocabulary": {
+              "ontology": ["ncbitaxon"],
+              "children_of": ["http://purl.obolibrary.org/obo/NCBITaxon_10239", "http://purl.obolibrary.org/obo/NCBITaxon_2"]
+            },
+            "strict": false
+          },
+          "speciesControlledVocabulary": {
+            "description": "collection of vocabulary terms defined in ontologies",
+            "@type": "CreativeWork",
+            "type": "string",
+            "vocabulary": {
+              "ontology": ["ncbitaxon"],
+              "children_of": ["http://purl.obolibrary.org/obo/NCBITaxon_131567", "http://purl.obolibrary.org/obo/NCBITaxon_10239", "http://purl.obolibrary.org/obo/NCBITaxon_131567l"]
+            },
+            "strict": false
+          },
+          "diseaseControlledVocabulary": {
+            "description": "collection of vocabulary terms defined in ontologies",
+            "@type": "CreativeWork",
+            "type": "string",
+            "vocabulary": {
+              "ontology": ["mondo"],
+              "children_of": ["http://purl.obolibrary.org/obo/MONDO_0000001"]
+            },
+            "strict": false
           }
         }
       }
@@ -319,6 +391,48 @@
           "@id": "schema:ComputerLanguage"
         }
       ]
+    },
+    {
+      "@id": "niaidtemp:species",
+      "@type": "rdf:Property",
+      "rdfs:comment": "Species(es) from which dataset has been collected",
+      "rdfs:label": "species",
+      "schema:domainIncludes": [{
+        "@id": "niaidtemp:NiaidComputationalTool"
+      }],
+      "schema:rangeIncludes": [{
+        "@id": "schema:Text"
+      }],
+      "owl:cardinality": "many",
+      "marginality": "recommended"
+    },
+    {
+      "@id": "niaidtemp:infectiousAgent",
+      "@type": "rdf:Property",
+      "rdfs:comment": "Infectious agent(s) / pathogen(s) which are the focus of the dataset (e.g. SARS-CoV-2)",
+      "rdfs:label": "infectiousAgent",
+      "schema:domainIncludes": [{
+        "@id": "niaidtemp:NiaidComputationalTool"
+      }],
+      "schema:rangeIncludes": [{
+        "@id": "schema:Text"
+      }],
+      "owl:cardinality": "many",
+      "marginality": "recommended"
+    },
+    {
+      "@id": "niaidtemp:infectiousDisease",
+      "@type": "rdf:Property",
+      "rdfs:comment": "Infectious disease(s) / condition(s) which are the focus of the dataset (e.g. COVID-19, coronavirus)",
+      "rdfs:label": "infectiousDisease",
+      "schema:domainIncludes": [{
+        "@id": "niaidtemp:NiaidComputationalTool"
+      }],
+      "schema:rangeIncludes": [{
+        "@id": "schema:Text"
+      }],
+      "owl:cardinality": "many",
+      "marginality": "recommended"
     }
   ]
 }
