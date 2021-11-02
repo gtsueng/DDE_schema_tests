@@ -30,11 +30,33 @@
             "description": "A short unique identifier for the computational tool (ideally less than 15 characters)",
             "type": "string"
           },
+          "applicationCategory": {
+            "description": "Type of software application, e.g. 'Game, Multimedia'. Please use terms from the 'Tool type' table in the biotools documentation.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ]
+          },
           "applicationSubCategory": {
             "description": "Subcategory of the application, e.g. 'Arcade Game'."
-          },
-          "applicationCategory": {
-            "description": "Type of software application, e.g. 'Game, Multimedia'."
           },
           "softwareVersion": {
             "description": "Version of the software instance."
