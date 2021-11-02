@@ -139,19 +139,24 @@
             ]
           },
           "url": {
-            "description": "URL of the item."
+            "description": "software/code location.",
+            "type": "string",
+            "format": "uri"
+          },
+          "dateModified": {
+            "type": "string",
+            "format": "date"
+          },
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL.",
+            "type": "string",
+            "format": "uri"
           },
           "citation": {
             "description": "A citation or reference to another creative work, such as another publication, web page, scholarly article, etc."
           },
           "creator": {
             "description": "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork."
-          },
-          "dateModified": {
-            "description": "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed."
-          },
-          "license": {
-            "description": "A license document that applies to this content, typically indicated by URL."
           }
         },
         "required": [
