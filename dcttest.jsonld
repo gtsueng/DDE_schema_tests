@@ -29,7 +29,10 @@
             "type": "string"
           }
         },
-        "required": []
+        "required": [
+          "name",
+          "conformsTo"
+        ]
       }
     },
     {
