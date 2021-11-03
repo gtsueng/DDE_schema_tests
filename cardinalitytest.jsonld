@@ -1,0 +1,41 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "test": "http://discovery.biothings.io/view/test/"
+  },
+  "@graph": [
+    {
+      "@id": "test:MarginalityTest",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "testing inclusion of Marginality and Cardinality in validation",
+      "rdfs:label": "MarginalityTest",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "url": {
+            "description": "URL of the item.",
+            "type": "string",
+            "format": "uri"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string",
+            "owl:cardinality": "one",
+            "marginality": "required"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    }
+  ]
+}
