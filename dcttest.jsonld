@@ -1,0 +1,47 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "test": "http://discovery.biothings.io/view/test/"
+  },
+  "@graph": [
+    {
+      "@id": "test:MyTest",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "testing dct:conformsTo",
+      "rdfs:label": "MyTest",
+      "rdfs:subClassOf": {
+        "@id": "schema:Diet"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "dct:conformsTo": {
+            "description": "testing dct:conformsTo"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "test:dct:conformsTo",
+      "@type": "rdf:Property",
+      "rdfs:comment": "testing dct:conformsTo",
+      "rdfs:label": "dct:conformsTo",
+      "schema:domainIncludes": {
+        "@id": "test:MyTest"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
