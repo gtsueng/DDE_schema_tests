@@ -28,10 +28,10 @@
       }
     },
     {
-      "@id": "test:dct:conformsTo",
+      "@id": "dct:conformsTo",
       "@type": "rdf:Property",
       "rdfs:comment": "testing dct:conformsTo",
-      "rdfs:label": "dct:conformsTo",
+      "rdfs:label": "conformsTo",
       "schema:domainIncludes": {
         "@id": "test:MyTest"
       },
