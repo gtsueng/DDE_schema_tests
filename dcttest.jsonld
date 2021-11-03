@@ -19,7 +19,7 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
-          "conformsTo": {
+          "dct:conformsTo": {
             "description": "the schemas that the markup conforms to",
             "type": "string",
             "format": "url"
@@ -36,7 +36,7 @@
       "@id": "dct:conformsTo",
       "@type": "rdf:Property",
       "rdfs:comment": "testing dct:conformsTo",
-      "rdfs:label": "conformsTo",
+      "rdfs:label": "dct:conformsTo",
       "schema:domainIncludes": {
         "@id": "test:MyTest"
       },
