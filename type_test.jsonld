@@ -1,0 +1,64 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "test": "http://discovery.biothings.io/view/test/"
+  },
+  "@graph": [
+    {
+      "@id": "test:MyTest",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "testing @type, @id as properties WITHOUT validation",
+      "rdfs:label": "MyTest",
+      "rdfs:subClassOf": {
+        "@id": "schema:Preschool"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "@type": {
+            "description": "The class of the item"
+          },
+          "@id": {
+            "description": "The identifier of the item"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "@id": "test:@type",
+      "@type": "rdf:Property",
+      "rdfs:comment": "The class of the item",
+      "rdfs:label": "@type",
+      "schema:domainIncludes": {
+        "@id": "test:MyTest"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "test:@id",
+      "@type": "rdf:Property",
+      "rdfs:comment": "The identifier of the item",
+      "rdfs:label": "@id",
+      "schema:domainIncludes": {
+        "@id": "test:MyTest"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    }
+  ]
+}
