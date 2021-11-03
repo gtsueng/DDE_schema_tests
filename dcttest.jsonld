@@ -19,6 +19,11 @@
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
+          "conformsTo": {
+            "description": "the schemas that the markup conforms to",
+            "type": "string",
+            "format": "url"
+          },
           "name": {
             "description": "The name of the item.",
             "type": "string"
