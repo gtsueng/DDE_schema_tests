@@ -105,9 +105,118 @@
                 }
               }
             ]
+          },
+          "alternateName": {
+            "description": "An alias for the item.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "description": {
+            "description": "A description of the item.",
+            "type": "string"
+          },
+          "disambiguatingDescription": {
+            "description": "A sub property of description. A short description of the item used to disambiguate from other, similar items. Information from other properties (in particular, name) may be necessary for the description to be useful for disambiguation.",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/propertyValue"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "string",
+                "format": "uri"
+              }
+            ]
+          },
+          "image": {
+            "description": "An image of the item. This can be a <a class=\"localLink\" href=\"http://schema.org/URL\">URL</a> or a fully described <a class=\"localLink\" href=\"http://schema.org/ImageObject\">ImageObject</a>.",
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ]
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "sameAs": {
+            "description": "URL of a reference Web page that unambiguously indicates the item's identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or official website.",
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ]
+          },
+          "url": {
+            "description": "URL of the item.",
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            ]
           }
         },
-        "required": [],
+        "required": [
+            "name",
+            "identifier",
+            "url"
+        ],
+        "recommended": [
+            "chemicalComposition",
+            "hasBioChemEntityPart"
+        ],
+        "optional": [
+            "alternateName",
+            "bioChemInteraction",
+            "bioChemSimilarity",
+            "biologicalRole",
+            "chemicalRole",
+            "description",
+            "disambiguatingDescription",
+            "image",
+            "potentialUse",
+            "sameAs"
+        ],
         "definitions": {
           "definedTerm": {
             "@type": "DefinedTerm",
@@ -145,6 +254,23 @@
               }
             },
             "required": []
+          },
+          "propertyValue": {
+            "@type": "PropertyValue",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"    
+              },
+              "identifier": {
+                "type": "string"    
+              }
+            },
+            "required": [
+            ]  
           }
         }
       }
