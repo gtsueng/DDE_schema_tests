@@ -1,0 +1,54 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "dct": "http://purl.org/dc/terms/",
+    "test": "http://discovery.biothings.io/view/test/"
+  },
+  "@graph": [
+    {
+      "@id": "test:MyTest",
+      "@type": "rdfs:Class",
+      "schema:schemaVersion": "https://bioschemas.org/types/BioChemEntity/0.7-RELEASE-2019_06_19",	
+      "rdfs:comment": "testing dct:conformsTo",
+      "rdfs:label": "MyTest",
+      "rdfs:subClassOf": {
+        "@id": "schema:Diet"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "conformsTo": {
+            "description": "the schemas that the markup conforms to",
+            "type": "string",
+            "format": "url"
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "conformsTo"
+        ]
+      }
+    },
+    {
+      "@id": "dct:conformsTo",
+      "@type": "rdf:Property",
+      "rdfs:comment": "testing dct:conformsTo",
+      "rdfs:label": "conformsTo",
+      "schema:domainIncludes": {
+        "@id": "test:MyTest"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:URL"
+        }
+      ]
+    }
+  ]
+}
