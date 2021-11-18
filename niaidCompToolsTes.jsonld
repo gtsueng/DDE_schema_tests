@@ -1,0 +1,473 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "niaidtemp": "http://discovery.biothings.io/view/niaidtemp/"
+  },
+  "@graph": [
+    {
+      "@id": "niaidtemp:ComputationalTool",
+      "@type": "rdfs:Class",
+      "rdfs:comment": "A schema describing a minimal ComputationalTool for the National Institute of Allergy and Infectious Disease (NIAID). A ComputationalTool is a software used for the collection, processing, distribution, analysis, visualization, interpretation, etc. of data. Additional schema.org and/or custom properties could be added.",
+      "rdfs:label": "ComputationalTool",
+      "rdfs:subClassOf": {
+        "@id": "bioschemas:ComputationalTool"
+      },
+      "$validation": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "codeRepository": {
+            "description": "Link to the source code repository of the tool.",
+            "oneOf": [
+              {
+                "format": "uri",
+                "type": "string"
+              },
+              {
+                "items": {
+                  "format": "uri",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "programmingLanguage": {
+            "description": "The main programming language(s) used to build or execute the tool. Please use terms from the \u2018Programming language\u2019 table in the Bio.Tools documentation",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "@type": "ComputerLanguage",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [],
+                "type": "object"
+              },
+              {
+                "items": {
+                  "@type": "ComputerLanguage",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "applicationCategory": {
+            "description": "Type of software application, e.g. 'Game, Multimedia'.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "format": "uri",
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "format": "uri",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "applicationSubCategory": {
+            "description": "Subcategory of the application, e.g. 'Arcade Game'.",
+            "oneOf": [
+              {
+                "@type": "DefinedTerm",
+                "strict": false,
+                "type": "object",
+                "vocabulary": {
+                  "children_of": [
+                    "http://edamontology.org/topic_0003"
+                  ],
+                  "ontology": [
+                    "edamTopic"
+                  ],
+                  "property": {
+                    "identifier": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              {
+                "items": {
+                  "@type": "DefinedTerm",
+                  "strict": false,
+                  "type": "object",
+                  "vocabulary": {
+                    "children_of": [
+                      "http://edamontology.org/topic_0003"
+                    ],
+                    "ontology": [
+                      "edamTopic"
+                    ],
+                    "property": {
+                      "identifier": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "format": "uri",
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "featureList": {
+            "description": "Features or modules provided by this application (and possibly required by other applications).",
+            "anyOf": [
+              {
+                "@type": "DefinedTerm",
+                "strict": false,
+                "type": "object",
+                "vocabulary": {
+                  "children_of": [
+                    "http://edamontology.org/operation_0004"
+                  ],
+                  "ontology": [
+                    "edamOperation"
+                  ],
+                  "property": {
+                    "identifier": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              {
+                "items": {
+                  "@type": "DefinedTerm",
+                  "strict": false,
+                  "type": "object",
+                  "vocabulary": {
+                    "children_of": [
+                      "http://edamontology.org/operation_0004"
+                    ],
+                    "ontology": [
+                      "edamOperation"
+                    ],
+                    "property": {
+                      "identifier": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "format": "uri",
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "type": "array"
+              },
+              {
+                "format": "uri",
+                "type": "string"
+              },
+              {
+                "items": {
+                  "format": "uri",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "softwareVersion": {
+            "description": "Version of the software instance.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "citation": {
+            "description": "A citation or reference to another creative work, such as another publication, web page, scholarly article, etc.",
+            "oneOf": [
+              {
+                "@type": "CreativeWork",
+                "description": "A citation object for a resource.",
+                "properties": {
+                  "citeText": {
+                    "description": "The bibliographic citation for the referenced resource as is provided",
+                    "type": "string"
+                  },
+                  "doi": {
+                    "description": "A doi if available",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "An identifier associated with the citation",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Name of or title of the citation",
+                    "type": "string"
+                  },
+                  "pmid": {
+                    "description": "A pubmed identifier if available",
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "The url of the resource cited",
+                    "format": "uri",
+                    "type": "string"
+                  }
+                },
+                "required": [],
+                "type": "object"
+              },
+              {
+                "items": {
+                  "@type": "CreativeWork",
+                  "description": "A citation object for a resource.",
+                  "properties": {
+                    "citeText": {
+                      "description": "The bibliographic citation for the referenced resource as is provided",
+                      "type": "string"
+                    },
+                    "doi": {
+                      "description": "A doi if available",
+                      "type": "string"
+                    },
+                    "identifier": {
+                      "description": "An identifier associated with the citation",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of or title of the citation",
+                      "type": "string"
+                    },
+                    "pmid": {
+                      "description": "A pubmed identifier if available",
+                      "type": "string"
+                    },
+                    "url": {
+                      "description": "The url of the resource cited",
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  },
+                  "required": [],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "creator": {
+            "description": "The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.",
+            "@type": "Person",
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "dateModified": {
+            "description": "The date on which the CreativeWork was most recently modified or when the item's entry was modified within a DataFeed.",
+            "format": "date",
+            "type": "string"
+          },
+          "license": {
+            "description": "A license document that applies to this content, typically indicated by URL.",
+            "anyOf": [
+              {
+                "@type": "CreativeWork",
+                "properties": {
+                  "identifier": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "format": "uri",
+                    "type": "string"
+                  }
+                },
+                "required": [],
+                "type": "object"
+              },
+              {
+                "format": "uri",
+                "type": "string"
+              },
+              {
+                "items": {
+                  "@type": "CreativeWork",
+                  "properties": {
+                    "identifier": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  },
+                  "required": [],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "format": "uri",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "description": {
+            "description": "A description of the item.",
+            "type": "string"
+          },
+          "identifier": {
+            "description": "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"http://schema.org/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details.",
+            "anyOf": [
+              {
+                "@type": "PropertyValue",
+                "properties": {
+                  "identifier": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [],
+                "type": "object"
+              },
+              {
+                "items": {
+                  "@type": "PropertyValue",
+                  "properties": {
+                    "identifier": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "format": "uri",
+                "type": "string"
+              },
+              {
+                "items": {
+                  "format": "uri",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "name": {
+            "description": "The name of the item.",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the item.",
+            "format": "uri",
+            "type": "string"
+          }
+        },
+        "required": [
+          "creator",
+          "description",
+          "identifier",
+          "name",
+          "url"
+        ]
+      }
+    }
+  ]
+}
