@@ -220,10 +220,6 @@
                 "type": "string",
                 "format": "uri"
               },
-              "doi": {
-                "description": "A doi if available",
-                "type": "string"
-              },
               "sameAs": {
                 "description": "Equivalent properties in other schemas",
                 "oneOf": [
@@ -237,29 +233,49 @@
                     }
                   }
                 ]
+              },
+              "url": {
+                  "description": "The url to the property in its respective schema. Example, for something like 'owl:cardinality', it the url would be 'https://www.w3.org/TR/owl-ref/#cardinality-def'."
+              },
+              "isPartOf": {
+                "description": "The schema or Data Element set (if it is a mix and match instead of concept set-based) to which this property belongs.",
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/schemaObjects"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/schemaObjects"
+                    }
+                  }
+                ]
+              },
+              "owl:cardinality": {
+                "description": "The cardinality of this property if available as defined in its respective schema. Note, that a schema may have multiple classes and the cardinality of the property may vary based on class, if this is the case the cardinality should be considered 'variable'. If it is not defined in a schema (like in schema.org), it should be considered 'unspecified.",
+                "type": "string",
+                "enum": [
+                  "one",
+                  "many",
+                  "variable",
+                  "unspecified"
+                ]
+              },
+              "marginality": {
+                "description": "The marginality of the property as defined in its respective schema. Note that a schema may include multiple classes and the marginality for the same property may vary between classes within the same schema. If this is the case, use: 'variable'. Otherwise, if the marginality is not specified like in schema.org, use 'unspecified'.",
+                "type": "string",
+                "enum": [
+                  "minimal or required",
+                  "recommended",
+                  "optional",
+                  "variable",
+                  "unspecified"
+                ]
               }
             },
             "required": [
               "name"
             ]
-          },
-          "baseOrgObject": {
-            "description": "A barebones Organization object to work around recursion issues in DDE",
-            "@type": "schema:Organization",
-            "type": "object",
-            "properties": {
-              "name": {
-                "description": "name of the organization",
-                "type": "string"
-              },
-              "alternateName": {
-                "description": "Alternate name or Acronym for the organization.",
-                "type": "string"
-              }
-            },
-            "required": [
-              "name"
-            ]              
           }, 
           "person": {
               "description": "Reusable person definition",
@@ -282,48 +298,12 @@
                 "affiliation": {
                   "oneOf": [
                     {
-                      "$ref": "#/definitions/baseOrgObject"
+                      "$ref": "#/definitions/organization"
                     },
                     {
                       "type": "array",
                       "items": {
-                        "$ref": "#/definitions/baseOrgObject"
-                      }
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "name"
-              ]
-          },
-          "memberObject": {
-              "description": "Reusable person definition accounting for recursion issues in DDE",
-              "@type": "schema:Person",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "givenName": {
-                  "type": "string"
-                },
-                "familyName": {
-                  "type": "string"
-                },
-                "identifier": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "affiliation": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/baseOrgObject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/baseOrgObject"
+                        "$ref": "#/definitions/organization"
                       }
                     }
                   ]
@@ -343,22 +323,6 @@
               },
               "alternateName": {
                 "type": "string"
-              },
-              "affiliation": {
-                "$ref": "#/definitions/baseOrgObject"
-              },
-              "members": {
-                 "oneOf": [
-                    {
-                      "$ref": "#/definitions/memberObject"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/definitions/memberObject"
-                      }
-                    }
-                  ]
               }
             }
           },
@@ -414,12 +378,12 @@
                 "description": "name of the funding organization",
                 "oneOf": [
               {
-                "$ref": "#/definitions/baseOrgObject"
+                "$ref": "#/definitions/organization"
               },
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/baseOrgObject"
+                  "$ref": "#/definitions/organization"
                 }
               }
             ]
@@ -432,6 +396,68 @@
             },
             "required": [
               "funder"
+            ]
+          },
+          "sameAsObject": {
+            "description": "A property object which details a property and its mapping across different schema.",
+            "@type": "schema:Property",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "Name of the property.",
+                "type": "string"
+              },
+              "domainIncludes": {
+                "description": "Relates a property to a class that is (one of) the type(s) the property is expected to be used on.",
+                "type": "string",
+                "format": "uri"
+              },
+              "rangeIncludes": {
+                "description": "Relates a property to a class that constitutes (one of) the expected type(s) for values of the property.",
+                "type": "string",
+                "format": "uri"
+              },
+              "url": {
+                  "description": "The url to the property in its respective schema. Example, for something like 'owl:cardinality', it the url would be 'https://www.w3.org/TR/owl-ref/#cardinality-def'."
+              },
+              "isPartOf": {
+                "description": "The schema or Data Element set (if it is a mix and match instead of concept set-based) to which this property belongs.",
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/schemaObjects"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/schemaObjects"
+                    }
+                  }
+                ]
+              },
+              "owl:cardinality": {
+                "description": "The cardinality of this property if available as defined in its respective schema. Note, that a schema may have multiple classes and the cardinality of the property may vary based on class, if this is the case the cardinality should be considered 'variable'. If it is not defined in a schema (like in schema.org), it should be considered 'unspecified.",
+                "type": "string",
+                "enum": [
+                  "one",
+                  "many",
+                  "variable",
+                  "unspecified"
+                ]
+              },
+              "marginality": {
+                "description": "The marginality of the property as defined in its respective schema. Note that a schema may include multiple classes and the marginality for the same property may vary between classes within the same schema. If this is the case, use: 'variable'. Otherwise, if the marginality is not specified like in schema.org, use 'unspecified'.",
+                "type": "string",
+                "enum": [
+                  "minimal or required",
+                  "recommended",
+                  "optional",
+                  "variable",
+                  "unspecified"
+                ]
+              }
+            },
+            "required": [
+              "name"
             ]
           },
           "schemaObjects": {
@@ -510,6 +536,65 @@
       "schema:rangeIncludes": [
         {
           "@id": "schema:Property"
+        }
+      ]
+    },
+    {
+      "@id": "dde:sameAs",
+      "@type": "rdf:Property",
+      "rdfs:comment": "A URL or metadata object that unambiguously identifies the item",
+      "rdfs:label": "sameAs",
+      "schema:domainIncludes": {
+        "@id": "dde:CrossWalk"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Property"
+        },
+        {
+          "@id": "schema:URL"
+        }
+      ]
+    },
+    {
+      "@id": "dde:marginality",
+      "@type": "rdf:Property",
+      "rdfs:comment": "The marginality (minimal/required, recommended, optional) of a property.",
+      "rdfs:label": "marginality",
+      "schema:domainIncludes": {
+        "@id": "schema:Property"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "dde:doi",
+      "@type": "rdf:Property",
+      "rdfs:comment": "The digital object identifier (DOI) of the item.",
+      "rdfs:label": "doi",
+      "schema:domainIncludes": {
+        "@id": "schema:CreativeWork"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "dde:pmid",
+      "@type": "rdf:Property",
+      "rdfs:comment": "The PubMed identifier of a publication.",
+      "rdfs:label": "pmid",
+      "schema:domainIncludes": {
+        "@id": "schema:CreativeWork"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
         }
       ]
     }
